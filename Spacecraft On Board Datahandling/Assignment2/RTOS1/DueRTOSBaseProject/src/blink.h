@@ -1,10 +1,10 @@
 /*
  * blink.h
  *
- * Created:   04/09/2018 11:32:52
- * Author:    Nikolaus Huber
+ * Created:   19/9/2019
+ * Author:    D.J.C.P Hiemstra, Flavia Pérez Cámara, Noel Janes
  * Platform:  Arduino Due / Atmel SAM3X8E
- * Purpose:   Defines the blink period and the initialization interface
+ * Purpose:   Holds the blinking task and init function
  */ 
 
 
