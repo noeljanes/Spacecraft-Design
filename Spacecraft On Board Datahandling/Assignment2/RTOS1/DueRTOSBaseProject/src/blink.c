@@ -1,8 +1,8 @@
 /*
  * blink.c
  *
- * Created:   04/09/2018 11:32:52
- * Author:    Nikolaus Huber
+ * Created:   19/9/2019
+ * Author:    D.J.C.P Hiemstra, Flavia Pérez Cámara, Noel Janes
  * Platform:  Arduino Due / Atmel SAM3X8E
  * Purpose:   Holds the blinking task and init function
  */ 
@@ -15,22 +15,6 @@
 
 /* Prototypes */
 void vTaskBlink( void* );
-void led_on(void*);
-void led_off(void*);
-
-void led_on(void *pvParameters) {
-	if((PIOB->PIO_ODSR & (1 << 27)) > 0) {
-		/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
-		PIOB->PIO_CODR = 1 << 27;
-		} else {
-		/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
-		PIOB->PIO_SODR = 1 << 27;
-	}
-}
-
-void led_off(void *pvParameters) {
-	
-}
 
 void vTaskBlink( void *pvParameters ) {
 	TickType_t xLastWakeTime;
