@@ -8,22 +8,19 @@
 #include <writer2.h>
 
 
-
-
-void printfConsole(const char * str) {
-	str = "jllkdsflkjfds";
+void writer2(){
 	for(;;) {
-		for( int i = 0; i < 5; i++) {
-			CONF_UART->UART_THR = "j";
-			printf("k");
-		}
+		const char * str = "Mycket kaffe! ";
+		printfConsole(str);
 	}
 }
 
-void console_init(void) {
+
+void init_writer2() {
+	/* Create task */
 	xTaskCreate(
-	printfConsole,				/* Function that implements the task. */
-	"printfConsole task",		/* Text name for the task. */
+	writer2,				/* Function that implements the task. */
+	"Message 2 print task",		/* Text name for the task. */
 	250,						/* Stack size in words, not bytes. */								// What's this?
 	NULL,						/* Parameter passed into the task. */
 	1,							/* Priority at which the task is created. */
