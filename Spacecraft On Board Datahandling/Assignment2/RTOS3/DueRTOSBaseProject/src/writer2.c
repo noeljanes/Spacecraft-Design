@@ -1,0 +1,31 @@
+#include <asf.h>
+#include <FreeRTOS.h>
+#include <task.h>
+
+#include <uart_comm.h>
+
+#include <writer2.h>
+
+void writer2(){
+	unsigned char message2[] = "ABCD";
+	for(;;) {
+		for( int i = 0; i < 4; i++) {
+			CONF_UART->UART_THR = message2[i];
+			vTaskDelay(100);
+		}
+		vTaskDelay(100);
+	}
+}
+
+
+void init_writer2() {
+	/* Create task */
+	xTaskCreate(
+	writer2,				/* Function that implements the task. */
+	"Message 2 print task",		/* Text name for the task. */
+	250,						/* Stack size in words, not bytes. */								// What's this?
+	NULL,						/* Parameter passed into the task. */
+	1,							/* Priority at which the task is created. */
+	NULL 						/* Used to pass out the created task's handle. */
+	);
+}

@@ -16,21 +16,21 @@
 #include <diode.h>
 
 /* Create prototype */
-void vTaskLed_on;																			// Why is this needed?
+void vTaskLed_on(void*);																			// Why is this needed?
 
 void vTaskLed_on( void *pvParameters ) {
-	if( !((PIOB->PIO_ODSR & (1 << 27)) > 0) ) {
-		PIOB->PIO_SODR = 1 << 27;
+	TickType_t xLastWakeTime;
+	xLastWakeTime = xTaskGetTickCount();
+	vTaskDelayUntil(&xLastWakeTime, 8000 / portTICK_RATE_MS); // Added delay before starting blinking
+	for(;;) {
+		set_diode();
+		vTaskDelayUntil(&xLastWakeTime, LED_ON_PERIOD_MS / portTICK_RATE_MS);
 	}
 }
 
-void led_on_init( )
+void init_led_on( )
 {
-	/* Initialize LED0 on Port B Pin 27*/
-	PIOB->PIO_PER = 1 << 27;		/* Pin Enable Register (PER) */
-	PIOB->PIO_OER = 1 << 27;		/* Output Enable Register (OER) */
-	PIOB->PIO_OWER = 1 << 27;		/* Output Write Enable Register (OWER) */
-	
+
 	/* Create task */
 	xTaskCreate(
 	vTaskLed_on,			/* Function that implements the task. */
@@ -40,3 +40,4 @@ void led_on_init( )
 	1,					/* Priority at which the task is created. */
 	NULL 				/* Used to pass out the created task's handle. */
 	);
+}

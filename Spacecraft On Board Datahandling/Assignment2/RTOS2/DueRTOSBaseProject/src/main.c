@@ -28,8 +28,10 @@ int main (void)
 	init_diode();
 	
 	/* Init tasks */
-	init_led_off();
+	init_led_off(); // Changing order doesn't do shit probably
 	init_led_on();
+
+
 	
 	/* Start scheduler */
 	vTaskStartScheduler();

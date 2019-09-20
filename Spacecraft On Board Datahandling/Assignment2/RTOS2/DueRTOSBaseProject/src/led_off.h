@@ -1,11 +1,11 @@
 /*
- * led_off.h
+ * led_off
  *
- * Created: 04/09/2018 16:16:09
- * Author:  Nikolaus Huber
- * Platform: Arduino Due / Atmel SAM3X8E
- * Purpose:  Defines LED off period and interface to init function
- */ 
+ * Created:   19/09/2019
+ * Author:    D.J.C.P. Hiemstra & Señorita Pérez &  & N.S. Janes
+ * Platform:  Arduino Due / Atmel SAM3X8E
+ * Purpose:   Turn off LED after a certain delay in ms
+ */
 
 
 #ifndef LED_OFF_H_
