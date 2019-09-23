@@ -12,19 +12,20 @@ void writer2(){
 	for(;;) {
 
 		if ( xSemaphore !== NULL ) {
-		//xSemaphoreTake(xSemaphore,10);
+			/* Checks if the semaphore exists before attempting to take it */
 		
-			if ( xSemaphoreTake( xSemaphore , 10 ) == pdTRUE) {
-				const char * str = "Mycket kaffe! ";
-				printfConsole(str);
+			if ( xSemaphoreTake( xSemaphore , 10 ) == pdTRUE) {   
+				/* This only runs the rest of the task if the semaphore is successfully taken, this is done to cut down on wasted compute time */
+				const char * pcStr = "Mycket kaffe! ";   /* Creates the string to be printed to the console */
+				printfConsole(pcStr);  		/* Calls the printing function defined in the console_po.c file */
 
-				xSemaphoreGive( xSemaphore ); /* We're finished with the shared resources so we give the semaphore back to unblock the next task */
+				xSemaphoreGive( xSemaphore ); 	/* We're finished with the shared resources so we give the semaphore back to unblock the next task */
 			}
 			
 		}
 
 		else {
-			printf('There is no assigned semaphore')
+			printf('There is no assigned semaphore')   /* Prints an error message if the semaphore isn't declared properly */
 		}
 	}
 }
@@ -33,7 +34,7 @@ void writer2(){
 void init_writer2() {
 	/* Create task */
 	xTaskCreate(
-	writer2,				/* Function that implements the task. */
+	writer2,					/* Function that implements the task. */
 	"Message 2 print task",		/* Text name for the task. */
 	250,						/* Stack size in words, not bytes. */								// What's this?
 	NULL,						/* Parameter passed into the task. */

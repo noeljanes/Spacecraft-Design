@@ -7,28 +7,29 @@
 #include <writer1.h>
 #include <writer2.h>
 
-SemaphoreHandle_t xSemaphore;
 
-void taskCreateSemaphore (void * pvParameters) {
 
-	xSemaphore = xSemaphoreCreateMutex();
+if (xSemaphore == NULL ) {
+	/* Checks if the semaphore handle exists before creating one */
 
-	if ( xSemaphore == NULL ) {
-		printf('Error when creating semaphore')
-	}
-	else {
-		printf('Semaphore is ready for use')
+	SemaphoreHandle_t xSemaphore;
+
+	void taskCreateSemaphore (void * pvParameters) {
+
+		xSemaphore = xSemaphoreCreateMutex(); /* Creates a mutual exclsion semaphore */ 
+
+		if ( xSemaphore == NULL ) {
+			printf('Error when creating semaphore')   /* Checks to see if the semaphore was created successfully and prints and error message if not */
+		}
+		
 	}
 }
 
-
 void printfConsole(const char * str) {
-	//printf(str);
-	//xSemaphoreTake(xSemaphore,10);
+
 	for( int i = 0; i < sizeof(str); i++) {
 		CONF_UART->UART_THR = str;
 	}
-	//xSemaphoreGive(xSemaphore);
 
 }
 
@@ -43,18 +44,6 @@ void console_init()
 	
 	
 	stdio_serial_init(CONF_UART, &usart_serial_options);
-	
-	
-	// Semaphore
-
-	/*xSemaphore = xSemaphoreCreateMutex();
-
-   if( xSemaphore != NULL )
-   {
-       /* The semaphore was created successfully and
-       can be used. 
-	   printf('error');
-   } */
 
 }
 
