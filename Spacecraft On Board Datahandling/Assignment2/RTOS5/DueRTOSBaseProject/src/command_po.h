@@ -12,6 +12,11 @@
 #define COMMAND_PO_H_
 
 /** 
+ * Initializes the semaphore
+ */
+void taskCreateSemaphore ( void ) ;
+
+/** 
  * Initializes command object 
  */
 void init_cmd ( void );
