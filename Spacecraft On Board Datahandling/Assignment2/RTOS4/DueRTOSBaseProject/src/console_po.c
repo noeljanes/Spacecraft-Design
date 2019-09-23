@@ -9,14 +9,26 @@
 
 SemaphoreHandle_t xSemaphore;
 
+void taskCreateSemaphore (void * pvParameters) {
+
+	xSemaphore = xSemaphoreCreateMutex();
+
+	if ( xSemaphore == NULL ) {
+		printf('Error when creating semaphore')
+	}
+	else {
+		printf('Semaphore is ready for use')
+	}
+}
+
 
 void printfConsole(const char * str) {
 	//printf(str);
-	xSemaphoreTake(xSemaphore,10);
+	//xSemaphoreTake(xSemaphore,10);
 	for( int i = 0; i < sizeof(str); i++) {
 		CONF_UART->UART_THR = str;
 	}
-	xSemaphoreGive(xSemaphore);
+	//xSemaphoreGive(xSemaphore);
 
 }
 
@@ -35,14 +47,14 @@ void console_init()
 	
 	// Semaphore
 
-	xSemaphore = xSemaphoreCreateMutex();
+	/*xSemaphore = xSemaphoreCreateMutex();
 
    if( xSemaphore != NULL )
    {
        /* The semaphore was created successfully and
-       can be used. */
+       can be used. 
 	   printf('error');
-   }
+   } */
 
 }
 
