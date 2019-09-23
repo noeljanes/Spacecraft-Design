@@ -14,7 +14,7 @@
 
 #ifndef WRITER2_H
 #define WRITER2_H
-
+void writer2(void);
 void init_writer2(void);
 
 #endif /* writer2_H */

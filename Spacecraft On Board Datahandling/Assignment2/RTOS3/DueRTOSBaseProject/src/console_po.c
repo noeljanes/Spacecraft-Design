@@ -7,20 +7,23 @@
 #include <writer1.h>
 #include <writer2.h>
 
-void writer1 (){
-	for(;;) {
-		printf("a"); // test
-		const char * str = "Vad bra! ";
-		printfConsole(str);
-	}
 
+
+
+void printfConsole(const char * str) {
+	str = "jllkdsflkjfds";
+	for(;;) {
+		for( int i = 0; i < 5; i++) {
+			CONF_UART->UART_THR = "j";
+			printf("k");
+		}
+	}
 }
-	
-void init_writer1() {
-	/* Create task */
+
+void console_init(void) {
 	xTaskCreate(
-	writer1,				/* Function that implements the task. */
-	"Message 1 print task",		/* Text name for the task. */
+	printfConsole,				/* Function that implements the task. */
+	"printfConsole task",		/* Text name for the task. */
 	250,						/* Stack size in words, not bytes. */								// What's this?
 	NULL,						/* Parameter passed into the task. */
 	1,							/* Priority at which the task is created. */

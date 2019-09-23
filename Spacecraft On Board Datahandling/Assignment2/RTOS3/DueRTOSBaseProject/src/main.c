@@ -11,8 +11,8 @@
 #include <asf.h>
 #include <FreeRTOS.h>
 #include <task.h>
-
-#include <uart_comm.h>
+#include <console_po.h>
+//#include <uart_comm.h>
 
 #include <writer1.h>
 #include <writer2.h>

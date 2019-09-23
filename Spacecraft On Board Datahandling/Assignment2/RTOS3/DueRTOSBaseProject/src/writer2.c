@@ -2,18 +2,16 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <uart_comm.h>
+#include <console_po.h>
 
+#include <writer1.h>
 #include <writer2.h>
 
+
 void writer2(){
-	unsigned char message2[] = "ABCD";
 	for(;;) {
-		for( int i = 0; i < 4; i++) {
-			CONF_UART->UART_THR = message2[i];
-			vTaskDelay(100);
-		}
-		vTaskDelay(100);
+		const char * str = "Mycket kaffe! ";
+		printfConsole(str);
 	}
 }
 
