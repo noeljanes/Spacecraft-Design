@@ -10,8 +10,10 @@
 
 void writer2(){
 	for(;;) {
+		//xSemaphoreTake(xSemaphore,10);
 		const char * str = "Mycket kaffe! ";
 		printfConsole(str);
+		xSemaphoreGive(xSemaphore);
 	}
 }
 

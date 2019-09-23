@@ -9,9 +9,10 @@
 
 void writer1 (){
 	for(;;) {
-		printf("a"); // test
+		//xSemaphoreTake(xSemaphore,10);
 		const char * str = "Vad bra! ";
 		printfConsole(str);
+		xSemaphoreGive(xSemaphore);
 	}
 
 }
