@@ -10,10 +10,22 @@
 
 void writer2(){
 	for(;;) {
+
+		if ( xSemaphore !== NULL ) {
 		//xSemaphoreTake(xSemaphore,10);
-		const char * str = "Mycket kaffe! ";
-		printfConsole(str);
-		xSemaphoreGive(xSemaphore);
+		
+			if ( xSemaphoreTake( xSemaphore , 10 ) == pdTRUE) {
+				const char * str = "Mycket kaffe! ";
+				printfConsole(str);
+
+				xSemaphoreGive( xSemaphore ); /* We're finished with the shared resources so we give the semaphore back to unblock the next task */
+			}
+			
+		}
+
+		else {
+			printf('There is no assigned semaphore')
+		}
 	}
 }
 
