@@ -13,13 +13,14 @@
 
 
 void printfConsole(const char * str) {
-	
+	/*
 	int i;
 	i = 0;
-	
+	*/
 	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
-		
-		printf(str);
+		for(int i = 0; (str[i] != '\0'); i++) {
+					printf("%c", str[i]);
+		}
 		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 	}
 	

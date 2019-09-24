@@ -13,7 +13,7 @@ void writer2 (void*);
 void writer2 (void *pvParameters) {
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
-	char cStr[] = "Bra "; 	/* Creates the string to be printed to the console */
+	char cStr[] = "Bra! \n"; 	/* Creates the string to be printed to the console */
 	
 	for(;;) {
 		
