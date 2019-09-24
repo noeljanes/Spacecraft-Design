@@ -12,23 +12,25 @@
 
 
 
-void printfConsole(const char * str) {
+void printfConsole(char[] str) {
 	
 	int i;
 	i = 0;
-	
-	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
-		while(str[i] != '\0') {				/* Run the loop until the end of the string is reached */
-			CONF_UART->UART_THR = str;		/*Print the character from the string */
-			i++;
+	if ( xSemaphore != NULL) {
+		if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
+			while(str[i] != '\0') {				/* Run the loop until the end of the string is reached */
+				CONF_UART->UART_THR = str;		/*Print the character from the string */
+				i++;
+			}
+			xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 		}
-		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 	}
 	
 }
 
 void console_init()
 {
+	SemaphoreHandle_t xSemaphore = NULL ;
 	xSemaphore = xSemaphoreCreateMutex();
 	
 	const usart_serial_options_t usart_serial_options = {
