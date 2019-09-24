@@ -140,7 +140,32 @@ src/tc.d src/tc.o: ../src/tc.c \
  ../src/ASF/sam/utils/status_codes.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
- ../src/command_po.h ../src/tc.h
+ ../src/command_po.h ../src/asf.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/StackMacros.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/croutine.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/deprecated_definitions.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/event_groups.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/timers.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/task.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/list.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/message_buffer.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stream_buffer.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/mpu_wrappers.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/portable.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/projdefs.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/semphr.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/queue.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stack_macros.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stream_buffer.h \
+ ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/timers.h \
+ ../src/ASF/common/services/gpio/gpio.h \
+ ../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h \
+ ../src/ASF/sam/drivers/pio/pio.h \
+ ../src/ASF/common/services/ioport/ioport.h \
+ ../src/ASF/common/services/ioport/sam/ioport_pio.h \
+ ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/trng/trng.h \
+ ../src/ASF/sam/drivers/twi/twi.h \
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/tc.h
 
 ../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/FreeRTOS.h:
 
@@ -435,5 +460,59 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/sam/drivers/usart/usart.h:
 
 ../src/command_po.h:
+
+../src/asf.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/StackMacros.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/croutine.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/deprecated_definitions.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/event_groups.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/timers.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/task.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/list.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/message_buffer.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stream_buffer.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/mpu_wrappers.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/portable.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/projdefs.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/semphr.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/queue.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stack_macros.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/stream_buffer.h:
+
+../src/ASF/thirdparty/freertos/freertos-10.0.0/Source/include/timers.h:
+
+../src/ASF/common/services/gpio/gpio.h:
+
+../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h:
+
+../src/ASF/sam/drivers/pio/pio.h:
+
+../src/ASF/common/services/ioport/ioport.h:
+
+../src/ASF/common/services/ioport/sam/ioport_pio.h:
+
+../src/ASF/sam/drivers/pmc/sleep.h:
+
+../src/ASF/sam/drivers/trng/trng.h:
+
+../src/ASF/sam/drivers/twi/twi.h:
+
+../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/tc.h:

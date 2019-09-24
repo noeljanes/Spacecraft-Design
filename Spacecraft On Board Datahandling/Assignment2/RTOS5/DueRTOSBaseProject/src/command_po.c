@@ -10,6 +10,7 @@
 
 
 unsigned char cmd;
+
 void set_cmd ( unsigned char c) {	/* This method sets the current command to a specified value */
 	cmd = c;
 }
@@ -20,7 +21,8 @@ unsigned char get_cmd() {			/* other objects can call this method to read the cu
 
 void init_cmd()
 {
-	//xSemaphore = xSemaphoreCreateMutex();
+	cmd = '1';
+	xSemaphore = xSemaphoreCreateMutex();
 	
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_UART_BAUDRATE,

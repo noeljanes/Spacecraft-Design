@@ -35,22 +35,28 @@ void vTaskTC( void* );
  * TC task function, interprets received data from UART and converts the character received to a number
  */
 void vTaskTC( void *pvParameters ) {
-	if ( xQueueReceive( xCommandQueue , &blink_cmd , portTICK_PERIOD_MS) == pdTRUE ) {
+	if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
+	{
+		if ( xQueueReceive( xCommandQueue , &blink_cmd , portTICK_PERIOD_MS) == pdTRUE ) {
 
-		switch (blink_cmd) {
+			switch (blink_cmd) {
 
-			case 'a':
-				set_cmd('0');
-				break;
-			case 'b':
-				set_cmd('1');
-				break;
-			case 'c':
-				set_cmd('2');
-				break;
+				case 'a':
+					set_cmd('0');
+					break;
+				case 'b':
+					set_cmd('1');
+					break;
+				case 'c':
+					set_cmd('2');
+					break;
+			}
 		}
+		xSemaphoreGive(xSemaphore);
 	}
+	vTaskDelay(10);
 }
+
 
 /** 
  * Interrupt service routine for UART RXTX

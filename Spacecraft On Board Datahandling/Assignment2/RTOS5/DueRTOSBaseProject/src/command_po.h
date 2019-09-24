@@ -7,9 +7,17 @@
  * Purpose:  Protected object for current command
  */ 
 
+#include <asf.h>
+
+
 
 #ifndef COMMAND_PO_H_
 #define COMMAND_PO_H_
+
+
+
+
+SemaphoreHandle_t xSemaphore;
 
 /** 
  * Initializes command object 

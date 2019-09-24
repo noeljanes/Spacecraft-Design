@@ -24,33 +24,38 @@ void blink() {
 	xLastWakeTime = xTaskGetTickCount();
 	
 	for( ;; ) {
-				
-		switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
-			case '0':
-				delay = 500;
-				break;
-				
-			case '1':
-				delay = 100;
-				break;
-				
-			case '2':
-				delay = 50;
-				break;
-		}
-		
-		/* See if pin 27 in Output Data Status Register (ODSR) is set */
-		if((PIOB->PIO_ODSR & (1 << 27)) > 0)
+		//xSemaphoreTake(xSemaphore , 10);
+		if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
 		{
-			/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
-			PIOB->PIO_CODR = 1 << 27;
-			} else {
-			/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
-			PIOB->PIO_SODR = 1 << 27;
-		}
+			switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
+				case '0':
+					delay = 500;
+					break;
+				
+				case '1':
+					delay = 100;
+					break;
+				
+				case '2':
+					delay = 50;
+					break;
+			}
 		
-		/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
-		vTaskDelayUntil(&xLastWakeTime, delay / portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
+			/* See if pin 27 in Output Data Status Register (ODSR) is set */
+			if((PIOB->PIO_ODSR & (1 << 27)) > 0)
+			{
+				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
+				PIOB->PIO_CODR = 1 << 27;
+				} else {
+				/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
+				PIOB->PIO_SODR = 1 << 27;
+			}
+		
+			/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
+			//vTaskDelayUntil(&xLastWakeTime, delay / portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
+			xSemaphoreGive(xSemaphore);
+			}
+		vTaskDelay(10);
 	}
 
     /* Tasks must not attempt to return from their implementing
