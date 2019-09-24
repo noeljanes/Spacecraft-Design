@@ -10137,41 +10137,41 @@ OUTPUT(RTOS4.elf elf32-littlearm)
                               0x5d1d9 (size before relaxing)
  .debug_str     0x0005ce6f      0xc86 src/ASF/sam/drivers/usart/usart.o
                               0x5de55 (size before relaxing)
- .debug_str     0x0005daf5     0xaa9f src/console_po.o
-                              0x67f16 (size before relaxing)
- .debug_str     0x00068594      0x1e4 src/ASF/sam/drivers/uart/uart.o
+ .debug_str     0x0005daf5     0xaaa4 src/console_po.o
+                              0x67f1b (size before relaxing)
+ .debug_str     0x00068599      0x1e4 src/ASF/sam/drivers/uart/uart.o
                               0x5d5a4 (size before relaxing)
- .debug_str     0x00068778      0x15f src/ASF/thirdparty/freertos/freertos-10.0.0/Source/list.o
+ .debug_str     0x0006877d      0x15f src/ASF/thirdparty/freertos/freertos-10.0.0/Source/list.o
                               0x6448a (size before relaxing)
- .debug_str     0x000688d7      0x795 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM3/port.o
+ .debug_str     0x000688dc      0x795 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM3/port.o
                               0x6516d (size before relaxing)
- .debug_str     0x0006906c      0x17b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.o
+ .debug_str     0x00069071      0x17b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.o
                               0x64a6d (size before relaxing)
- .debug_str     0x000691e7      0x900 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/queue.o
+ .debug_str     0x000691ec      0x900 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/queue.o
                               0x65b65 (size before relaxing)
- .debug_str     0x00069ae7     0x12e9 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
+ .debug_str     0x00069aec     0x12e9 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
                               0x668ef (size before relaxing)
- .debug_str     0x0006add0      0x52d src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
+ .debug_str     0x0006add5      0x52d src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
                               0x66009 (size before relaxing)
- .debug_str     0x0006b2fd      0x370 src/ASF/common/services/clock/sam3x/sysclk.o
+ .debug_str     0x0006b302      0x370 src/ASF/common/services/clock/sam3x/sysclk.o
                               0x612a2 (size before relaxing)
- .debug_str     0x0006b66d      0x28b src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_str     0x0006b672      0x28b src/ASF/sam/boards/arduino_due_x/init.o
                               0x61984 (size before relaxing)
- .debug_str     0x0006b8f8      0x408 src/ASF/sam/drivers/pio/pio.o
+ .debug_str     0x0006b8fd      0x408 src/ASF/sam/drivers/pio/pio.o
                               0x5db83 (size before relaxing)
- .debug_str     0x0006bd00      0x44e src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_str     0x0006bd05      0x44e src/ASF/sam/drivers/pio/pio_handler.o
                               0x5dc7c (size before relaxing)
- .debug_str     0x0006c14e      0x57e src/ASF/sam/drivers/pmc/pmc.o
+ .debug_str     0x0006c153      0x57e src/ASF/sam/drivers/pmc/pmc.o
                               0x5dbff (size before relaxing)
- .debug_str     0x0006c6cc       0x4d src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+ .debug_str     0x0006c6d1       0x4d src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                               0x5d1f8 (size before relaxing)
- .debug_str     0x0006c719       0xd9 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_str     0x0006c71e       0xd9 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
                               0x5d2f4 (size before relaxing)
- .debug_str     0x0006c7f2      0x195 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
+ .debug_str     0x0006c7f7      0x195 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
                               0x5d4d0 (size before relaxing)
- .debug_str     0x0006c987      0x768 src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x0006c98c      0x768 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                                0x7455 (size before relaxing)
- .debug_str     0x0006d0ef       0x31 src/writer1.o
+ .debug_str     0x0006d0f4       0x2c src/writer1.o
                               0x67a72 (size before relaxing)
  .debug_str     0x0006d120       0x1e src/writer2.o
                               0x67a72 (size before relaxing)

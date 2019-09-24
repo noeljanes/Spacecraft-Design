@@ -483,11 +483,11 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
 
 
 
-void printfConsole(const char * str) {
+void printfConsole(const char * cStr) {
    80360:	b510      	push	{r4, lr}
    80362:	4604      	mov	r4, r0
 
-	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
+	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {
    80364:	2101      	movs	r1, #1
    80366:	4b0e      	ldr	r3, [pc, #56]	; (803a0 <printfConsole+0x40>)
    80368:	6818      	ldr	r0, [r3, #0]
@@ -496,26 +496,29 @@ void printfConsole(const char * str) {
    8036e:	2801      	cmp	r0, #1
    80370:	d000      	beq.n	80374 <printfConsole+0x14>
    80372:	bd10      	pop	{r4, pc}
-		for(int i = 0; (str[i] != '\0'); i++) {
+		/* Check if the semaphore is available, otherwise check again after 1 ms */
+		
+		for(int i = 0; (cStr[i] != '\0'); i++) {
    80374:	7823      	ldrb	r3, [r4, #0]
    80376:	b153      	cbz	r3, 8038e <printfConsole+0x2e>
    80378:	4620      	mov	r0, r4
-			
-					//printf("%c", str[i]);
-					
-					if((CONF_UART->UART_SR&UART_SR_TXRDY)==UART_SR_TXRDY)
+			/* For loop to iterate through the string in writer character by character */	
+				
+				//printf("%c", cstr[i]);		
+				
+				if((CONF_UART->UART_SR&UART_SR_TXRDY)==UART_SR_TXRDY){
    8037a:	490b      	ldr	r1, [pc, #44]	; (803a8 <printfConsole+0x48>)
    8037c:	694a      	ldr	r2, [r1, #20]
    8037e:	f012 0f02 	tst.w	r2, #2
-					{
-						CONF_UART->UART_THR = (unsigned char) str[i];
+					/* Checks if the microcontroller is ready to send the next message */	
+					CONF_UART->UART_THR = (unsigned char) cStr[i]; /* If the microcontroller is ready it prints the element of the string */
    80382:	bf18      	it	ne
    80384:	61cb      	strne	r3, [r1, #28]
-		for(int i = 0; (str[i] != '\0'); i++) {
+		for(int i = 0; (cStr[i] != '\0'); i++) {
    80386:	f810 3f01 	ldrb.w	r3, [r0, #1]!
    8038a:	2b00      	cmp	r3, #0
    8038c:	d1f6      	bne.n	8037c <printfConsole+0x1c>
-					}
+				}
 				
 		}
 		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
@@ -542,7 +545,7 @@ void console_init()
 {
    803b0:	b530      	push	{r4, r5, lr}
    803b2:	b085      	sub	sp, #20
-	xSemaphore = xSemaphoreCreateMutex();
+	xSemaphore = xSemaphoreCreateMutex(); /* Creates a mutual exclusion semaphore for use by the tasks */
    803b4:	2001      	movs	r0, #1
    803b6:	4b14      	ldr	r3, [pc, #80]	; (80408 <console_init+0x58>)
    803b8:	4798      	blx	r3

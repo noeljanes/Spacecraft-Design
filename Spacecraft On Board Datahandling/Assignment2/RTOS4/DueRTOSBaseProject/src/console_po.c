@@ -1,3 +1,16 @@
+/*
+ * console_po.c
+ *
+ * Created: 24/09/2019
+ * Author: flapre-9 , dirhie-9 , noejan-9
+ * Platform: Arduino Due - Atmel SAM3X8E
+ *
+ * Purpose: Protected object - UART0 module
+ *
+ * For configuration of the UART see conf_uart_serial.h!
+ * Ensures mutual exclusion when printing to the UART
+ */ 
+
 #include <asf.h>
 #include <FreeRTOS.h>
 #include <task.h>
@@ -12,17 +25,21 @@
 
 
 
-void printfConsole(const char * str) {
+void printfConsole(const char * cStr) {
 
-	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
-		for(int i = 0; (str[i] != '\0'); i++) {
-			
-					//printf("%c", str[i]);
-					
-					if((CONF_UART->UART_SR&UART_SR_TXRDY)==UART_SR_TXRDY)
-					{
-						CONF_UART->UART_THR = (unsigned char) str[i];
-					}
+	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {
+		/* Check if the semaphore is available, otherwise check again after 1 ms */
+		/* If we're able to access the semaphore then the task gains access to the shared resources */
+		
+		for(int i = 0; (cStr[i] != '\0'); i++) {
+			/* For loop to iterate through the string in writer character by character */	
+				
+				//printf("%c", cstr[i]);		
+				
+				
+				/* Checks if the microcontroller is ready to send the next message */	
+				CONF_UART->UART_THR = (unsigned char) cStr[i]; /* If the microcontroller is ready it prints the element of the string */
+				
 				
 		}
 		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
@@ -32,7 +49,7 @@ void printfConsole(const char * str) {
 
 void console_init()
 {
-	xSemaphore = xSemaphoreCreateMutex();
+	xSemaphore = xSemaphoreCreateMutex(); /* Creates a mutual exclusion semaphore for use by the tasks */
 	
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_UART_BAUDRATE,

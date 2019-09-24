@@ -1,3 +1,13 @@
+/*
+ * writer2.c
+ *
+ * Created: 24/09/2019
+ * Author: flapre-9 , dirhie-9 , noejan-9
+ * Platform: Arduino Due - Atmel SAM3X8E
+ *
+ * Purpose: Assigns string to the projected object function
+ */ 
+
 #include <asf.h>
 #include <FreeRTOS.h>
 #include <task.h>
@@ -6,11 +16,12 @@
 
 #include <writer2.h>
 
-
+/* Declares the object writer2 for later definition of tasks */
 void writer2 (void*);
 
 
 void writer2 (void *pvParameters) {
+
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
 	char cStr[] = "Bra! \n"; 	/* Creates the string to be printed to the console */
@@ -18,16 +29,17 @@ void writer2 (void *pvParameters) {
 	for(;;) {
 		
 		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
-		vTaskDelayUntil(&xLastWakeTime, (writer2Period/portTICK_PERIOD_MS));
+		vTaskDelayUntil(&xLastWakeTime, (writer2Period/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
 	}
 	
-	vTaskDelete( NULL );
+
+	vTaskDelete( NULL ); /* Removes the task from the RTOS memory to free up resources upon completion */
 }
 
 
 
 void init_writer2() {
-	/* Create task */
+	/* Creates the writer2 task */
 	xTaskCreate(
 	writer2,					/* Function that implements the task. */
 	"Message 2 print task",		/* Text name for the task. */

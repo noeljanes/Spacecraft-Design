@@ -1,24 +1,19 @@
-
 /*
- * uart_comm.h
+ * writer1.c
  *
- * Created: 22/08/2018 14:13:50
- * Author: Nikolaus Huber
+ * Created: 24/09/2019
+ * Author: flapre-9 , dirhie-9 , noejan-9
  * Platform: Arduino Due - Atmel SAM3X8E
  *
- * Purpose: This module provides an interface via the UART/USB bridge on 
- *          the Arduino Due (Programming Port)
- *
- * For configuration of the UART see conf_uart_serial.h!
+ * Purpose: Assigns string to the projected object function
  */ 
-
 
 #ifndef WRITER2_H
 #define WRITER2_H
 
 #define writer2Period 1
 
-//void writer2(void);
+/* Initializes the writer2 task for use by the console function */
 void init_writer2(void);
 
 #endif /* writer2_H */
