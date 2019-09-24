@@ -18,7 +18,50 @@
 #include <command_po.h>
 #include <tc.h>
 
-/*YOUR CODE HERE*/
+/* Creates a queue handle */
+xQueueHandle_t xCommandQueue
+
+/* Declares the global variable to store the blink command */
+static unsigned char blink_cmd
+
+/* Declares the TC task function */
+void vTaskTC( void* )
+
+
+/** 
+ * TC task function, interprets received data from UART and converts the character received to a number
+ */
+void vTaskTC( void *pvParameters )
+{
+	if ( xQueueReceive( xCommmandQueue , &blink_cmd , portTick_Period_MS) == pdTRUE ) {
+
+		switch (blink_cmd) {
+
+			case 'a':
+				set_cmd('0') ;
+				break;
+			case 'b':
+				set_cmd('1') ;
+				break;
+			case 'c':
+				set_cmd('2');
+				break;
+		}
+	}
+}
+
+/** 
+ * Interrupt service routine for UART RXTX
+ */
+void UART_Handler( )
+{
+	/* The UART interrupt is triggered both for RX and TX, therefore
+	   we have to see if RXRDY is set in the UART status register */
+	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
+	{
+		//..... /*your code here*/
+	}
+}
 
 /** 
  * Initializes UART console, UART interrupt, command queue
@@ -52,28 +95,23 @@ void init_tc( )
 	 * configMAX_SYSCALL_INTERRUPT_PRIORITY 
 	*/
 	NVIC_SetPriority(CONF_UART_ID, configMAX_PRIORITIES);
-	
-/*YOUR CODE HERE*/
-}
 
-/** 
- * TC task function, interprets received data from UART
- */
-void vTaskTC( void *pvParameters )
-{
-	/*your code here*/
-}
+	/* Create a queue capable of containing 3 characters */
+	xCommandQueue = xQueueCreate( 3 , sizeof( char ))	
 
-/** 
- * Interrupt service routine for UART RXTX
- */
-void UART_Handler( )
-{
-	/* The UART interrupt is triggered both for RX and TX, therefore
-	   we have to see if RXRDY is set in the UART status register */
-	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
-	{
-		//..... /*your code here*/
+	if (xCommandQueue == NULL ) {
+		printf("Queue doesn't exist");
 	}
-}
 
+	xTaskCreate(
+		vTaskTC, 		/* Function that implements the task that is created */
+		"Telecommand", 	/* Name of the task */
+		250, 			/* Stack size in words (not bytes) */
+		NULL, 			/* Parameter that is passed into the task */
+		3, 				/* Priority at which the task is created. */
+		NULL, 			/* Used to pass out the created task's handle. */
+
+	)
+	
+
+}
