@@ -5,14 +5,13 @@
 #include <console_po.h>
 
 #include <writer1.h>
-#include <writer2.h>
 
 void writer1(void*);
 
 void writer1 (void *pvParameters) {
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
-	char cStr[] = "Vad bra "; 	/* Creates the string to be printed to the console */
+	char cStr[] = "Vad "; 	/* Creates the string to be printed to the console */
 	
 	for(;;) {
 		

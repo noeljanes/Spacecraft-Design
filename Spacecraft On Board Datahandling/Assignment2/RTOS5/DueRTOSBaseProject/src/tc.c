@@ -73,7 +73,7 @@ void UART_Handler( )
 	   we have to see if RXRDY is set in the UART status register */
 	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
 	{
-		//..... /*your code here*/
+		..... /*your code here*/
 	}
 }
 

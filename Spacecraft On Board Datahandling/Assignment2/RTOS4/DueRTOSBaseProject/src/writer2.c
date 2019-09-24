@@ -4,7 +4,6 @@
 
 #include <console_po.h>
 
-#include <writer1.h>
 #include <writer2.h>
 
 
@@ -12,11 +11,9 @@ void writer2 (void*);
 
 
 void writer2 (void *pvParameters) {
-	
-	char cStr[] = "Mycket kaffe "; 	/* Creates the string to be printed to the console */
-	
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
+	char cStr[] = "Bra "; 	/* Creates the string to be printed to the console */
 	
 	for(;;) {
 		
@@ -26,6 +23,7 @@ void writer2 (void *pvParameters) {
 	
 	vTaskDelete( NULL );
 }
+
 
 
 void init_writer2() {

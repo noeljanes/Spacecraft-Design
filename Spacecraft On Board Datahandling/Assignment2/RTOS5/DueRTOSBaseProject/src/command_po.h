@@ -7,17 +7,9 @@
  * Purpose:  Protected object for current command
  */ 
 
-#include <asf.h>
-#include <FreeRTOS.h>
-#include <task.h>
+
 #ifndef COMMAND_PO_H_
 #define COMMAND_PO_H_
-
-SemaphoreHandle_t xSemaphore;
-/** 
- * Initializes the semaphore
- */
-void taskCreateSemaphore ( void ) ;
 
 /** 
  * Initializes command object 
@@ -34,7 +26,6 @@ unsigned char get_cmd( void );
  * Sets current command, ensures mutual exclusion 
  */
 void set_cmd ( unsigned char );
-
 
 
 #endif /* COMMAND_PO_H_ */
