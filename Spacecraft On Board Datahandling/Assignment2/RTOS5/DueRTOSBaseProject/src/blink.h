@@ -13,5 +13,6 @@
 
 /* Initializes and creates blink task */
 void init_blink( void );
+void blink(int);
 
 #endif /* BLINK_H_ */

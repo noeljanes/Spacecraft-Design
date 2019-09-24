@@ -29,7 +29,7 @@ int main (void)
 	init_blink();
 	init_cmd();
 	init_tc();
-	
+	//blink(500);
 	/* Start scheduler */
 	vTaskStartScheduler();
 	
