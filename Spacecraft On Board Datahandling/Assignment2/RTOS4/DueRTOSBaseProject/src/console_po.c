@@ -16,7 +16,14 @@ void printfConsole(const char * str) {
 
 	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {	/* Check if the semaphore is available, otherwise check again after 1 ms */
 		for(int i = 0; (str[i] != '\0'); i++) {
-					printf("%c", str[i]);
+			
+					//printf("%c", str[i]);
+					
+					if((CONF_UART->UART_SR&UART_SR_TXRDY)==UART_SR_TXRDY)
+					{
+						CONF_UART->UART_THR = (unsigned char) str[i];
+					}
+				
 		}
 		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 	}
