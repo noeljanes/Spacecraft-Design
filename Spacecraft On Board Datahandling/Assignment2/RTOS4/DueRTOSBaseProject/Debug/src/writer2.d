@@ -166,7 +166,7 @@ src/writer2.d src/writer2.o: ../src/writer2.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/twi/twi.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/console_po.h \
- ../src/writer1.h ../src/writer2.h
+ ../src/writer2.h
 
 ../src/asf.h:
 
@@ -515,7 +515,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/console_po.h:
-
-../src/writer1.h:
 
 ../src/writer2.h:
