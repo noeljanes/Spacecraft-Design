@@ -16,13 +16,29 @@
 #include <tc.h>
 
 /* Prototypes */
+void blink(void);
+int delay;		/* The blinking delay in ms */
 
-void blink( int freq ) {
+void blink() {
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 	
-	for( ;; )
-	{
+	for( ;; ) {
+				
+		switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
+			case '0':
+				delay = 500;
+				break;
+				
+			case '1':
+				delay = 100;
+				break;
+				
+			case '2':
+				delay = 50;
+				break;
+		}
+		
 		/* See if pin 27 in Output Data Status Register (ODSR) is set */
 		if((PIOB->PIO_ODSR & (1 << 27)) > 0)
 		{
@@ -34,7 +50,7 @@ void blink( int freq ) {
 		}
 		
 		/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
-		vTaskDelayUntil(&xLastWakeTime, 200/portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
+		vTaskDelayUntil(&xLastWakeTime, delay / portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
 	}
 
     /* Tasks must not attempt to return from their implementing

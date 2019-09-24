@@ -9,9 +9,13 @@
 #include <blink.h>
 
 
+unsigned char cmd;
+void set_cmd ( unsigned char c) {	/* This method sets the current command to a specified value */
+	cmd = c;
+}
 
-void set_cmd ( unsigned char c) {
-	
+unsigned char get_cmd() {			/* other objects can call this method to read the current command */
+	return cmd;
 }
 
 void init_cmd()
