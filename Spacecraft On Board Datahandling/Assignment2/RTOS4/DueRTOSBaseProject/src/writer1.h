@@ -14,7 +14,10 @@
 
 #ifndef WRITER1_H
 #define WRITER1_H
-void writer1(void);
+
+#define writer1Period 1
+
+//void writer1(void);
 void init_writer1(void);
 
 #endif /* writer1_H */

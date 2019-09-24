@@ -14,6 +14,7 @@
 #ifndef UART_COMM_H_
 #define UART_COMM_H_
 SemaphoreHandle_t xSemaphore;
+
 /**
  *  Configure and initialize the Console UART.
  */ 
@@ -23,5 +24,7 @@ void console_init(void);
  * Print function, ensures mutual exclusion
  */
 void printfConsole(const char *);
+
+//void taskCreateSemaphore(void *);
 
 #endif /* UART_COMM_H_ */

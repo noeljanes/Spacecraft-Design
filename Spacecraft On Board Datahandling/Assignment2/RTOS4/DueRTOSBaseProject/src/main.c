@@ -27,7 +27,6 @@ int main (void)
 	
 	/* Init UART console */
 	console_init();
-	
 	/* Init tasks */
 	init_writer1();
 	init_writer2();

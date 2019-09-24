@@ -8,26 +8,23 @@
 #include <writer2.h>
 
 
-void writer2(){
+void writer2 (void*);
+
+
+void writer2 (void *pvParameters) {
+	
+	char cStr[] = "Mycket kaffe "; 	/* Creates the string to be printed to the console */
+	
+	portTickType xLastWakeTime ;
+	xLastWakeTime = xTaskGetTickCount();
+	
 	for(;;) {
-
-		if ( xSemaphore !== NULL ) {
-			/* Checks if the semaphore exists before attempting to take it */
 		
-			if ( xSemaphoreTake( xSemaphore , 10 ) == pdTRUE) {   
-				/* This only runs the rest of the task if the semaphore is successfully taken, this is done to cut down on wasted compute time */
-				const char * pcStr = "Mycket kaffe! ";   /* Creates the string to be printed to the console */
-				printfConsole(pcStr);  		/* Calls the printing function defined in the console_po.c file */
-
-				xSemaphoreGive( xSemaphore ); 	/* We're finished with the shared resources so we give the semaphore back to unblock the next task */
-			}
-			
-		}
-
-		else {
-			printf('There is no assigned semaphore')   /* Prints an error message if the semaphore isn't declared properly */
-		}
+		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
+		vTaskDelayUntil(&xLastWakeTime, (writer2Period/portTICK_PERIOD_MS));
 	}
+	
+	vTaskDelete( NULL );
 }
 
 
