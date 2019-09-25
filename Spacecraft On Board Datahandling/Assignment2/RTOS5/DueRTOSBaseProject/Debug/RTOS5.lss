@@ -29,11 +29,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_macro  0001be93  00000000  00000000  0004cc0a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00014bfc  00000000  00000000  00068a9d  2**0
+ 13 .debug_line   00014249  00000000  00000000  00068a9d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0006d16e  00000000  00000000  0007d699  2**0
+ 14 .debug_str    0006d16e  00000000  00000000  0007cce6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002d74  00000000  00000000  000ea808  2**2
+ 15 .debug_frame  00002d74  00000000  00000000  000e9e54  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -45,7 +45,7 @@ Disassembly of section .text:
    8002c:	21 09 08 00 2d 29 08 00 00 00 00 00 c1 09 08 00     !...-)..........
    8003c:	09 0a 08 00 2d 29 08 00 2d 29 08 00 2d 29 08 00     ....-)..-)..-)..
    8004c:	2d 29 08 00 2d 29 08 00 2d 29 08 00 2d 29 08 00     -)..-)..-)..-)..
-   8005c:	2d 29 08 00 2d 03 08 00 2d 29 08 00 00 00 00 00     -)..-...-)......
+   8005c:	2d 29 08 00 35 03 08 00 2d 29 08 00 00 00 00 00     -)..5...-)......
    8006c:	d5 27 08 00 e9 27 08 00 fd 27 08 00 11 28 08 00     .'...'...'...(..
 	...
    80084:	2d 29 08 00 2d 29 08 00 2d 29 08 00 2d 29 08 00     -)..-)..-)..-)..
@@ -113,9 +113,9 @@ void vTaskTC( void *pvParameters ) {
    80160:	b510      	push	{r4, lr}
 	if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
    80162:	f04f 31ff 	mov.w	r1, #4294967295
-   80166:	4b17      	ldr	r3, [pc, #92]	; (801c4 <vTaskTC+0x64>)
+   80166:	4b18      	ldr	r3, [pc, #96]	; (801c8 <vTaskTC+0x68>)
    80168:	6818      	ldr	r0, [r3, #0]
-   8016a:	4b17      	ldr	r3, [pc, #92]	; (801c8 <vTaskTC+0x68>)
+   8016a:	4b18      	ldr	r3, [pc, #96]	; (801cc <vTaskTC+0x6c>)
    8016c:	4798      	blx	r3
    8016e:	2801      	cmp	r0, #1
    80170:	d003      	beq.n	8017a <vTaskTC+0x1a>
@@ -126,1459 +126,1461 @@ void vTaskTC( void *pvParameters ) {
 	}
 	vTaskDelay(10);
    80172:	200a      	movs	r0, #10
-   80174:	4b15      	ldr	r3, [pc, #84]	; (801cc <vTaskTC+0x6c>)
+   80174:	4b16      	ldr	r3, [pc, #88]	; (801d0 <vTaskTC+0x70>)
    80176:	4798      	blx	r3
    80178:	bd10      	pop	{r4, pc}
+	{blink_cmd = &TC_message ;
+   8017a:	4916      	ldr	r1, [pc, #88]	; (801d4 <vTaskTC+0x74>)
+   8017c:	4b16      	ldr	r3, [pc, #88]	; (801d8 <vTaskTC+0x78>)
+   8017e:	700b      	strb	r3, [r1, #0]
 		if ( xQueueReceive( xCommandQueue , &blink_cmd , portTICK_PERIOD_MS) == pdTRUE ) {
-   8017a:	2201      	movs	r2, #1
-   8017c:	4914      	ldr	r1, [pc, #80]	; (801d0 <vTaskTC+0x70>)
-   8017e:	4b15      	ldr	r3, [pc, #84]	; (801d4 <vTaskTC+0x74>)
-   80180:	6818      	ldr	r0, [r3, #0]
-   80182:	4b15      	ldr	r3, [pc, #84]	; (801d8 <vTaskTC+0x78>)
-   80184:	4798      	blx	r3
-   80186:	2801      	cmp	r0, #1
-   80188:	d007      	beq.n	8019a <vTaskTC+0x3a>
+   80180:	2201      	movs	r2, #1
+   80182:	4b16      	ldr	r3, [pc, #88]	; (801dc <vTaskTC+0x7c>)
+   80184:	6818      	ldr	r0, [r3, #0]
+   80186:	4b16      	ldr	r3, [pc, #88]	; (801e0 <vTaskTC+0x80>)
+   80188:	4798      	blx	r3
+   8018a:	2801      	cmp	r0, #1
+   8018c:	d007      	beq.n	8019e <vTaskTC+0x3e>
 		xSemaphoreGive(xSemaphore);
-   8018a:	2300      	movs	r3, #0
-   8018c:	461a      	mov	r2, r3
-   8018e:	4619      	mov	r1, r3
-   80190:	480c      	ldr	r0, [pc, #48]	; (801c4 <vTaskTC+0x64>)
-   80192:	6800      	ldr	r0, [r0, #0]
-   80194:	4c11      	ldr	r4, [pc, #68]	; (801dc <vTaskTC+0x7c>)
-   80196:	47a0      	blx	r4
-   80198:	e7eb      	b.n	80172 <vTaskTC+0x12>
+   8018e:	2300      	movs	r3, #0
+   80190:	461a      	mov	r2, r3
+   80192:	4619      	mov	r1, r3
+   80194:	480c      	ldr	r0, [pc, #48]	; (801c8 <vTaskTC+0x68>)
+   80196:	6800      	ldr	r0, [r0, #0]
+   80198:	4c12      	ldr	r4, [pc, #72]	; (801e4 <vTaskTC+0x84>)
+   8019a:	47a0      	blx	r4
+   8019c:	e7e9      	b.n	80172 <vTaskTC+0x12>
 			switch (blink_cmd) {
-   8019a:	4b0d      	ldr	r3, [pc, #52]	; (801d0 <vTaskTC+0x70>)
-   8019c:	781b      	ldrb	r3, [r3, #0]
-   8019e:	2b62      	cmp	r3, #98	; 0x62
-   801a0:	d007      	beq.n	801b2 <vTaskTC+0x52>
-   801a2:	2b63      	cmp	r3, #99	; 0x63
-   801a4:	d009      	beq.n	801ba <vTaskTC+0x5a>
-   801a6:	2b61      	cmp	r3, #97	; 0x61
-   801a8:	d1ef      	bne.n	8018a <vTaskTC+0x2a>
+   8019e:	4b0d      	ldr	r3, [pc, #52]	; (801d4 <vTaskTC+0x74>)
+   801a0:	781b      	ldrb	r3, [r3, #0]
+   801a2:	2b62      	cmp	r3, #98	; 0x62
+   801a4:	d007      	beq.n	801b6 <vTaskTC+0x56>
+   801a6:	2b63      	cmp	r3, #99	; 0x63
+   801a8:	d009      	beq.n	801be <vTaskTC+0x5e>
+   801aa:	2b61      	cmp	r3, #97	; 0x61
+   801ac:	d1ef      	bne.n	8018e <vTaskTC+0x2e>
 					set_cmd('0');
-   801aa:	2030      	movs	r0, #48	; 0x30
-   801ac:	4b0c      	ldr	r3, [pc, #48]	; (801e0 <vTaskTC+0x80>)
-   801ae:	4798      	blx	r3
+   801ae:	2030      	movs	r0, #48	; 0x30
+   801b0:	4b0d      	ldr	r3, [pc, #52]	; (801e8 <vTaskTC+0x88>)
+   801b2:	4798      	blx	r3
 					break;
-   801b0:	e7eb      	b.n	8018a <vTaskTC+0x2a>
+   801b4:	e7eb      	b.n	8018e <vTaskTC+0x2e>
 					set_cmd('1');
-   801b2:	2031      	movs	r0, #49	; 0x31
-   801b4:	4b0a      	ldr	r3, [pc, #40]	; (801e0 <vTaskTC+0x80>)
-   801b6:	4798      	blx	r3
+   801b6:	2031      	movs	r0, #49	; 0x31
+   801b8:	4b0b      	ldr	r3, [pc, #44]	; (801e8 <vTaskTC+0x88>)
+   801ba:	4798      	blx	r3
 					break;
-   801b8:	e7e7      	b.n	8018a <vTaskTC+0x2a>
+   801bc:	e7e7      	b.n	8018e <vTaskTC+0x2e>
 					set_cmd('2');
-   801ba:	2032      	movs	r0, #50	; 0x32
-   801bc:	4b08      	ldr	r3, [pc, #32]	; (801e0 <vTaskTC+0x80>)
-   801be:	4798      	blx	r3
+   801be:	2032      	movs	r0, #50	; 0x32
+   801c0:	4b09      	ldr	r3, [pc, #36]	; (801e8 <vTaskTC+0x88>)
+   801c2:	4798      	blx	r3
 					break;
-   801c0:	e7e3      	b.n	8018a <vTaskTC+0x2a>
-   801c2:	bf00      	nop
-   801c4:	2007c4f4 	.word	0x2007c4f4
-   801c8:	0008129d 	.word	0x0008129d
-   801cc:	00081b41 	.word	0x00081b41
-   801d0:	20070afd 	.word	0x20070afd
-   801d4:	2007c4f8 	.word	0x2007c4f8
-   801d8:	00081115 	.word	0x00081115
-   801dc:	00080e51 	.word	0x00080e51
-   801e0:	000806fd 	.word	0x000806fd
+   801c4:	e7e3      	b.n	8018e <vTaskTC+0x2e>
+   801c6:	bf00      	nop
+   801c8:	2007c4f4 	.word	0x2007c4f4
+   801cc:	0008129d 	.word	0x0008129d
+   801d0:	00081b41 	.word	0x00081b41
+   801d4:	20070afd 	.word	0x20070afd
+   801d8:	20070afc 	.word	0x20070afc
+   801dc:	2007c4f8 	.word	0x2007c4f8
+   801e0:	00081115 	.word	0x00081115
+   801e4:	00080e51 	.word	0x00080e51
+   801e8:	00080705 	.word	0x00080705
 
-000801e4 <usart_serial_getchar>:
+000801ec <usart_serial_getchar>:
  * \param p_usart   Base address of the USART instance.
  * \param data   Data to read
  *
  */
 static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
 {
-   801e4:	b5f0      	push	{r4, r5, r6, r7, lr}
-   801e6:	b083      	sub	sp, #12
-   801e8:	4604      	mov	r4, r0
-   801ea:	460d      	mov	r5, r1
+   801ec:	b5f0      	push	{r4, r5, r6, r7, lr}
+   801ee:	b083      	sub	sp, #12
+   801f0:	4604      	mov	r4, r0
+   801f2:	460d      	mov	r5, r1
 	uint32_t val = 0;
-   801ec:	2300      	movs	r3, #0
-   801ee:	9301      	str	r3, [sp, #4]
+   801f4:	2300      	movs	r3, #0
+   801f6:	9301      	str	r3, [sp, #4]
 
 	/* Avoid Cppcheck Warning */
 	UNUSED(val);
 
 #ifdef UART
 	if (UART == (Uart*)p_usart) {
-   801f0:	4b20      	ldr	r3, [pc, #128]	; (80274 <usart_serial_getchar+0x90>)
-   801f2:	4298      	cmp	r0, r3
-   801f4:	d00d      	beq.n	80212 <usart_serial_getchar+0x2e>
+   801f8:	4b20      	ldr	r3, [pc, #128]	; (8027c <usart_serial_getchar+0x90>)
+   801fa:	4298      	cmp	r0, r3
+   801fc:	d00d      	beq.n	8021a <usart_serial_getchar+0x2e>
 		while (usart_read(p_usart, &val));
 		*data = (uint8_t)(val & 0xFF);
 	}
 #else
 # ifdef USART0
 	if (USART0 == p_usart) {
-   801f6:	4b20      	ldr	r3, [pc, #128]	; (80278 <usart_serial_getchar+0x94>)
-   801f8:	4298      	cmp	r0, r3
-   801fa:	d012      	beq.n	80222 <usart_serial_getchar+0x3e>
+   801fe:	4b20      	ldr	r3, [pc, #128]	; (80280 <usart_serial_getchar+0x94>)
+   80200:	4298      	cmp	r0, r3
+   80202:	d012      	beq.n	8022a <usart_serial_getchar+0x3e>
 		while (usart_read(p_usart, &val));
 		*data = (uint8_t)(val & 0xFF);
 	}
 # endif
 # ifdef USART1
 	if (USART1 == p_usart) {
-   801fc:	4b1f      	ldr	r3, [pc, #124]	; (8027c <usart_serial_getchar+0x98>)
-   801fe:	4298      	cmp	r0, r3
-   80200:	d019      	beq.n	80236 <usart_serial_getchar+0x52>
+   80204:	4b1f      	ldr	r3, [pc, #124]	; (80284 <usart_serial_getchar+0x98>)
+   80206:	4298      	cmp	r0, r3
+   80208:	d019      	beq.n	8023e <usart_serial_getchar+0x52>
 		while (usart_read(p_usart, &val));
 		*data = (uint8_t)(val & 0xFF);
 	}
 # endif
 # ifdef USART2
 	if (USART2 == p_usart) {
-   80202:	4b1f      	ldr	r3, [pc, #124]	; (80280 <usart_serial_getchar+0x9c>)
-   80204:	429c      	cmp	r4, r3
-   80206:	d020      	beq.n	8024a <usart_serial_getchar+0x66>
+   8020a:	4b1f      	ldr	r3, [pc, #124]	; (80288 <usart_serial_getchar+0x9c>)
+   8020c:	429c      	cmp	r4, r3
+   8020e:	d020      	beq.n	80252 <usart_serial_getchar+0x66>
 		while (usart_read(p_usart, &val));
 		*data = (uint8_t)(val & 0xFF);
 	}
 # endif
 # ifdef USART3
 	if (USART3 == p_usart) {
-   80208:	4b1e      	ldr	r3, [pc, #120]	; (80284 <usart_serial_getchar+0xa0>)
-   8020a:	429c      	cmp	r4, r3
-   8020c:	d027      	beq.n	8025e <usart_serial_getchar+0x7a>
+   80210:	4b1e      	ldr	r3, [pc, #120]	; (8028c <usart_serial_getchar+0xa0>)
+   80212:	429c      	cmp	r4, r3
+   80214:	d027      	beq.n	80266 <usart_serial_getchar+0x7a>
 		*data = (uint8_t)(val & 0xFF);
 	}
 # endif
 #endif /* ifdef USART */
 
 }
-   8020e:	b003      	add	sp, #12
-   80210:	bdf0      	pop	{r4, r5, r6, r7, pc}
+   80216:	b003      	add	sp, #12
+   80218:	bdf0      	pop	{r4, r5, r6, r7, pc}
 		while (uart_read((Uart*)p_usart, data));
-   80212:	461f      	mov	r7, r3
-   80214:	4e1c      	ldr	r6, [pc, #112]	; (80288 <usart_serial_getchar+0xa4>)
-   80216:	4629      	mov	r1, r5
-   80218:	4638      	mov	r0, r7
-   8021a:	47b0      	blx	r6
-   8021c:	2800      	cmp	r0, #0
-   8021e:	d1fa      	bne.n	80216 <usart_serial_getchar+0x32>
-   80220:	e7ef      	b.n	80202 <usart_serial_getchar+0x1e>
+   8021a:	461f      	mov	r7, r3
+   8021c:	4e1c      	ldr	r6, [pc, #112]	; (80290 <usart_serial_getchar+0xa4>)
+   8021e:	4629      	mov	r1, r5
+   80220:	4638      	mov	r0, r7
+   80222:	47b0      	blx	r6
+   80224:	2800      	cmp	r0, #0
+   80226:	d1fa      	bne.n	8021e <usart_serial_getchar+0x32>
+   80228:	e7ef      	b.n	8020a <usart_serial_getchar+0x1e>
 		while (usart_read(p_usart, &val));
-   80222:	461f      	mov	r7, r3
-   80224:	4e19      	ldr	r6, [pc, #100]	; (8028c <usart_serial_getchar+0xa8>)
-   80226:	a901      	add	r1, sp, #4
-   80228:	4638      	mov	r0, r7
-   8022a:	47b0      	blx	r6
-   8022c:	2800      	cmp	r0, #0
-   8022e:	d1fa      	bne.n	80226 <usart_serial_getchar+0x42>
+   8022a:	461f      	mov	r7, r3
+   8022c:	4e19      	ldr	r6, [pc, #100]	; (80294 <usart_serial_getchar+0xa8>)
+   8022e:	a901      	add	r1, sp, #4
+   80230:	4638      	mov	r0, r7
+   80232:	47b0      	blx	r6
+   80234:	2800      	cmp	r0, #0
+   80236:	d1fa      	bne.n	8022e <usart_serial_getchar+0x42>
 		*data = (uint8_t)(val & 0xFF);
-   80230:	9b01      	ldr	r3, [sp, #4]
-   80232:	702b      	strb	r3, [r5, #0]
-   80234:	e7e8      	b.n	80208 <usart_serial_getchar+0x24>
+   80238:	9b01      	ldr	r3, [sp, #4]
+   8023a:	702b      	strb	r3, [r5, #0]
+   8023c:	e7e8      	b.n	80210 <usart_serial_getchar+0x24>
 		while (usart_read(p_usart, &val));
-   80236:	461e      	mov	r6, r3
-   80238:	4c14      	ldr	r4, [pc, #80]	; (8028c <usart_serial_getchar+0xa8>)
-   8023a:	a901      	add	r1, sp, #4
-   8023c:	4630      	mov	r0, r6
-   8023e:	47a0      	blx	r4
-   80240:	2800      	cmp	r0, #0
-   80242:	d1fa      	bne.n	8023a <usart_serial_getchar+0x56>
+   8023e:	461e      	mov	r6, r3
+   80240:	4c14      	ldr	r4, [pc, #80]	; (80294 <usart_serial_getchar+0xa8>)
+   80242:	a901      	add	r1, sp, #4
+   80244:	4630      	mov	r0, r6
+   80246:	47a0      	blx	r4
+   80248:	2800      	cmp	r0, #0
+   8024a:	d1fa      	bne.n	80242 <usart_serial_getchar+0x56>
 		*data = (uint8_t)(val & 0xFF);
-   80244:	9b01      	ldr	r3, [sp, #4]
-   80246:	702b      	strb	r3, [r5, #0]
-   80248:	e7e1      	b.n	8020e <usart_serial_getchar+0x2a>
+   8024c:	9b01      	ldr	r3, [sp, #4]
+   8024e:	702b      	strb	r3, [r5, #0]
+   80250:	e7e1      	b.n	80216 <usart_serial_getchar+0x2a>
 		while (usart_read(p_usart, &val));
-   8024a:	461e      	mov	r6, r3
-   8024c:	4c0f      	ldr	r4, [pc, #60]	; (8028c <usart_serial_getchar+0xa8>)
-   8024e:	a901      	add	r1, sp, #4
-   80250:	4630      	mov	r0, r6
-   80252:	47a0      	blx	r4
-   80254:	2800      	cmp	r0, #0
-   80256:	d1fa      	bne.n	8024e <usart_serial_getchar+0x6a>
+   80252:	461e      	mov	r6, r3
+   80254:	4c0f      	ldr	r4, [pc, #60]	; (80294 <usart_serial_getchar+0xa8>)
+   80256:	a901      	add	r1, sp, #4
+   80258:	4630      	mov	r0, r6
+   8025a:	47a0      	blx	r4
+   8025c:	2800      	cmp	r0, #0
+   8025e:	d1fa      	bne.n	80256 <usart_serial_getchar+0x6a>
 		*data = (uint8_t)(val & 0xFF);
-   80258:	9b01      	ldr	r3, [sp, #4]
-   8025a:	702b      	strb	r3, [r5, #0]
-   8025c:	e7d7      	b.n	8020e <usart_serial_getchar+0x2a>
+   80260:	9b01      	ldr	r3, [sp, #4]
+   80262:	702b      	strb	r3, [r5, #0]
+   80264:	e7d7      	b.n	80216 <usart_serial_getchar+0x2a>
 		while (usart_read(p_usart, &val));
-   8025e:	461e      	mov	r6, r3
-   80260:	4c0a      	ldr	r4, [pc, #40]	; (8028c <usart_serial_getchar+0xa8>)
-   80262:	a901      	add	r1, sp, #4
-   80264:	4630      	mov	r0, r6
-   80266:	47a0      	blx	r4
-   80268:	2800      	cmp	r0, #0
-   8026a:	d1fa      	bne.n	80262 <usart_serial_getchar+0x7e>
+   80266:	461e      	mov	r6, r3
+   80268:	4c0a      	ldr	r4, [pc, #40]	; (80294 <usart_serial_getchar+0xa8>)
+   8026a:	a901      	add	r1, sp, #4
+   8026c:	4630      	mov	r0, r6
+   8026e:	47a0      	blx	r4
+   80270:	2800      	cmp	r0, #0
+   80272:	d1fa      	bne.n	8026a <usart_serial_getchar+0x7e>
 		*data = (uint8_t)(val & 0xFF);
-   8026c:	9b01      	ldr	r3, [sp, #4]
-   8026e:	702b      	strb	r3, [r5, #0]
+   80274:	9b01      	ldr	r3, [sp, #4]
+   80276:	702b      	strb	r3, [r5, #0]
 }
-   80270:	e7cd      	b.n	8020e <usart_serial_getchar+0x2a>
-   80272:	bf00      	nop
-   80274:	400e0800 	.word	0x400e0800
-   80278:	40098000 	.word	0x40098000
-   8027c:	4009c000 	.word	0x4009c000
-   80280:	400a0000 	.word	0x400a0000
-   80284:	400a4000 	.word	0x400a4000
-   80288:	000807f3 	.word	0x000807f3
-   8028c:	000804dd 	.word	0x000804dd
+   80278:	e7cd      	b.n	80216 <usart_serial_getchar+0x2a>
+   8027a:	bf00      	nop
+   8027c:	400e0800 	.word	0x400e0800
+   80280:	40098000 	.word	0x40098000
+   80284:	4009c000 	.word	0x4009c000
+   80288:	400a0000 	.word	0x400a0000
+   8028c:	400a4000 	.word	0x400a4000
+   80290:	000807fb 	.word	0x000807fb
+   80294:	000804e5 	.word	0x000804e5
 
-00080290 <usart_serial_putchar>:
+00080298 <usart_serial_putchar>:
 {
-   80290:	b570      	push	{r4, r5, r6, lr}
-   80292:	460c      	mov	r4, r1
+   80298:	b570      	push	{r4, r5, r6, lr}
+   8029a:	460c      	mov	r4, r1
 	if (UART == (Uart*)p_usart) {
-   80294:	4b1e      	ldr	r3, [pc, #120]	; (80310 <usart_serial_putchar+0x80>)
-   80296:	4298      	cmp	r0, r3
-   80298:	d00d      	beq.n	802b6 <usart_serial_putchar+0x26>
+   8029c:	4b1e      	ldr	r3, [pc, #120]	; (80318 <usart_serial_putchar+0x80>)
+   8029e:	4298      	cmp	r0, r3
+   802a0:	d00d      	beq.n	802be <usart_serial_putchar+0x26>
 	if (USART0 == p_usart) {
-   8029a:	4b1e      	ldr	r3, [pc, #120]	; (80314 <usart_serial_putchar+0x84>)
-   8029c:	4298      	cmp	r0, r3
-   8029e:	d013      	beq.n	802c8 <usart_serial_putchar+0x38>
+   802a2:	4b1e      	ldr	r3, [pc, #120]	; (8031c <usart_serial_putchar+0x84>)
+   802a4:	4298      	cmp	r0, r3
+   802a6:	d013      	beq.n	802d0 <usart_serial_putchar+0x38>
 	if (USART1 == p_usart) {
-   802a0:	4b1d      	ldr	r3, [pc, #116]	; (80318 <usart_serial_putchar+0x88>)
-   802a2:	4298      	cmp	r0, r3
-   802a4:	d019      	beq.n	802da <usart_serial_putchar+0x4a>
+   802a8:	4b1d      	ldr	r3, [pc, #116]	; (80320 <usart_serial_putchar+0x88>)
+   802aa:	4298      	cmp	r0, r3
+   802ac:	d019      	beq.n	802e2 <usart_serial_putchar+0x4a>
 	if (USART2 == p_usart) {
-   802a6:	4b1d      	ldr	r3, [pc, #116]	; (8031c <usart_serial_putchar+0x8c>)
-   802a8:	4298      	cmp	r0, r3
-   802aa:	d01f      	beq.n	802ec <usart_serial_putchar+0x5c>
+   802ae:	4b1d      	ldr	r3, [pc, #116]	; (80324 <usart_serial_putchar+0x8c>)
+   802b0:	4298      	cmp	r0, r3
+   802b2:	d01f      	beq.n	802f4 <usart_serial_putchar+0x5c>
 	if (USART3 == p_usart) {
-   802ac:	4b1c      	ldr	r3, [pc, #112]	; (80320 <usart_serial_putchar+0x90>)
-   802ae:	4298      	cmp	r0, r3
-   802b0:	d025      	beq.n	802fe <usart_serial_putchar+0x6e>
+   802b4:	4b1c      	ldr	r3, [pc, #112]	; (80328 <usart_serial_putchar+0x90>)
+   802b6:	4298      	cmp	r0, r3
+   802b8:	d025      	beq.n	80306 <usart_serial_putchar+0x6e>
 	return 0;
-   802b2:	2000      	movs	r0, #0
+   802ba:	2000      	movs	r0, #0
 }
-   802b4:	bd70      	pop	{r4, r5, r6, pc}
+   802bc:	bd70      	pop	{r4, r5, r6, pc}
 		while (uart_write((Uart*)p_usart, c)!=0);
-   802b6:	461e      	mov	r6, r3
-   802b8:	4d1a      	ldr	r5, [pc, #104]	; (80324 <usart_serial_putchar+0x94>)
-   802ba:	4621      	mov	r1, r4
-   802bc:	4630      	mov	r0, r6
-   802be:	47a8      	blx	r5
-   802c0:	2800      	cmp	r0, #0
-   802c2:	d1fa      	bne.n	802ba <usart_serial_putchar+0x2a>
+   802be:	461e      	mov	r6, r3
+   802c0:	4d1a      	ldr	r5, [pc, #104]	; (8032c <usart_serial_putchar+0x94>)
+   802c2:	4621      	mov	r1, r4
+   802c4:	4630      	mov	r0, r6
+   802c6:	47a8      	blx	r5
+   802c8:	2800      	cmp	r0, #0
+   802ca:	d1fa      	bne.n	802c2 <usart_serial_putchar+0x2a>
 		return 1;
-   802c4:	2001      	movs	r0, #1
-   802c6:	bd70      	pop	{r4, r5, r6, pc}
+   802cc:	2001      	movs	r0, #1
+   802ce:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   802c8:	461e      	mov	r6, r3
-   802ca:	4d17      	ldr	r5, [pc, #92]	; (80328 <usart_serial_putchar+0x98>)
-   802cc:	4621      	mov	r1, r4
-   802ce:	4630      	mov	r0, r6
-   802d0:	47a8      	blx	r5
-   802d2:	2800      	cmp	r0, #0
-   802d4:	d1fa      	bne.n	802cc <usart_serial_putchar+0x3c>
+   802d0:	461e      	mov	r6, r3
+   802d2:	4d17      	ldr	r5, [pc, #92]	; (80330 <usart_serial_putchar+0x98>)
+   802d4:	4621      	mov	r1, r4
+   802d6:	4630      	mov	r0, r6
+   802d8:	47a8      	blx	r5
+   802da:	2800      	cmp	r0, #0
+   802dc:	d1fa      	bne.n	802d4 <usart_serial_putchar+0x3c>
 		return 1;
-   802d6:	2001      	movs	r0, #1
-   802d8:	bd70      	pop	{r4, r5, r6, pc}
+   802de:	2001      	movs	r0, #1
+   802e0:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   802da:	461e      	mov	r6, r3
-   802dc:	4d12      	ldr	r5, [pc, #72]	; (80328 <usart_serial_putchar+0x98>)
-   802de:	4621      	mov	r1, r4
-   802e0:	4630      	mov	r0, r6
-   802e2:	47a8      	blx	r5
-   802e4:	2800      	cmp	r0, #0
-   802e6:	d1fa      	bne.n	802de <usart_serial_putchar+0x4e>
+   802e2:	461e      	mov	r6, r3
+   802e4:	4d12      	ldr	r5, [pc, #72]	; (80330 <usart_serial_putchar+0x98>)
+   802e6:	4621      	mov	r1, r4
+   802e8:	4630      	mov	r0, r6
+   802ea:	47a8      	blx	r5
+   802ec:	2800      	cmp	r0, #0
+   802ee:	d1fa      	bne.n	802e6 <usart_serial_putchar+0x4e>
 		return 1;
-   802e8:	2001      	movs	r0, #1
-   802ea:	bd70      	pop	{r4, r5, r6, pc}
+   802f0:	2001      	movs	r0, #1
+   802f2:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   802ec:	461e      	mov	r6, r3
-   802ee:	4d0e      	ldr	r5, [pc, #56]	; (80328 <usart_serial_putchar+0x98>)
-   802f0:	4621      	mov	r1, r4
-   802f2:	4630      	mov	r0, r6
-   802f4:	47a8      	blx	r5
-   802f6:	2800      	cmp	r0, #0
-   802f8:	d1fa      	bne.n	802f0 <usart_serial_putchar+0x60>
+   802f4:	461e      	mov	r6, r3
+   802f6:	4d0e      	ldr	r5, [pc, #56]	; (80330 <usart_serial_putchar+0x98>)
+   802f8:	4621      	mov	r1, r4
+   802fa:	4630      	mov	r0, r6
+   802fc:	47a8      	blx	r5
+   802fe:	2800      	cmp	r0, #0
+   80300:	d1fa      	bne.n	802f8 <usart_serial_putchar+0x60>
 		return 1;
-   802fa:	2001      	movs	r0, #1
-   802fc:	bd70      	pop	{r4, r5, r6, pc}
+   80302:	2001      	movs	r0, #1
+   80304:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   802fe:	461e      	mov	r6, r3
-   80300:	4d09      	ldr	r5, [pc, #36]	; (80328 <usart_serial_putchar+0x98>)
-   80302:	4621      	mov	r1, r4
-   80304:	4630      	mov	r0, r6
-   80306:	47a8      	blx	r5
-   80308:	2800      	cmp	r0, #0
-   8030a:	d1fa      	bne.n	80302 <usart_serial_putchar+0x72>
+   80306:	461e      	mov	r6, r3
+   80308:	4d09      	ldr	r5, [pc, #36]	; (80330 <usart_serial_putchar+0x98>)
+   8030a:	4621      	mov	r1, r4
+   8030c:	4630      	mov	r0, r6
+   8030e:	47a8      	blx	r5
+   80310:	2800      	cmp	r0, #0
+   80312:	d1fa      	bne.n	8030a <usart_serial_putchar+0x72>
 		return 1;
-   8030c:	2001      	movs	r0, #1
-   8030e:	bd70      	pop	{r4, r5, r6, pc}
-   80310:	400e0800 	.word	0x400e0800
-   80314:	40098000 	.word	0x40098000
-   80318:	4009c000 	.word	0x4009c000
-   8031c:	400a0000 	.word	0x400a0000
-   80320:	400a4000 	.word	0x400a4000
-   80324:	000807e3 	.word	0x000807e3
-   80328:	000804c9 	.word	0x000804c9
+   80314:	2001      	movs	r0, #1
+   80316:	bd70      	pop	{r4, r5, r6, pc}
+   80318:	400e0800 	.word	0x400e0800
+   8031c:	40098000 	.word	0x40098000
+   80320:	4009c000 	.word	0x4009c000
+   80324:	400a0000 	.word	0x400a0000
+   80328:	400a4000 	.word	0x400a4000
+   8032c:	000807eb 	.word	0x000807eb
+   80330:	000804d1 	.word	0x000804d1
 
-0008032c <UART_Handler>:
+00080334 <UART_Handler>:
 void UART_Handler( ){
 	
 	
 	/* The UART interrupt is triggered both for RX and TX, therefore
 	   we have to see if RXRDY is set in the UART status register */
 	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY) {
-   8032c:	4b08      	ldr	r3, [pc, #32]	; (80350 <UART_Handler+0x24>)
-   8032e:	695b      	ldr	r3, [r3, #20]
-   80330:	f013 0f01 	tst.w	r3, #1
-   80334:	d100      	bne.n	80338 <UART_Handler+0xc>
-   80336:	4770      	bx	lr
+   80334:	4b08      	ldr	r3, [pc, #32]	; (80358 <UART_Handler+0x24>)
+   80336:	695b      	ldr	r3, [r3, #20]
+   80338:	f013 0f01 	tst.w	r3, #1
+   8033c:	d100      	bne.n	80340 <UART_Handler+0xc>
+   8033e:	4770      	bx	lr
 void UART_Handler( ){
-   80338:	b510      	push	{r4, lr}
-		//..... /*your code here*/
+   80340:	b510      	push	{r4, lr}
 		
 		/* Assigns the value received to a TC_message and adds it to the end of the queue */
 		
-		TC_message = (unsigned char) CONF_UART->UART_SR;
-   8033a:	4b05      	ldr	r3, [pc, #20]	; (80350 <UART_Handler+0x24>)
-   8033c:	695b      	ldr	r3, [r3, #20]
-   8033e:	4905      	ldr	r1, [pc, #20]	; (80354 <UART_Handler+0x28>)
-   80340:	700b      	strb	r3, [r1, #0]
+		TC_message = (unsigned char) CONF_UART->UART_RHR;
+   80342:	4b05      	ldr	r3, [pc, #20]	; (80358 <UART_Handler+0x24>)
+   80344:	699b      	ldr	r3, [r3, #24]
+   80346:	4905      	ldr	r1, [pc, #20]	; (8035c <UART_Handler+0x28>)
+   80348:	700b      	strb	r3, [r1, #0]
 		xQueueSendToBackFromISR(xCommandQueue, (void*) & TC_message, NULL);
-   80342:	2300      	movs	r3, #0
-   80344:	461a      	mov	r2, r3
-   80346:	4804      	ldr	r0, [pc, #16]	; (80358 <UART_Handler+0x2c>)
-   80348:	6800      	ldr	r0, [r0, #0]
-   8034a:	4c04      	ldr	r4, [pc, #16]	; (8035c <UART_Handler+0x30>)
-   8034c:	47a0      	blx	r4
-   8034e:	bd10      	pop	{r4, pc}
-   80350:	400e0800 	.word	0x400e0800
-   80354:	20070afc 	.word	0x20070afc
-   80358:	2007c4f8 	.word	0x2007c4f8
-   8035c:	00081031 	.word	0x00081031
+   8034a:	2300      	movs	r3, #0
+   8034c:	461a      	mov	r2, r3
+   8034e:	4804      	ldr	r0, [pc, #16]	; (80360 <UART_Handler+0x2c>)
+   80350:	6800      	ldr	r0, [r0, #0]
+   80352:	4c04      	ldr	r4, [pc, #16]	; (80364 <UART_Handler+0x30>)
+   80354:	47a0      	blx	r4
+   80356:	bd10      	pop	{r4, pc}
+   80358:	400e0800 	.word	0x400e0800
+   8035c:	20070afc 	.word	0x20070afc
+   80360:	2007c4f8 	.word	0x2007c4f8
+   80364:	00081031 	.word	0x00081031
 
-00080360 <init_tc>:
+00080368 <init_tc>:
 
 /** 
  * Initializes UART console, UART interrupt, command queue
  * and creates TC task 
  */
 void init_tc( ) {
-   80360:	b570      	push	{r4, r5, r6, lr}
-   80362:	b086      	sub	sp, #24
+   80368:	b570      	push	{r4, r5, r6, lr}
+   8036a:	b086      	sub	sp, #24
  * \param opt         Options needed to set up RS232 communication (see \ref usart_options_t).
  *
  */
 static inline void stdio_serial_init(volatile void *usart, const usart_serial_options_t *opt)
 {
 	stdio_base = (void *)usart;
-   80364:	4c21      	ldr	r4, [pc, #132]	; (803ec <init_tc+0x8c>)
-   80366:	4b22      	ldr	r3, [pc, #136]	; (803f0 <init_tc+0x90>)
-   80368:	601c      	str	r4, [r3, #0]
+   8036c:	4c21      	ldr	r4, [pc, #132]	; (803f4 <init_tc+0x8c>)
+   8036e:	4b22      	ldr	r3, [pc, #136]	; (803f8 <init_tc+0x90>)
+   80370:	601c      	str	r4, [r3, #0]
 	ptr_put = (int (*)(void volatile*,char))&usart_serial_putchar;
-   8036a:	4a22      	ldr	r2, [pc, #136]	; (803f4 <init_tc+0x94>)
-   8036c:	4b22      	ldr	r3, [pc, #136]	; (803f8 <init_tc+0x98>)
-   8036e:	601a      	str	r2, [r3, #0]
+   80372:	4a22      	ldr	r2, [pc, #136]	; (803fc <init_tc+0x94>)
+   80374:	4b22      	ldr	r3, [pc, #136]	; (80400 <init_tc+0x98>)
+   80376:	601a      	str	r2, [r3, #0]
 	ptr_get = (void (*)(void volatile*,char*))&usart_serial_getchar;
-   80370:	4a22      	ldr	r2, [pc, #136]	; (803fc <init_tc+0x9c>)
-   80372:	4b23      	ldr	r3, [pc, #140]	; (80400 <init_tc+0xa0>)
-   80374:	601a      	str	r2, [r3, #0]
+   80378:	4a22      	ldr	r2, [pc, #136]	; (80404 <init_tc+0x9c>)
+   8037a:	4b23      	ldr	r3, [pc, #140]	; (80408 <init_tc+0xa0>)
+   8037c:	601a      	str	r2, [r3, #0]
 	uart_settings.ul_mck = sysclk_get_peripheral_hz();
-   80376:	4b23      	ldr	r3, [pc, #140]	; (80404 <init_tc+0xa4>)
-   80378:	9303      	str	r3, [sp, #12]
+   8037e:	4b23      	ldr	r3, [pc, #140]	; (8040c <init_tc+0xa4>)
+   80380:	9303      	str	r3, [sp, #12]
 	uart_settings.ul_baudrate = opt->baudrate;
-   8037a:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
-   8037e:	9304      	str	r3, [sp, #16]
+   80382:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
+   80386:	9304      	str	r3, [sp, #16]
 	uart_settings.ul_mode = opt->paritytype;
-   80380:	f44f 6300 	mov.w	r3, #2048	; 0x800
-   80384:	9305      	str	r3, [sp, #20]
+   80388:	f44f 6300 	mov.w	r3, #2048	; 0x800
+   8038c:	9305      	str	r3, [sp, #20]
  *
  * \param ul_id Id (number) of the peripheral clock.
  */
 static inline void sysclk_enable_peripheral_clock(uint32_t ul_id)
 {
 	pmc_enable_periph_clk(ul_id);
-   80386:	2008      	movs	r0, #8
-   80388:	4b1f      	ldr	r3, [pc, #124]	; (80408 <init_tc+0xa8>)
-   8038a:	4798      	blx	r3
-		uart_init((Uart*)p_usart, &uart_settings);
-   8038c:	a903      	add	r1, sp, #12
-   8038e:	4620      	mov	r0, r4
-   80390:	4b1e      	ldr	r3, [pc, #120]	; (8040c <init_tc+0xac>)
+   8038e:	2008      	movs	r0, #8
+   80390:	4b1f      	ldr	r3, [pc, #124]	; (80410 <init_tc+0xa8>)
    80392:	4798      	blx	r3
+		uart_init((Uart*)p_usart, &uart_settings);
+   80394:	a903      	add	r1, sp, #12
+   80396:	4620      	mov	r0, r4
+   80398:	4b1e      	ldr	r3, [pc, #120]	; (80414 <init_tc+0xac>)
+   8039a:	4798      	blx	r3
 	fdevopen((int (*)(char, FILE*))(_write),(int (*)(FILE*))(_read));
 #  endif
 #  if UC3 || SAM
 	// For AVR32 and SAM GCC
 	// Specify that stdout and stdin should not be buffered.
 	setbuf(stdout, NULL);
-   80394:	4e1e      	ldr	r6, [pc, #120]	; (80410 <init_tc+0xb0>)
-   80396:	6833      	ldr	r3, [r6, #0]
-   80398:	2100      	movs	r1, #0
-   8039a:	6898      	ldr	r0, [r3, #8]
-   8039c:	4d1d      	ldr	r5, [pc, #116]	; (80414 <init_tc+0xb4>)
-   8039e:	47a8      	blx	r5
-	setbuf(stdin, NULL);
-   803a0:	6833      	ldr	r3, [r6, #0]
-   803a2:	2100      	movs	r1, #0
-   803a4:	6858      	ldr	r0, [r3, #4]
+   8039c:	4e1e      	ldr	r6, [pc, #120]	; (80418 <init_tc+0xb0>)
+   8039e:	6833      	ldr	r3, [r6, #0]
+   803a0:	2100      	movs	r1, #0
+   803a2:	6898      	ldr	r0, [r3, #8]
+   803a4:	4d1d      	ldr	r5, [pc, #116]	; (8041c <init_tc+0xb4>)
    803a6:	47a8      	blx	r5
+	setbuf(stdin, NULL);
+   803a8:	6833      	ldr	r3, [r6, #0]
+   803aa:	2100      	movs	r1, #0
+   803ac:	6858      	ldr	r0, [r3, #4]
+   803ae:	47a8      	blx	r5
 	
 	/* redirect printf / scanf function calls to UART */
 	stdio_serial_init(CONF_UART, &usart_serial_options);
 	
     /* Enable UART Interrupt for RX ready */
 	uart_enable_interrupt( CONF_UART, UART_IER_RXRDY );
-   803a8:	2101      	movs	r1, #1
-   803aa:	4620      	mov	r0, r4
-   803ac:	4b1a      	ldr	r3, [pc, #104]	; (80418 <init_tc+0xb8>)
-   803ae:	4798      	blx	r3
+   803b0:	2101      	movs	r1, #1
+   803b2:	4620      	mov	r0, r4
+   803b4:	4b1a      	ldr	r3, [pc, #104]	; (80420 <init_tc+0xb8>)
+   803b6:	4798      	blx	r3
 
     \param [in]      IRQn  External interrupt number. Value cannot be negative.
  */
 __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
 {
   NVIC->ISER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* enable interrupt */
-   803b0:	4b1a      	ldr	r3, [pc, #104]	; (8041c <init_tc+0xbc>)
-   803b2:	f44f 7280 	mov.w	r2, #256	; 0x100
-   803b6:	601a      	str	r2, [r3, #0]
+   803b8:	4b1a      	ldr	r3, [pc, #104]	; (80424 <init_tc+0xbc>)
+   803ba:	f44f 7280 	mov.w	r2, #256	; 0x100
+   803be:	601a      	str	r2, [r3, #0]
 __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
 {
   if(IRQn < 0) {
     SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M  System Interrupts */
   else {
     NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts  */
-   803b8:	2250      	movs	r2, #80	; 0x50
-   803ba:	f883 2308 	strb.w	r2, [r3, #776]	; 0x308
+   803c0:	2250      	movs	r2, #80	; 0x50
+   803c2:	f883 2308 	strb.w	r2, [r3, #776]	; 0x308
 	 * configMAX_SYSCALL_INTERRUPT_PRIORITY 
 	*/
 	NVIC_SetPriority(CONF_UART_ID, configMAX_PRIORITIES);
 
 	/* Create a queue capable of containing 3 characters */
 	xCommandQueue = xQueueCreate( 4 , sizeof( char ));
-   803be:	2200      	movs	r2, #0
-   803c0:	2101      	movs	r1, #1
-   803c2:	2004      	movs	r0, #4
-   803c4:	4b16      	ldr	r3, [pc, #88]	; (80420 <init_tc+0xc0>)
-   803c6:	4798      	blx	r3
-   803c8:	4b16      	ldr	r3, [pc, #88]	; (80424 <init_tc+0xc4>)
-   803ca:	6018      	str	r0, [r3, #0]
+   803c6:	2200      	movs	r2, #0
+   803c8:	2101      	movs	r1, #1
+   803ca:	2004      	movs	r0, #4
+   803cc:	4b16      	ldr	r3, [pc, #88]	; (80428 <init_tc+0xc0>)
+   803ce:	4798      	blx	r3
+   803d0:	4b16      	ldr	r3, [pc, #88]	; (8042c <init_tc+0xc4>)
+   803d2:	6018      	str	r0, [r3, #0]
 
 	if (xCommandQueue == NULL ) {
-   803cc:	b150      	cbz	r0, 803e4 <init_tc+0x84>
+   803d4:	b150      	cbz	r0, 803ec <init_tc+0x84>
 		printf("Queue doesn't exist");
 	}
 
 	xTaskCreate(
-   803ce:	2300      	movs	r3, #0
-   803d0:	9301      	str	r3, [sp, #4]
-   803d2:	2203      	movs	r2, #3
-   803d4:	9200      	str	r2, [sp, #0]
-   803d6:	22fa      	movs	r2, #250	; 0xfa
-   803d8:	4913      	ldr	r1, [pc, #76]	; (80428 <init_tc+0xc8>)
-   803da:	4814      	ldr	r0, [pc, #80]	; (8042c <init_tc+0xcc>)
-   803dc:	4c14      	ldr	r4, [pc, #80]	; (80430 <init_tc+0xd0>)
-   803de:	47a0      	blx	r4
+   803d6:	2300      	movs	r3, #0
+   803d8:	9301      	str	r3, [sp, #4]
+   803da:	2203      	movs	r2, #3
+   803dc:	9200      	str	r2, [sp, #0]
+   803de:	22fa      	movs	r2, #250	; 0xfa
+   803e0:	4913      	ldr	r1, [pc, #76]	; (80430 <init_tc+0xc8>)
+   803e2:	4814      	ldr	r0, [pc, #80]	; (80434 <init_tc+0xcc>)
+   803e4:	4c14      	ldr	r4, [pc, #80]	; (80438 <init_tc+0xd0>)
+   803e6:	47a0      	blx	r4
 		NULL 			/* Used to pass out the created task's handle. */
 
 	);
 	
 
-   803e0:	b006      	add	sp, #24
-   803e2:	bd70      	pop	{r4, r5, r6, pc}
+   803e8:	b006      	add	sp, #24
+   803ea:	bd70      	pop	{r4, r5, r6, pc}
 		printf("Queue doesn't exist");
-   803e4:	4813      	ldr	r0, [pc, #76]	; (80434 <init_tc+0xd4>)
-   803e6:	4b14      	ldr	r3, [pc, #80]	; (80438 <init_tc+0xd8>)
-   803e8:	4798      	blx	r3
-   803ea:	e7f0      	b.n	803ce <init_tc+0x6e>
-   803ec:	400e0800 	.word	0x400e0800
-   803f0:	2007c504 	.word	0x2007c504
-   803f4:	00080291 	.word	0x00080291
-   803f8:	2007c500 	.word	0x2007c500
-   803fc:	000801e5 	.word	0x000801e5
-   80400:	2007c4fc 	.word	0x2007c4fc
-   80404:	0501bd00 	.word	0x0501bd00
-   80408:	0008290d 	.word	0x0008290d
-   8040c:	000807a9 	.word	0x000807a9
-   80410:	20070134 	.word	0x20070134
-   80414:	00082d69 	.word	0x00082d69
-   80418:	000807df 	.word	0x000807df
-   8041c:	e000e100 	.word	0xe000e100
-   80420:	00080dfd 	.word	0x00080dfd
-   80424:	2007c4f8 	.word	0x2007c4f8
-   80428:	000859fc 	.word	0x000859fc
-   8042c:	00080161 	.word	0x00080161
-   80430:	0008165d 	.word	0x0008165d
-   80434:	000859e8 	.word	0x000859e8
-   80438:	00082bb9 	.word	0x00082bb9
+   803ec:	4813      	ldr	r0, [pc, #76]	; (8043c <init_tc+0xd4>)
+   803ee:	4b14      	ldr	r3, [pc, #80]	; (80440 <init_tc+0xd8>)
+   803f0:	4798      	blx	r3
+   803f2:	e7f0      	b.n	803d6 <init_tc+0x6e>
+   803f4:	400e0800 	.word	0x400e0800
+   803f8:	2007c504 	.word	0x2007c504
+   803fc:	00080299 	.word	0x00080299
+   80400:	2007c500 	.word	0x2007c500
+   80404:	000801ed 	.word	0x000801ed
+   80408:	2007c4fc 	.word	0x2007c4fc
+   8040c:	0501bd00 	.word	0x0501bd00
+   80410:	0008290d 	.word	0x0008290d
+   80414:	000807b1 	.word	0x000807b1
+   80418:	20070134 	.word	0x20070134
+   8041c:	00082d69 	.word	0x00082d69
+   80420:	000807e7 	.word	0x000807e7
+   80424:	e000e100 	.word	0xe000e100
+   80428:	00080dfd 	.word	0x00080dfd
+   8042c:	2007c4f8 	.word	0x2007c4f8
+   80430:	000859fc 	.word	0x000859fc
+   80434:	00080161 	.word	0x00080161
+   80438:	0008165d 	.word	0x0008165d
+   8043c:	000859e8 	.word	0x000859e8
+   80440:	00082bb9 	.word	0x00082bb9
 
-0008043c <_read>:
+00080444 <_read>:
 int __attribute__((weak))
 _read (int file, char * ptr, int len); // Remove GCC compiler warning
 
 int __attribute__((weak))
 _read (int file, char * ptr, int len)
 {
-   8043c:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   80444:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
 	int nChars = 0;
 
 	if (file != 0) {
-   80440:	b980      	cbnz	r0, 80464 <_read+0x28>
-   80442:	460c      	mov	r4, r1
-   80444:	4690      	mov	r8, r2
+   80448:	b980      	cbnz	r0, 8046c <_read+0x28>
+   8044a:	460c      	mov	r4, r1
+   8044c:	4690      	mov	r8, r2
 		return -1;
 	}
 
 	for (; len > 0; --len) {
-   80446:	2a00      	cmp	r2, #0
-   80448:	dd0f      	ble.n	8046a <_read+0x2e>
-   8044a:	188f      	adds	r7, r1, r2
+   8044e:	2a00      	cmp	r2, #0
+   80450:	dd0f      	ble.n	80472 <_read+0x2e>
+   80452:	188f      	adds	r7, r1, r2
 		ptr_get(stdio_base, ptr);
-   8044c:	4e08      	ldr	r6, [pc, #32]	; (80470 <_read+0x34>)
-   8044e:	4d09      	ldr	r5, [pc, #36]	; (80474 <_read+0x38>)
-   80450:	6830      	ldr	r0, [r6, #0]
-   80452:	4621      	mov	r1, r4
-   80454:	682b      	ldr	r3, [r5, #0]
-   80456:	4798      	blx	r3
+   80454:	4e08      	ldr	r6, [pc, #32]	; (80478 <_read+0x34>)
+   80456:	4d09      	ldr	r5, [pc, #36]	; (8047c <_read+0x38>)
+   80458:	6830      	ldr	r0, [r6, #0]
+   8045a:	4621      	mov	r1, r4
+   8045c:	682b      	ldr	r3, [r5, #0]
+   8045e:	4798      	blx	r3
 		ptr++;
-   80458:	3401      	adds	r4, #1
+   80460:	3401      	adds	r4, #1
 	for (; len > 0; --len) {
-   8045a:	42bc      	cmp	r4, r7
-   8045c:	d1f8      	bne.n	80450 <_read+0x14>
+   80462:	42bc      	cmp	r4, r7
+   80464:	d1f8      	bne.n	80458 <_read+0x14>
 		nChars++;
 	}
 	return nChars;
 }
-   8045e:	4640      	mov	r0, r8
-   80460:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+   80466:	4640      	mov	r0, r8
+   80468:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 		return -1;
-   80464:	f04f 38ff 	mov.w	r8, #4294967295
-   80468:	e7f9      	b.n	8045e <_read+0x22>
+   8046c:	f04f 38ff 	mov.w	r8, #4294967295
+   80470:	e7f9      	b.n	80466 <_read+0x22>
 	for (; len > 0; --len) {
-   8046a:	4680      	mov	r8, r0
-   8046c:	e7f7      	b.n	8045e <_read+0x22>
-   8046e:	bf00      	nop
-   80470:	2007c504 	.word	0x2007c504
-   80474:	2007c4fc 	.word	0x2007c4fc
+   80472:	4680      	mov	r8, r0
+   80474:	e7f7      	b.n	80466 <_read+0x22>
+   80476:	bf00      	nop
+   80478:	2007c504 	.word	0x2007c504
+   8047c:	2007c4fc 	.word	0x2007c4fc
 
-00080478 <_write>:
+00080480 <_write>:
 int __attribute__((weak))
 _write (int file, const char *ptr, int len)
 {
 	int nChars = 0;
 
 	if ((file != 1) && (file != 2) && (file!=3)) {
-   80478:	3801      	subs	r0, #1
-   8047a:	2802      	cmp	r0, #2
-   8047c:	d815      	bhi.n	804aa <_write+0x32>
+   80480:	3801      	subs	r0, #1
+   80482:	2802      	cmp	r0, #2
+   80484:	d815      	bhi.n	804b2 <_write+0x32>
 {
-   8047e:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   80482:	460e      	mov	r6, r1
-   80484:	4614      	mov	r4, r2
+   80486:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   8048a:	460e      	mov	r6, r1
+   8048c:	4614      	mov	r4, r2
 		return -1;
 	}
 
 	for (; len != 0; --len) {
-   80486:	b19a      	cbz	r2, 804b0 <_write+0x38>
-   80488:	460d      	mov	r5, r1
+   8048e:	b19a      	cbz	r2, 804b8 <_write+0x38>
+   80490:	460d      	mov	r5, r1
 		if (ptr_put(stdio_base, *ptr++) < 0) {
-   8048a:	f8df 8038 	ldr.w	r8, [pc, #56]	; 804c4 <_write+0x4c>
-   8048e:	4f0c      	ldr	r7, [pc, #48]	; (804c0 <_write+0x48>)
-   80490:	f8d8 0000 	ldr.w	r0, [r8]
-   80494:	f815 1b01 	ldrb.w	r1, [r5], #1
-   80498:	683b      	ldr	r3, [r7, #0]
-   8049a:	4798      	blx	r3
-   8049c:	2800      	cmp	r0, #0
-   8049e:	db0a      	blt.n	804b6 <_write+0x3e>
-   804a0:	1ba8      	subs	r0, r5, r6
+   80492:	f8df 8038 	ldr.w	r8, [pc, #56]	; 804cc <_write+0x4c>
+   80496:	4f0c      	ldr	r7, [pc, #48]	; (804c8 <_write+0x48>)
+   80498:	f8d8 0000 	ldr.w	r0, [r8]
+   8049c:	f815 1b01 	ldrb.w	r1, [r5], #1
+   804a0:	683b      	ldr	r3, [r7, #0]
+   804a2:	4798      	blx	r3
+   804a4:	2800      	cmp	r0, #0
+   804a6:	db0a      	blt.n	804be <_write+0x3e>
+   804a8:	1ba8      	subs	r0, r5, r6
 	for (; len != 0; --len) {
-   804a2:	3c01      	subs	r4, #1
-   804a4:	d1f4      	bne.n	80490 <_write+0x18>
-   804a6:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+   804aa:	3c01      	subs	r4, #1
+   804ac:	d1f4      	bne.n	80498 <_write+0x18>
+   804ae:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 		return -1;
-   804aa:	f04f 30ff 	mov.w	r0, #4294967295
-   804ae:	4770      	bx	lr
+   804b2:	f04f 30ff 	mov.w	r0, #4294967295
+   804b6:	4770      	bx	lr
 	for (; len != 0; --len) {
-   804b0:	4610      	mov	r0, r2
-   804b2:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+   804b8:	4610      	mov	r0, r2
+   804ba:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 			return -1;
-   804b6:	f04f 30ff 	mov.w	r0, #4294967295
+   804be:	f04f 30ff 	mov.w	r0, #4294967295
 		}
 		++nChars;
 	}
 	return nChars;
 }
-   804ba:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-   804be:	bf00      	nop
-   804c0:	2007c500 	.word	0x2007c500
-   804c4:	2007c504 	.word	0x2007c504
+   804c2:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+   804c6:	bf00      	nop
+   804c8:	2007c500 	.word	0x2007c500
+   804cc:	2007c504 	.word	0x2007c504
 
-000804c8 <usart_write>:
+000804d0 <usart_write>:
  * \retval 0 on success.
  * \retval 1 on failure.
  */
 uint32_t usart_write(Usart *p_usart, uint32_t c)
 {
 	if (!(p_usart->US_CSR & US_CSR_TXRDY)) {
-   804c8:	6943      	ldr	r3, [r0, #20]
-   804ca:	f013 0f02 	tst.w	r3, #2
+   804d0:	6943      	ldr	r3, [r0, #20]
+   804d2:	f013 0f02 	tst.w	r3, #2
 		return 1;
 	}
 
 	p_usart->US_THR = US_THR_TXCHR(c);
-   804ce:	bf1d      	ittte	ne
-   804d0:	f3c1 0108 	ubfxne	r1, r1, #0, #9
-   804d4:	61c1      	strne	r1, [r0, #28]
+   804d6:	bf1d      	ittte	ne
+   804d8:	f3c1 0108 	ubfxne	r1, r1, #0, #9
+   804dc:	61c1      	strne	r1, [r0, #28]
 	return 0;
-   804d6:	2000      	movne	r0, #0
+   804de:	2000      	movne	r0, #0
 		return 1;
-   804d8:	2001      	moveq	r0, #1
+   804e0:	2001      	moveq	r0, #1
 }
-   804da:	4770      	bx	lr
+   804e2:	4770      	bx	lr
 
-000804dc <usart_read>:
+000804e4 <usart_read>:
  * \retval 0 on success.
  * \retval 1 if no data is available or errors.
  */
 uint32_t usart_read(Usart *p_usart, uint32_t *c)
 {
 	if (!(p_usart->US_CSR & US_CSR_RXRDY)) {
-   804dc:	6943      	ldr	r3, [r0, #20]
-   804de:	f013 0f01 	tst.w	r3, #1
-   804e2:	d005      	beq.n	804f0 <usart_read+0x14>
+   804e4:	6943      	ldr	r3, [r0, #20]
+   804e6:	f013 0f01 	tst.w	r3, #1
+   804ea:	d005      	beq.n	804f8 <usart_read+0x14>
 		return 1;
 	}
 
 	/* Read character */
 	*c = p_usart->US_RHR & US_RHR_RXCHR_Msk;
-   804e4:	6983      	ldr	r3, [r0, #24]
-   804e6:	f3c3 0308 	ubfx	r3, r3, #0, #9
-   804ea:	600b      	str	r3, [r1, #0]
+   804ec:	6983      	ldr	r3, [r0, #24]
+   804ee:	f3c3 0308 	ubfx	r3, r3, #0, #9
+   804f2:	600b      	str	r3, [r1, #0]
 
 	return 0;
-   804ec:	2000      	movs	r0, #0
-   804ee:	4770      	bx	lr
+   804f4:	2000      	movs	r0, #0
+   804f6:	4770      	bx	lr
 		return 1;
-   804f0:	2001      	movs	r0, #1
+   804f8:	2001      	movs	r0, #1
 }
-   804f2:	4770      	bx	lr
+   804fa:	4770      	bx	lr
 
-000804f4 <blink>:
+000804fc <blink>:
 
 /* Prototypes */
 void blink(void);
 int delay;		/* The blinking delay in ms */
 
 void blink() {
-   804f4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+   804fc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
-   804f6:	4b19      	ldr	r3, [pc, #100]	; (8055c <blink+0x68>)
-   804f8:	4798      	blx	r3
+   804fe:	4b19      	ldr	r3, [pc, #100]	; (80564 <blink+0x68>)
+   80500:	4798      	blx	r3
 	
 	for( ;; ) {
 		//xSemaphoreTake(xSemaphore , 10);
 		if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
-   804fa:	4c19      	ldr	r4, [pc, #100]	; (80560 <blink+0x6c>)
-   804fc:	4d19      	ldr	r5, [pc, #100]	; (80564 <blink+0x70>)
+   80502:	4c19      	ldr	r4, [pc, #100]	; (80568 <blink+0x6c>)
+   80504:	4d19      	ldr	r5, [pc, #100]	; (8056c <blink+0x70>)
 		{
 			switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
-   804fe:	4f1a      	ldr	r7, [pc, #104]	; (80568 <blink+0x74>)
-   80500:	e016      	b.n	80530 <blink+0x3c>
+   80506:	4f1a      	ldr	r7, [pc, #104]	; (80570 <blink+0x74>)
+   80508:	e016      	b.n	80538 <blink+0x3c>
 				case '0':
 					delay = 500;
-   80502:	f44f 72fa 	mov.w	r2, #500	; 0x1f4
-   80506:	4b19      	ldr	r3, [pc, #100]	; (8056c <blink+0x78>)
-   80508:	601a      	str	r2, [r3, #0]
+   8050a:	f44f 72fa 	mov.w	r2, #500	; 0x1f4
+   8050e:	4b19      	ldr	r3, [pc, #100]	; (80574 <blink+0x78>)
+   80510:	601a      	str	r2, [r3, #0]
 					delay = 50;
 					break;
 			}
 		
 			/* See if pin 27 in Output Data Status Register (ODSR) is set */
 			if((PIOB->PIO_ODSR & (1 << 27)) > 0)
-   8050a:	4b19      	ldr	r3, [pc, #100]	; (80570 <blink+0x7c>)
-   8050c:	6b9b      	ldr	r3, [r3, #56]	; 0x38
-   8050e:	f013 6f00 	tst.w	r3, #134217728	; 0x8000000
+   80512:	4b19      	ldr	r3, [pc, #100]	; (80578 <blink+0x7c>)
+   80514:	6b9b      	ldr	r3, [r3, #56]	; 0x38
+   80516:	f013 6f00 	tst.w	r3, #134217728	; 0x8000000
 			{
 				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
 				PIOB->PIO_CODR = 1 << 27;
-   80512:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
-   80516:	4b16      	ldr	r3, [pc, #88]	; (80570 <blink+0x7c>)
-   80518:	bf14      	ite	ne
-   8051a:	635a      	strne	r2, [r3, #52]	; 0x34
+   8051a:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
+   8051e:	4b16      	ldr	r3, [pc, #88]	; (80578 <blink+0x7c>)
+   80520:	bf14      	ite	ne
+   80522:	635a      	strne	r2, [r3, #52]	; 0x34
 				} else {
 				/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
 				PIOB->PIO_SODR = 1 << 27;
-   8051c:	631a      	streq	r2, [r3, #48]	; 0x30
+   80524:	631a      	streq	r2, [r3, #48]	; 0x30
 			}
 		
 			/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
 			//vTaskDelayUntil(&xLastWakeTime, delay / portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
 			xSemaphoreGive(xSemaphore);
-   8051e:	2300      	movs	r3, #0
-   80520:	461a      	mov	r2, r3
-   80522:	4619      	mov	r1, r3
-   80524:	6820      	ldr	r0, [r4, #0]
-   80526:	4e13      	ldr	r6, [pc, #76]	; (80574 <blink+0x80>)
-   80528:	47b0      	blx	r6
+   80526:	2300      	movs	r3, #0
+   80528:	461a      	mov	r2, r3
+   8052a:	4619      	mov	r1, r3
+   8052c:	6820      	ldr	r0, [r4, #0]
+   8052e:	4e13      	ldr	r6, [pc, #76]	; (8057c <blink+0x80>)
+   80530:	47b0      	blx	r6
 			}
 		vTaskDelay(10);
-   8052a:	200a      	movs	r0, #10
-   8052c:	4b12      	ldr	r3, [pc, #72]	; (80578 <blink+0x84>)
-   8052e:	4798      	blx	r3
+   80532:	200a      	movs	r0, #10
+   80534:	4b12      	ldr	r3, [pc, #72]	; (80580 <blink+0x84>)
+   80536:	4798      	blx	r3
 		if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
-   80530:	f04f 31ff 	mov.w	r1, #4294967295
-   80534:	6820      	ldr	r0, [r4, #0]
-   80536:	47a8      	blx	r5
-   80538:	2801      	cmp	r0, #1
-   8053a:	d1f6      	bne.n	8052a <blink+0x36>
+   80538:	f04f 31ff 	mov.w	r1, #4294967295
+   8053c:	6820      	ldr	r0, [r4, #0]
+   8053e:	47a8      	blx	r5
+   80540:	2801      	cmp	r0, #1
+   80542:	d1f6      	bne.n	80532 <blink+0x36>
 			switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
-   8053c:	47b8      	blx	r7
-   8053e:	2831      	cmp	r0, #49	; 0x31
-   80540:	d004      	beq.n	8054c <blink+0x58>
-   80542:	2832      	cmp	r0, #50	; 0x32
-   80544:	d006      	beq.n	80554 <blink+0x60>
-   80546:	2830      	cmp	r0, #48	; 0x30
-   80548:	d1df      	bne.n	8050a <blink+0x16>
-   8054a:	e7da      	b.n	80502 <blink+0xe>
+   80544:	47b8      	blx	r7
+   80546:	2831      	cmp	r0, #49	; 0x31
+   80548:	d004      	beq.n	80554 <blink+0x58>
+   8054a:	2832      	cmp	r0, #50	; 0x32
+   8054c:	d006      	beq.n	8055c <blink+0x60>
+   8054e:	2830      	cmp	r0, #48	; 0x30
+   80550:	d1df      	bne.n	80512 <blink+0x16>
+   80552:	e7da      	b.n	8050a <blink+0xe>
 					delay = 100;
-   8054c:	2264      	movs	r2, #100	; 0x64
-   8054e:	4b07      	ldr	r3, [pc, #28]	; (8056c <blink+0x78>)
-   80550:	601a      	str	r2, [r3, #0]
-					break;
-   80552:	e7da      	b.n	8050a <blink+0x16>
-					delay = 50;
-   80554:	2232      	movs	r2, #50	; 0x32
-   80556:	4b05      	ldr	r3, [pc, #20]	; (8056c <blink+0x78>)
+   80554:	2264      	movs	r2, #100	; 0x64
+   80556:	4b07      	ldr	r3, [pc, #28]	; (80574 <blink+0x78>)
    80558:	601a      	str	r2, [r3, #0]
 					break;
-   8055a:	e7d6      	b.n	8050a <blink+0x16>
-   8055c:	000818ed 	.word	0x000818ed
-   80560:	2007c4f4 	.word	0x2007c4f4
-   80564:	0008129d 	.word	0x0008129d
-   80568:	00080709 	.word	0x00080709
-   8056c:	2007c508 	.word	0x2007c508
-   80570:	400e1000 	.word	0x400e1000
-   80574:	00080e51 	.word	0x00080e51
-   80578:	00081b41 	.word	0x00081b41
+   8055a:	e7da      	b.n	80512 <blink+0x16>
+					delay = 50;
+   8055c:	2232      	movs	r2, #50	; 0x32
+   8055e:	4b05      	ldr	r3, [pc, #20]	; (80574 <blink+0x78>)
+   80560:	601a      	str	r2, [r3, #0]
+					break;
+   80562:	e7d6      	b.n	80512 <blink+0x16>
+   80564:	000818ed 	.word	0x000818ed
+   80568:	2007c4f4 	.word	0x2007c4f4
+   8056c:	0008129d 	.word	0x0008129d
+   80570:	00080711 	.word	0x00080711
+   80574:	2007c508 	.word	0x2007c508
+   80578:	400e1000 	.word	0x400e1000
+   8057c:	00080e51 	.word	0x00080e51
+   80580:	00081b41 	.word	0x00081b41
 
-0008057c <init_blink>:
+00080584 <init_blink>:
 }
 
 
 
 void init_blink( )
 {
-   8057c:	b510      	push	{r4, lr}
-   8057e:	b082      	sub	sp, #8
+   80584:	b510      	push	{r4, lr}
+   80586:	b082      	sub	sp, #8
 	/* Initialize LED0 on Port B Pin 27*/
 	PIOB->PIO_PER = 1 << 27;		/* Pin Enable Register (PER) */
-   80580:	4b08      	ldr	r3, [pc, #32]	; (805a4 <init_blink+0x28>)
-   80582:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
-   80586:	601a      	str	r2, [r3, #0]
+   80588:	4b08      	ldr	r3, [pc, #32]	; (805ac <init_blink+0x28>)
+   8058a:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
+   8058e:	601a      	str	r2, [r3, #0]
 	PIOB->PIO_OER = 1 << 27;		/* Output Enable Register (OER) */
-   80588:	611a      	str	r2, [r3, #16]
+   80590:	611a      	str	r2, [r3, #16]
 	PIOB->PIO_OWER = 1 << 27;		/* Output Write Enable Register (OWER) */
-   8058a:	f8c3 20a0 	str.w	r2, [r3, #160]	; 0xa0
+   80592:	f8c3 20a0 	str.w	r2, [r3, #160]	; 0xa0
 	
 		/* Create task */
 		xTaskCreate(
-   8058e:	2300      	movs	r3, #0
-   80590:	9301      	str	r3, [sp, #4]
-   80592:	2201      	movs	r2, #1
-   80594:	9200      	str	r2, [sp, #0]
-   80596:	22fa      	movs	r2, #250	; 0xfa
-   80598:	4903      	ldr	r1, [pc, #12]	; (805a8 <init_blink+0x2c>)
-   8059a:	4804      	ldr	r0, [pc, #16]	; (805ac <init_blink+0x30>)
-   8059c:	4c04      	ldr	r4, [pc, #16]	; (805b0 <init_blink+0x34>)
-   8059e:	47a0      	blx	r4
+   80596:	2300      	movs	r3, #0
+   80598:	9301      	str	r3, [sp, #4]
+   8059a:	2201      	movs	r2, #1
+   8059c:	9200      	str	r2, [sp, #0]
+   8059e:	22fa      	movs	r2, #250	; 0xfa
+   805a0:	4903      	ldr	r1, [pc, #12]	; (805b0 <init_blink+0x2c>)
+   805a2:	4804      	ldr	r0, [pc, #16]	; (805b4 <init_blink+0x30>)
+   805a4:	4c04      	ldr	r4, [pc, #16]	; (805b8 <init_blink+0x34>)
+   805a6:	47a0      	blx	r4
 		250,				/* Stack size in words, not bytes. */
 		NULL,				/* Parameter passed into the task. */
 		1,					/* Priority at which the task is created. */
 		NULL 				/* Used to pass out the created task's handle. */
 		);
 }
-   805a0:	b002      	add	sp, #8
-   805a2:	bd10      	pop	{r4, pc}
-   805a4:	400e1000 	.word	0x400e1000
-   805a8:	00085a08 	.word	0x00085a08
-   805ac:	000804f5 	.word	0x000804f5
-   805b0:	0008165d 	.word	0x0008165d
+   805a8:	b002      	add	sp, #8
+   805aa:	bd10      	pop	{r4, pc}
+   805ac:	400e1000 	.word	0x400e1000
+   805b0:	00085a08 	.word	0x00085a08
+   805b4:	000804fd 	.word	0x000804fd
+   805b8:	0008165d 	.word	0x0008165d
 
-000805b4 <usart_serial_getchar>:
+000805bc <usart_serial_getchar>:
 {
-   805b4:	b5f0      	push	{r4, r5, r6, r7, lr}
-   805b6:	b083      	sub	sp, #12
-   805b8:	4604      	mov	r4, r0
-   805ba:	460d      	mov	r5, r1
+   805bc:	b5f0      	push	{r4, r5, r6, r7, lr}
+   805be:	b083      	sub	sp, #12
+   805c0:	4604      	mov	r4, r0
+   805c2:	460d      	mov	r5, r1
 	uint32_t val = 0;
-   805bc:	2300      	movs	r3, #0
-   805be:	9301      	str	r3, [sp, #4]
+   805c4:	2300      	movs	r3, #0
+   805c6:	9301      	str	r3, [sp, #4]
 	if (UART == (Uart*)p_usart) {
-   805c0:	4b20      	ldr	r3, [pc, #128]	; (80644 <usart_serial_getchar+0x90>)
-   805c2:	4298      	cmp	r0, r3
-   805c4:	d00d      	beq.n	805e2 <usart_serial_getchar+0x2e>
+   805c8:	4b20      	ldr	r3, [pc, #128]	; (8064c <usart_serial_getchar+0x90>)
+   805ca:	4298      	cmp	r0, r3
+   805cc:	d00d      	beq.n	805ea <usart_serial_getchar+0x2e>
 	if (USART0 == p_usart) {
-   805c6:	4b20      	ldr	r3, [pc, #128]	; (80648 <usart_serial_getchar+0x94>)
-   805c8:	4298      	cmp	r0, r3
-   805ca:	d012      	beq.n	805f2 <usart_serial_getchar+0x3e>
+   805ce:	4b20      	ldr	r3, [pc, #128]	; (80650 <usart_serial_getchar+0x94>)
+   805d0:	4298      	cmp	r0, r3
+   805d2:	d012      	beq.n	805fa <usart_serial_getchar+0x3e>
 	if (USART1 == p_usart) {
-   805cc:	4b1f      	ldr	r3, [pc, #124]	; (8064c <usart_serial_getchar+0x98>)
-   805ce:	4298      	cmp	r0, r3
-   805d0:	d019      	beq.n	80606 <usart_serial_getchar+0x52>
+   805d4:	4b1f      	ldr	r3, [pc, #124]	; (80654 <usart_serial_getchar+0x98>)
+   805d6:	4298      	cmp	r0, r3
+   805d8:	d019      	beq.n	8060e <usart_serial_getchar+0x52>
 	if (USART2 == p_usart) {
-   805d2:	4b1f      	ldr	r3, [pc, #124]	; (80650 <usart_serial_getchar+0x9c>)
-   805d4:	429c      	cmp	r4, r3
-   805d6:	d020      	beq.n	8061a <usart_serial_getchar+0x66>
+   805da:	4b1f      	ldr	r3, [pc, #124]	; (80658 <usart_serial_getchar+0x9c>)
+   805dc:	429c      	cmp	r4, r3
+   805de:	d020      	beq.n	80622 <usart_serial_getchar+0x66>
 	if (USART3 == p_usart) {
-   805d8:	4b1e      	ldr	r3, [pc, #120]	; (80654 <usart_serial_getchar+0xa0>)
-   805da:	429c      	cmp	r4, r3
-   805dc:	d027      	beq.n	8062e <usart_serial_getchar+0x7a>
+   805e0:	4b1e      	ldr	r3, [pc, #120]	; (8065c <usart_serial_getchar+0xa0>)
+   805e2:	429c      	cmp	r4, r3
+   805e4:	d027      	beq.n	80636 <usart_serial_getchar+0x7a>
 }
-   805de:	b003      	add	sp, #12
-   805e0:	bdf0      	pop	{r4, r5, r6, r7, pc}
+   805e6:	b003      	add	sp, #12
+   805e8:	bdf0      	pop	{r4, r5, r6, r7, pc}
 		while (uart_read((Uart*)p_usart, data));
-   805e2:	461f      	mov	r7, r3
-   805e4:	4e1c      	ldr	r6, [pc, #112]	; (80658 <usart_serial_getchar+0xa4>)
-   805e6:	4629      	mov	r1, r5
-   805e8:	4638      	mov	r0, r7
-   805ea:	47b0      	blx	r6
-   805ec:	2800      	cmp	r0, #0
-   805ee:	d1fa      	bne.n	805e6 <usart_serial_getchar+0x32>
-   805f0:	e7ef      	b.n	805d2 <usart_serial_getchar+0x1e>
+   805ea:	461f      	mov	r7, r3
+   805ec:	4e1c      	ldr	r6, [pc, #112]	; (80660 <usart_serial_getchar+0xa4>)
+   805ee:	4629      	mov	r1, r5
+   805f0:	4638      	mov	r0, r7
+   805f2:	47b0      	blx	r6
+   805f4:	2800      	cmp	r0, #0
+   805f6:	d1fa      	bne.n	805ee <usart_serial_getchar+0x32>
+   805f8:	e7ef      	b.n	805da <usart_serial_getchar+0x1e>
 		while (usart_read(p_usart, &val));
-   805f2:	461f      	mov	r7, r3
-   805f4:	4e19      	ldr	r6, [pc, #100]	; (8065c <usart_serial_getchar+0xa8>)
-   805f6:	a901      	add	r1, sp, #4
-   805f8:	4638      	mov	r0, r7
-   805fa:	47b0      	blx	r6
-   805fc:	2800      	cmp	r0, #0
-   805fe:	d1fa      	bne.n	805f6 <usart_serial_getchar+0x42>
+   805fa:	461f      	mov	r7, r3
+   805fc:	4e19      	ldr	r6, [pc, #100]	; (80664 <usart_serial_getchar+0xa8>)
+   805fe:	a901      	add	r1, sp, #4
+   80600:	4638      	mov	r0, r7
+   80602:	47b0      	blx	r6
+   80604:	2800      	cmp	r0, #0
+   80606:	d1fa      	bne.n	805fe <usart_serial_getchar+0x42>
 		*data = (uint8_t)(val & 0xFF);
-   80600:	9b01      	ldr	r3, [sp, #4]
-   80602:	702b      	strb	r3, [r5, #0]
-   80604:	e7e8      	b.n	805d8 <usart_serial_getchar+0x24>
+   80608:	9b01      	ldr	r3, [sp, #4]
+   8060a:	702b      	strb	r3, [r5, #0]
+   8060c:	e7e8      	b.n	805e0 <usart_serial_getchar+0x24>
 		while (usart_read(p_usart, &val));
-   80606:	461e      	mov	r6, r3
-   80608:	4c14      	ldr	r4, [pc, #80]	; (8065c <usart_serial_getchar+0xa8>)
-   8060a:	a901      	add	r1, sp, #4
-   8060c:	4630      	mov	r0, r6
-   8060e:	47a0      	blx	r4
-   80610:	2800      	cmp	r0, #0
-   80612:	d1fa      	bne.n	8060a <usart_serial_getchar+0x56>
+   8060e:	461e      	mov	r6, r3
+   80610:	4c14      	ldr	r4, [pc, #80]	; (80664 <usart_serial_getchar+0xa8>)
+   80612:	a901      	add	r1, sp, #4
+   80614:	4630      	mov	r0, r6
+   80616:	47a0      	blx	r4
+   80618:	2800      	cmp	r0, #0
+   8061a:	d1fa      	bne.n	80612 <usart_serial_getchar+0x56>
 		*data = (uint8_t)(val & 0xFF);
-   80614:	9b01      	ldr	r3, [sp, #4]
-   80616:	702b      	strb	r3, [r5, #0]
-   80618:	e7e1      	b.n	805de <usart_serial_getchar+0x2a>
+   8061c:	9b01      	ldr	r3, [sp, #4]
+   8061e:	702b      	strb	r3, [r5, #0]
+   80620:	e7e1      	b.n	805e6 <usart_serial_getchar+0x2a>
 		while (usart_read(p_usart, &val));
-   8061a:	461e      	mov	r6, r3
-   8061c:	4c0f      	ldr	r4, [pc, #60]	; (8065c <usart_serial_getchar+0xa8>)
-   8061e:	a901      	add	r1, sp, #4
-   80620:	4630      	mov	r0, r6
-   80622:	47a0      	blx	r4
-   80624:	2800      	cmp	r0, #0
-   80626:	d1fa      	bne.n	8061e <usart_serial_getchar+0x6a>
+   80622:	461e      	mov	r6, r3
+   80624:	4c0f      	ldr	r4, [pc, #60]	; (80664 <usart_serial_getchar+0xa8>)
+   80626:	a901      	add	r1, sp, #4
+   80628:	4630      	mov	r0, r6
+   8062a:	47a0      	blx	r4
+   8062c:	2800      	cmp	r0, #0
+   8062e:	d1fa      	bne.n	80626 <usart_serial_getchar+0x6a>
 		*data = (uint8_t)(val & 0xFF);
-   80628:	9b01      	ldr	r3, [sp, #4]
-   8062a:	702b      	strb	r3, [r5, #0]
-   8062c:	e7d7      	b.n	805de <usart_serial_getchar+0x2a>
+   80630:	9b01      	ldr	r3, [sp, #4]
+   80632:	702b      	strb	r3, [r5, #0]
+   80634:	e7d7      	b.n	805e6 <usart_serial_getchar+0x2a>
 		while (usart_read(p_usart, &val));
-   8062e:	461e      	mov	r6, r3
-   80630:	4c0a      	ldr	r4, [pc, #40]	; (8065c <usart_serial_getchar+0xa8>)
-   80632:	a901      	add	r1, sp, #4
-   80634:	4630      	mov	r0, r6
-   80636:	47a0      	blx	r4
-   80638:	2800      	cmp	r0, #0
-   8063a:	d1fa      	bne.n	80632 <usart_serial_getchar+0x7e>
+   80636:	461e      	mov	r6, r3
+   80638:	4c0a      	ldr	r4, [pc, #40]	; (80664 <usart_serial_getchar+0xa8>)
+   8063a:	a901      	add	r1, sp, #4
+   8063c:	4630      	mov	r0, r6
+   8063e:	47a0      	blx	r4
+   80640:	2800      	cmp	r0, #0
+   80642:	d1fa      	bne.n	8063a <usart_serial_getchar+0x7e>
 		*data = (uint8_t)(val & 0xFF);
-   8063c:	9b01      	ldr	r3, [sp, #4]
-   8063e:	702b      	strb	r3, [r5, #0]
+   80644:	9b01      	ldr	r3, [sp, #4]
+   80646:	702b      	strb	r3, [r5, #0]
 }
-   80640:	e7cd      	b.n	805de <usart_serial_getchar+0x2a>
-   80642:	bf00      	nop
-   80644:	400e0800 	.word	0x400e0800
-   80648:	40098000 	.word	0x40098000
-   8064c:	4009c000 	.word	0x4009c000
-   80650:	400a0000 	.word	0x400a0000
-   80654:	400a4000 	.word	0x400a4000
-   80658:	000807f3 	.word	0x000807f3
-   8065c:	000804dd 	.word	0x000804dd
+   80648:	e7cd      	b.n	805e6 <usart_serial_getchar+0x2a>
+   8064a:	bf00      	nop
+   8064c:	400e0800 	.word	0x400e0800
+   80650:	40098000 	.word	0x40098000
+   80654:	4009c000 	.word	0x4009c000
+   80658:	400a0000 	.word	0x400a0000
+   8065c:	400a4000 	.word	0x400a4000
+   80660:	000807fb 	.word	0x000807fb
+   80664:	000804e5 	.word	0x000804e5
 
-00080660 <usart_serial_putchar>:
+00080668 <usart_serial_putchar>:
 {
-   80660:	b570      	push	{r4, r5, r6, lr}
-   80662:	460c      	mov	r4, r1
+   80668:	b570      	push	{r4, r5, r6, lr}
+   8066a:	460c      	mov	r4, r1
 	if (UART == (Uart*)p_usart) {
-   80664:	4b1e      	ldr	r3, [pc, #120]	; (806e0 <usart_serial_putchar+0x80>)
-   80666:	4298      	cmp	r0, r3
-   80668:	d00d      	beq.n	80686 <usart_serial_putchar+0x26>
+   8066c:	4b1e      	ldr	r3, [pc, #120]	; (806e8 <usart_serial_putchar+0x80>)
+   8066e:	4298      	cmp	r0, r3
+   80670:	d00d      	beq.n	8068e <usart_serial_putchar+0x26>
 	if (USART0 == p_usart) {
-   8066a:	4b1e      	ldr	r3, [pc, #120]	; (806e4 <usart_serial_putchar+0x84>)
-   8066c:	4298      	cmp	r0, r3
-   8066e:	d013      	beq.n	80698 <usart_serial_putchar+0x38>
+   80672:	4b1e      	ldr	r3, [pc, #120]	; (806ec <usart_serial_putchar+0x84>)
+   80674:	4298      	cmp	r0, r3
+   80676:	d013      	beq.n	806a0 <usart_serial_putchar+0x38>
 	if (USART1 == p_usart) {
-   80670:	4b1d      	ldr	r3, [pc, #116]	; (806e8 <usart_serial_putchar+0x88>)
-   80672:	4298      	cmp	r0, r3
-   80674:	d019      	beq.n	806aa <usart_serial_putchar+0x4a>
+   80678:	4b1d      	ldr	r3, [pc, #116]	; (806f0 <usart_serial_putchar+0x88>)
+   8067a:	4298      	cmp	r0, r3
+   8067c:	d019      	beq.n	806b2 <usart_serial_putchar+0x4a>
 	if (USART2 == p_usart) {
-   80676:	4b1d      	ldr	r3, [pc, #116]	; (806ec <usart_serial_putchar+0x8c>)
-   80678:	4298      	cmp	r0, r3
-   8067a:	d01f      	beq.n	806bc <usart_serial_putchar+0x5c>
+   8067e:	4b1d      	ldr	r3, [pc, #116]	; (806f4 <usart_serial_putchar+0x8c>)
+   80680:	4298      	cmp	r0, r3
+   80682:	d01f      	beq.n	806c4 <usart_serial_putchar+0x5c>
 	if (USART3 == p_usart) {
-   8067c:	4b1c      	ldr	r3, [pc, #112]	; (806f0 <usart_serial_putchar+0x90>)
-   8067e:	4298      	cmp	r0, r3
-   80680:	d025      	beq.n	806ce <usart_serial_putchar+0x6e>
+   80684:	4b1c      	ldr	r3, [pc, #112]	; (806f8 <usart_serial_putchar+0x90>)
+   80686:	4298      	cmp	r0, r3
+   80688:	d025      	beq.n	806d6 <usart_serial_putchar+0x6e>
 	return 0;
-   80682:	2000      	movs	r0, #0
+   8068a:	2000      	movs	r0, #0
 }
-   80684:	bd70      	pop	{r4, r5, r6, pc}
+   8068c:	bd70      	pop	{r4, r5, r6, pc}
 		while (uart_write((Uart*)p_usart, c)!=0);
-   80686:	461e      	mov	r6, r3
-   80688:	4d1a      	ldr	r5, [pc, #104]	; (806f4 <usart_serial_putchar+0x94>)
-   8068a:	4621      	mov	r1, r4
-   8068c:	4630      	mov	r0, r6
-   8068e:	47a8      	blx	r5
-   80690:	2800      	cmp	r0, #0
-   80692:	d1fa      	bne.n	8068a <usart_serial_putchar+0x2a>
+   8068e:	461e      	mov	r6, r3
+   80690:	4d1a      	ldr	r5, [pc, #104]	; (806fc <usart_serial_putchar+0x94>)
+   80692:	4621      	mov	r1, r4
+   80694:	4630      	mov	r0, r6
+   80696:	47a8      	blx	r5
+   80698:	2800      	cmp	r0, #0
+   8069a:	d1fa      	bne.n	80692 <usart_serial_putchar+0x2a>
 		return 1;
-   80694:	2001      	movs	r0, #1
-   80696:	bd70      	pop	{r4, r5, r6, pc}
+   8069c:	2001      	movs	r0, #1
+   8069e:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   80698:	461e      	mov	r6, r3
-   8069a:	4d17      	ldr	r5, [pc, #92]	; (806f8 <usart_serial_putchar+0x98>)
-   8069c:	4621      	mov	r1, r4
-   8069e:	4630      	mov	r0, r6
-   806a0:	47a8      	blx	r5
-   806a2:	2800      	cmp	r0, #0
-   806a4:	d1fa      	bne.n	8069c <usart_serial_putchar+0x3c>
+   806a0:	461e      	mov	r6, r3
+   806a2:	4d17      	ldr	r5, [pc, #92]	; (80700 <usart_serial_putchar+0x98>)
+   806a4:	4621      	mov	r1, r4
+   806a6:	4630      	mov	r0, r6
+   806a8:	47a8      	blx	r5
+   806aa:	2800      	cmp	r0, #0
+   806ac:	d1fa      	bne.n	806a4 <usart_serial_putchar+0x3c>
 		return 1;
-   806a6:	2001      	movs	r0, #1
-   806a8:	bd70      	pop	{r4, r5, r6, pc}
+   806ae:	2001      	movs	r0, #1
+   806b0:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   806aa:	461e      	mov	r6, r3
-   806ac:	4d12      	ldr	r5, [pc, #72]	; (806f8 <usart_serial_putchar+0x98>)
-   806ae:	4621      	mov	r1, r4
-   806b0:	4630      	mov	r0, r6
-   806b2:	47a8      	blx	r5
-   806b4:	2800      	cmp	r0, #0
-   806b6:	d1fa      	bne.n	806ae <usart_serial_putchar+0x4e>
+   806b2:	461e      	mov	r6, r3
+   806b4:	4d12      	ldr	r5, [pc, #72]	; (80700 <usart_serial_putchar+0x98>)
+   806b6:	4621      	mov	r1, r4
+   806b8:	4630      	mov	r0, r6
+   806ba:	47a8      	blx	r5
+   806bc:	2800      	cmp	r0, #0
+   806be:	d1fa      	bne.n	806b6 <usart_serial_putchar+0x4e>
 		return 1;
-   806b8:	2001      	movs	r0, #1
-   806ba:	bd70      	pop	{r4, r5, r6, pc}
+   806c0:	2001      	movs	r0, #1
+   806c2:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   806bc:	461e      	mov	r6, r3
-   806be:	4d0e      	ldr	r5, [pc, #56]	; (806f8 <usart_serial_putchar+0x98>)
-   806c0:	4621      	mov	r1, r4
-   806c2:	4630      	mov	r0, r6
-   806c4:	47a8      	blx	r5
-   806c6:	2800      	cmp	r0, #0
-   806c8:	d1fa      	bne.n	806c0 <usart_serial_putchar+0x60>
+   806c4:	461e      	mov	r6, r3
+   806c6:	4d0e      	ldr	r5, [pc, #56]	; (80700 <usart_serial_putchar+0x98>)
+   806c8:	4621      	mov	r1, r4
+   806ca:	4630      	mov	r0, r6
+   806cc:	47a8      	blx	r5
+   806ce:	2800      	cmp	r0, #0
+   806d0:	d1fa      	bne.n	806c8 <usart_serial_putchar+0x60>
 		return 1;
-   806ca:	2001      	movs	r0, #1
-   806cc:	bd70      	pop	{r4, r5, r6, pc}
+   806d2:	2001      	movs	r0, #1
+   806d4:	bd70      	pop	{r4, r5, r6, pc}
 		while (usart_write(p_usart, c)!=0);
-   806ce:	461e      	mov	r6, r3
-   806d0:	4d09      	ldr	r5, [pc, #36]	; (806f8 <usart_serial_putchar+0x98>)
-   806d2:	4621      	mov	r1, r4
-   806d4:	4630      	mov	r0, r6
-   806d6:	47a8      	blx	r5
-   806d8:	2800      	cmp	r0, #0
-   806da:	d1fa      	bne.n	806d2 <usart_serial_putchar+0x72>
+   806d6:	461e      	mov	r6, r3
+   806d8:	4d09      	ldr	r5, [pc, #36]	; (80700 <usart_serial_putchar+0x98>)
+   806da:	4621      	mov	r1, r4
+   806dc:	4630      	mov	r0, r6
+   806de:	47a8      	blx	r5
+   806e0:	2800      	cmp	r0, #0
+   806e2:	d1fa      	bne.n	806da <usart_serial_putchar+0x72>
 		return 1;
-   806dc:	2001      	movs	r0, #1
-   806de:	bd70      	pop	{r4, r5, r6, pc}
-   806e0:	400e0800 	.word	0x400e0800
-   806e4:	40098000 	.word	0x40098000
-   806e8:	4009c000 	.word	0x4009c000
-   806ec:	400a0000 	.word	0x400a0000
-   806f0:	400a4000 	.word	0x400a4000
-   806f4:	000807e3 	.word	0x000807e3
-   806f8:	000804c9 	.word	0x000804c9
+   806e4:	2001      	movs	r0, #1
+   806e6:	bd70      	pop	{r4, r5, r6, pc}
+   806e8:	400e0800 	.word	0x400e0800
+   806ec:	40098000 	.word	0x40098000
+   806f0:	4009c000 	.word	0x4009c000
+   806f4:	400a0000 	.word	0x400a0000
+   806f8:	400a4000 	.word	0x400a4000
+   806fc:	000807eb 	.word	0x000807eb
+   80700:	000804d1 	.word	0x000804d1
 
-000806fc <set_cmd>:
+00080704 <set_cmd>:
 
 
 unsigned char cmd;
 
 void set_cmd ( unsigned char c) {	/* This method sets the current command to a specified value */
 	cmd = c;
-   806fc:	4b01      	ldr	r3, [pc, #4]	; (80704 <set_cmd+0x8>)
-   806fe:	7018      	strb	r0, [r3, #0]
-   80700:	4770      	bx	lr
-   80702:	bf00      	nop
-   80704:	2007c50c 	.word	0x2007c50c
+   80704:	4b01      	ldr	r3, [pc, #4]	; (8070c <set_cmd+0x8>)
+   80706:	7018      	strb	r0, [r3, #0]
+   80708:	4770      	bx	lr
+   8070a:	bf00      	nop
+   8070c:	2007c50c 	.word	0x2007c50c
 
-00080708 <get_cmd>:
+00080710 <get_cmd>:
 }
 
 unsigned char get_cmd() {			/* other objects can call this method to read the current command */
 	return cmd;
 }
-   80708:	4b01      	ldr	r3, [pc, #4]	; (80710 <get_cmd+0x8>)
-   8070a:	7818      	ldrb	r0, [r3, #0]
-   8070c:	4770      	bx	lr
-   8070e:	bf00      	nop
-   80710:	2007c50c 	.word	0x2007c50c
+   80710:	4b01      	ldr	r3, [pc, #4]	; (80718 <get_cmd+0x8>)
+   80712:	7818      	ldrb	r0, [r3, #0]
+   80714:	4770      	bx	lr
+   80716:	bf00      	nop
+   80718:	2007c50c 	.word	0x2007c50c
 
-00080714 <init_cmd>:
+0008071c <init_cmd>:
 
 void init_cmd()
 {
-   80714:	b530      	push	{r4, r5, lr}
-   80716:	b085      	sub	sp, #20
+   8071c:	b530      	push	{r4, r5, lr}
+   8071e:	b085      	sub	sp, #20
 	cmd = '1';
-   80718:	2231      	movs	r2, #49	; 0x31
-   8071a:	4b15      	ldr	r3, [pc, #84]	; (80770 <init_cmd+0x5c>)
-   8071c:	701a      	strb	r2, [r3, #0]
+   80720:	2231      	movs	r2, #49	; 0x31
+   80722:	4b15      	ldr	r3, [pc, #84]	; (80778 <init_cmd+0x5c>)
+   80724:	701a      	strb	r2, [r3, #0]
 	xSemaphore = xSemaphoreCreateMutex();
-   8071e:	2001      	movs	r0, #1
-   80720:	4b14      	ldr	r3, [pc, #80]	; (80774 <init_cmd+0x60>)
-   80722:	4798      	blx	r3
-   80724:	4b14      	ldr	r3, [pc, #80]	; (80778 <init_cmd+0x64>)
-   80726:	6018      	str	r0, [r3, #0]
+   80726:	2001      	movs	r0, #1
+   80728:	4b14      	ldr	r3, [pc, #80]	; (8077c <init_cmd+0x60>)
+   8072a:	4798      	blx	r3
+   8072c:	4b14      	ldr	r3, [pc, #80]	; (80780 <init_cmd+0x64>)
+   8072e:	6018      	str	r0, [r3, #0]
 	stdio_base = (void *)usart;
-   80728:	4c14      	ldr	r4, [pc, #80]	; (8077c <init_cmd+0x68>)
-   8072a:	4b15      	ldr	r3, [pc, #84]	; (80780 <init_cmd+0x6c>)
-   8072c:	601c      	str	r4, [r3, #0]
+   80730:	4c14      	ldr	r4, [pc, #80]	; (80784 <init_cmd+0x68>)
+   80732:	4b15      	ldr	r3, [pc, #84]	; (80788 <init_cmd+0x6c>)
+   80734:	601c      	str	r4, [r3, #0]
 	ptr_put = (int (*)(void volatile*,char))&usart_serial_putchar;
-   8072e:	4a15      	ldr	r2, [pc, #84]	; (80784 <init_cmd+0x70>)
-   80730:	4b15      	ldr	r3, [pc, #84]	; (80788 <init_cmd+0x74>)
-   80732:	601a      	str	r2, [r3, #0]
+   80736:	4a15      	ldr	r2, [pc, #84]	; (8078c <init_cmd+0x70>)
+   80738:	4b15      	ldr	r3, [pc, #84]	; (80790 <init_cmd+0x74>)
+   8073a:	601a      	str	r2, [r3, #0]
 	ptr_get = (void (*)(void volatile*,char*))&usart_serial_getchar;
-   80734:	4a15      	ldr	r2, [pc, #84]	; (8078c <init_cmd+0x78>)
-   80736:	4b16      	ldr	r3, [pc, #88]	; (80790 <init_cmd+0x7c>)
-   80738:	601a      	str	r2, [r3, #0]
+   8073c:	4a15      	ldr	r2, [pc, #84]	; (80794 <init_cmd+0x78>)
+   8073e:	4b16      	ldr	r3, [pc, #88]	; (80798 <init_cmd+0x7c>)
+   80740:	601a      	str	r2, [r3, #0]
 	uart_settings.ul_mck = sysclk_get_peripheral_hz();
-   8073a:	4b16      	ldr	r3, [pc, #88]	; (80794 <init_cmd+0x80>)
-   8073c:	9301      	str	r3, [sp, #4]
+   80742:	4b16      	ldr	r3, [pc, #88]	; (8079c <init_cmd+0x80>)
+   80744:	9301      	str	r3, [sp, #4]
 	uart_settings.ul_baudrate = opt->baudrate;
-   8073e:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
-   80742:	9302      	str	r3, [sp, #8]
+   80746:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
+   8074a:	9302      	str	r3, [sp, #8]
 	uart_settings.ul_mode = opt->paritytype;
-   80744:	f44f 6300 	mov.w	r3, #2048	; 0x800
-   80748:	9303      	str	r3, [sp, #12]
-   8074a:	2008      	movs	r0, #8
-   8074c:	4b12      	ldr	r3, [pc, #72]	; (80798 <init_cmd+0x84>)
-   8074e:	4798      	blx	r3
-		uart_init((Uart*)p_usart, &uart_settings);
-   80750:	a901      	add	r1, sp, #4
-   80752:	4620      	mov	r0, r4
-   80754:	4b11      	ldr	r3, [pc, #68]	; (8079c <init_cmd+0x88>)
+   8074c:	f44f 6300 	mov.w	r3, #2048	; 0x800
+   80750:	9303      	str	r3, [sp, #12]
+   80752:	2008      	movs	r0, #8
+   80754:	4b12      	ldr	r3, [pc, #72]	; (807a0 <init_cmd+0x84>)
    80756:	4798      	blx	r3
+		uart_init((Uart*)p_usart, &uart_settings);
+   80758:	a901      	add	r1, sp, #4
+   8075a:	4620      	mov	r0, r4
+   8075c:	4b11      	ldr	r3, [pc, #68]	; (807a4 <init_cmd+0x88>)
+   8075e:	4798      	blx	r3
 	setbuf(stdout, NULL);
-   80758:	4d11      	ldr	r5, [pc, #68]	; (807a0 <init_cmd+0x8c>)
-   8075a:	682b      	ldr	r3, [r5, #0]
-   8075c:	2100      	movs	r1, #0
-   8075e:	6898      	ldr	r0, [r3, #8]
-   80760:	4c10      	ldr	r4, [pc, #64]	; (807a4 <init_cmd+0x90>)
-   80762:	47a0      	blx	r4
-	setbuf(stdin, NULL);
-   80764:	682b      	ldr	r3, [r5, #0]
-   80766:	2100      	movs	r1, #0
-   80768:	6858      	ldr	r0, [r3, #4]
+   80760:	4d11      	ldr	r5, [pc, #68]	; (807a8 <init_cmd+0x8c>)
+   80762:	682b      	ldr	r3, [r5, #0]
+   80764:	2100      	movs	r1, #0
+   80766:	6898      	ldr	r0, [r3, #8]
+   80768:	4c10      	ldr	r4, [pc, #64]	; (807ac <init_cmd+0x90>)
    8076a:	47a0      	blx	r4
+	setbuf(stdin, NULL);
+   8076c:	682b      	ldr	r3, [r5, #0]
+   8076e:	2100      	movs	r1, #0
+   80770:	6858      	ldr	r0, [r3, #4]
+   80772:	47a0      	blx	r4
 	};
 	
 	stdio_serial_init(CONF_UART, &usart_serial_options);
 	
 
 }
-   8076c:	b005      	add	sp, #20
-   8076e:	bd30      	pop	{r4, r5, pc}
-   80770:	2007c50c 	.word	0x2007c50c
-   80774:	00081005 	.word	0x00081005
-   80778:	2007c4f4 	.word	0x2007c4f4
-   8077c:	400e0800 	.word	0x400e0800
-   80780:	2007c504 	.word	0x2007c504
-   80784:	00080661 	.word	0x00080661
-   80788:	2007c500 	.word	0x2007c500
-   8078c:	000805b5 	.word	0x000805b5
-   80790:	2007c4fc 	.word	0x2007c4fc
-   80794:	0501bd00 	.word	0x0501bd00
-   80798:	0008290d 	.word	0x0008290d
-   8079c:	000807a9 	.word	0x000807a9
-   807a0:	20070134 	.word	0x20070134
-   807a4:	00082d69 	.word	0x00082d69
+   80774:	b005      	add	sp, #20
+   80776:	bd30      	pop	{r4, r5, pc}
+   80778:	2007c50c 	.word	0x2007c50c
+   8077c:	00081005 	.word	0x00081005
+   80780:	2007c4f4 	.word	0x2007c4f4
+   80784:	400e0800 	.word	0x400e0800
+   80788:	2007c504 	.word	0x2007c504
+   8078c:	00080669 	.word	0x00080669
+   80790:	2007c500 	.word	0x2007c500
+   80794:	000805bd 	.word	0x000805bd
+   80798:	2007c4fc 	.word	0x2007c4fc
+   8079c:	0501bd00 	.word	0x0501bd00
+   807a0:	0008290d 	.word	0x0008290d
+   807a4:	000807b1 	.word	0x000807b1
+   807a8:	20070134 	.word	0x20070134
+   807ac:	00082d69 	.word	0x00082d69
 
-000807a8 <uart_init>:
+000807b0 <uart_init>:
  *
  * \retval 0 Success.
  * \retval 1 Bad baud rate generator value.
  */
 uint32_t uart_init(Uart *p_uart, const sam_uart_opt_t *p_uart_opt)
 {
-   807a8:	b410      	push	{r4}
+   807b0:	b410      	push	{r4}
 	uint32_t cd = 0;
 
 	/* Reset and disable receiver & transmitter */
 	p_uart->UART_CR = UART_CR_RSTRX | UART_CR_RSTTX
-   807aa:	23ac      	movs	r3, #172	; 0xac
-   807ac:	6003      	str	r3, [r0, #0]
+   807b2:	23ac      	movs	r3, #172	; 0xac
+   807b4:	6003      	str	r3, [r0, #0]
 			| UART_CR_RXDIS | UART_CR_TXDIS;
 
 	/* Check and configure baudrate */
 	/* Asynchronous, no oversampling */
 	cd = (p_uart_opt->ul_mck / p_uart_opt->ul_baudrate) / UART_MCK_DIV;
-   807ae:	680b      	ldr	r3, [r1, #0]
-   807b0:	684a      	ldr	r2, [r1, #4]
-   807b2:	fbb3 f3f2 	udiv	r3, r3, r2
-   807b6:	091b      	lsrs	r3, r3, #4
+   807b6:	680b      	ldr	r3, [r1, #0]
+   807b8:	684a      	ldr	r2, [r1, #4]
+   807ba:	fbb3 f3f2 	udiv	r3, r3, r2
+   807be:	091b      	lsrs	r3, r3, #4
 	if (cd < UART_MCK_DIV_MIN_FACTOR || cd > UART_MCK_DIV_MAX_FACTOR)
-   807b8:	1e5c      	subs	r4, r3, #1
-   807ba:	f64f 72fe 	movw	r2, #65534	; 0xfffe
-   807be:	4294      	cmp	r4, r2
-   807c0:	d80b      	bhi.n	807da <uart_init+0x32>
+   807c0:	1e5c      	subs	r4, r3, #1
+   807c2:	f64f 72fe 	movw	r2, #65534	; 0xfffe
+   807c6:	4294      	cmp	r4, r2
+   807c8:	d80b      	bhi.n	807e2 <uart_init+0x32>
 		return 1;
 
 	p_uart->UART_BRGR = cd;
-   807c2:	6203      	str	r3, [r0, #32]
+   807ca:	6203      	str	r3, [r0, #32]
 	/* Configure mode */
 	p_uart->UART_MR = p_uart_opt->ul_mode;
-   807c4:	688b      	ldr	r3, [r1, #8]
-   807c6:	6043      	str	r3, [r0, #4]
+   807cc:	688b      	ldr	r3, [r1, #8]
+   807ce:	6043      	str	r3, [r0, #4]
 
 #if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 	/* Disable PDC channel */
 	p_uart->UART_PTCR = UART_PTCR_RXTDIS | UART_PTCR_TXTDIS;
-   807c8:	f240 2302 	movw	r3, #514	; 0x202
-   807cc:	f8c0 3120 	str.w	r3, [r0, #288]	; 0x120
+   807d0:	f240 2302 	movw	r3, #514	; 0x202
+   807d4:	f8c0 3120 	str.w	r3, [r0, #288]	; 0x120
 #endif
 
 	/* Enable receiver and transmitter */
 	p_uart->UART_CR = UART_CR_RXEN | UART_CR_TXEN;
-   807d0:	2350      	movs	r3, #80	; 0x50
-   807d2:	6003      	str	r3, [r0, #0]
+   807d8:	2350      	movs	r3, #80	; 0x50
+   807da:	6003      	str	r3, [r0, #0]
 
 	return 0;
-   807d4:	2000      	movs	r0, #0
+   807dc:	2000      	movs	r0, #0
 }
-   807d6:	bc10      	pop	{r4}
-   807d8:	4770      	bx	lr
+   807de:	bc10      	pop	{r4}
+   807e0:	4770      	bx	lr
 		return 1;
-   807da:	2001      	movs	r0, #1
-   807dc:	e7fb      	b.n	807d6 <uart_init+0x2e>
+   807e2:	2001      	movs	r0, #1
+   807e4:	e7fb      	b.n	807de <uart_init+0x2e>
 
-000807de <uart_enable_interrupt>:
+000807e6 <uart_enable_interrupt>:
  * \param p_uart Pointer to a UART instance.
  *  \param ul_sources Interrupts to be enabled.
  */
 void uart_enable_interrupt(Uart *p_uart, uint32_t ul_sources)
 {
 	p_uart->UART_IER = ul_sources;
-   807de:	6081      	str	r1, [r0, #8]
-   807e0:	4770      	bx	lr
+   807e6:	6081      	str	r1, [r0, #8]
+   807e8:	4770      	bx	lr
 
-000807e2 <uart_write>:
+000807ea <uart_write>:
  * \retval 1 I/O Failure, UART is not ready.
  */
 uint32_t uart_write(Uart *p_uart, const uint8_t uc_data)
 {
 	/* Check if the transmitter is ready */
 	if (!(p_uart->UART_SR & UART_SR_TXRDY))
-   807e2:	6943      	ldr	r3, [r0, #20]
-   807e4:	f013 0f02 	tst.w	r3, #2
+   807ea:	6943      	ldr	r3, [r0, #20]
+   807ec:	f013 0f02 	tst.w	r3, #2
 		return 1;
 
 	/* Send character */
 	p_uart->UART_THR = uc_data;
-   807e8:	bf1a      	itte	ne
-   807ea:	61c1      	strne	r1, [r0, #28]
+   807f0:	bf1a      	itte	ne
+   807f2:	61c1      	strne	r1, [r0, #28]
 	return 0;
-   807ec:	2000      	movne	r0, #0
+   807f4:	2000      	movne	r0, #0
 		return 1;
-   807ee:	2001      	moveq	r0, #1
+   807f6:	2001      	moveq	r0, #1
 }
-   807f0:	4770      	bx	lr
+   807f8:	4770      	bx	lr
 
-000807f2 <uart_read>:
+000807fa <uart_read>:
  * \retval 1 I/O Failure, UART is not ready.
  */
 uint32_t uart_read(Uart *p_uart, uint8_t *puc_data)
 {
 	/* Check if the receiver is ready */
 	if ((p_uart->UART_SR & UART_SR_RXRDY) == 0)
-   807f2:	6943      	ldr	r3, [r0, #20]
-   807f4:	f013 0f01 	tst.w	r3, #1
+   807fa:	6943      	ldr	r3, [r0, #20]
+   807fc:	f013 0f01 	tst.w	r3, #1
 		return 1;
 
 	/* Read character */
 	*puc_data = (uint8_t) p_uart->UART_RHR;
-   807f8:	bf1d      	ittte	ne
-   807fa:	6983      	ldrne	r3, [r0, #24]
-   807fc:	700b      	strbne	r3, [r1, #0]
+   80800:	bf1d      	ittte	ne
+   80802:	6983      	ldrne	r3, [r0, #24]
+   80804:	700b      	strbne	r3, [r1, #0]
 	return 0;
-   807fe:	2000      	movne	r0, #0
+   80806:	2000      	movne	r0, #0
 		return 1;
-   80800:	2001      	moveq	r0, #1
+   80808:	2001      	moveq	r0, #1
 }
-   80802:	4770      	bx	lr
+   8080a:	4770      	bx	lr
 
-00080804 <vListInitialise>:
+0008080c <vListInitialise>:
 void vListInitialise( List_t * const pxList )
 {
 	/* The list structure contains a list item which is used to mark the
 	end of the list.  To initialise the list the list end is inserted
 	as the only list entry. */
 	pxList->pxIndex = ( ListItem_t * ) &( pxList->xListEnd );			/*lint !e826 !e740 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
-   80804:	f100 0308 	add.w	r3, r0, #8
-   80808:	6043      	str	r3, [r0, #4]
+   8080c:	f100 0308 	add.w	r3, r0, #8
+   80810:	6043      	str	r3, [r0, #4]
 
 	/* The list end value is the highest possible value in the list to
 	ensure it remains at the end of the list. */
 	pxList->xListEnd.xItemValue = portMAX_DELAY;
-   8080a:	f04f 32ff 	mov.w	r2, #4294967295
-   8080e:	6082      	str	r2, [r0, #8]
+   80812:	f04f 32ff 	mov.w	r2, #4294967295
+   80816:	6082      	str	r2, [r0, #8]
 
 	/* The list end next and previous pointers point to itself so we know
 	when the list is empty. */
 	pxList->xListEnd.pxNext = ( ListItem_t * ) &( pxList->xListEnd );	/*lint !e826 !e740 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
-   80810:	60c3      	str	r3, [r0, #12]
+   80818:	60c3      	str	r3, [r0, #12]
 	pxList->xListEnd.pxPrevious = ( ListItem_t * ) &( pxList->xListEnd );/*lint !e826 !e740 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
-   80812:	6103      	str	r3, [r0, #16]
+   8081a:	6103      	str	r3, [r0, #16]
 
 	pxList->uxNumberOfItems = ( UBaseType_t ) 0U;
-   80814:	2300      	movs	r3, #0
-   80816:	6003      	str	r3, [r0, #0]
-   80818:	4770      	bx	lr
+   8081c:	2300      	movs	r3, #0
+   8081e:	6003      	str	r3, [r0, #0]
+   80820:	4770      	bx	lr
 
-0008081a <vListInitialiseItem>:
+00080822 <vListInitialiseItem>:
 /*-----------------------------------------------------------*/
 
 void vListInitialiseItem( ListItem_t * const pxItem )
 {
 	/* Make sure the list item is not recorded as being on a list. */
 	pxItem->pvContainer = NULL;
-   8081a:	2300      	movs	r3, #0
-   8081c:	6103      	str	r3, [r0, #16]
-   8081e:	4770      	bx	lr
+   80822:	2300      	movs	r3, #0
+   80824:	6103      	str	r3, [r0, #16]
+   80826:	4770      	bx	lr
 
-00080820 <vListInsertEnd>:
+00080828 <vListInsertEnd>:
 }
 /*-----------------------------------------------------------*/
 
 void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem )
 {
 ListItem_t * const pxIndex = pxList->pxIndex;
-   80820:	6843      	ldr	r3, [r0, #4]
+   80828:	6843      	ldr	r3, [r0, #4]
 	listTEST_LIST_ITEM_INTEGRITY( pxNewListItem );
 
 	/* Insert a new list item into pxList, but rather than sort the list,
 	makes the new list item the last item to be removed by a call to
 	listGET_OWNER_OF_NEXT_ENTRY(). */
 	pxNewListItem->pxNext = pxIndex;
-   80822:	604b      	str	r3, [r1, #4]
+   8082a:	604b      	str	r3, [r1, #4]
 	pxNewListItem->pxPrevious = pxIndex->pxPrevious;
-   80824:	689a      	ldr	r2, [r3, #8]
-   80826:	608a      	str	r2, [r1, #8]
+   8082c:	689a      	ldr	r2, [r3, #8]
+   8082e:	608a      	str	r2, [r1, #8]
 
 	/* Only used during decision coverage testing. */
 	mtCOVERAGE_TEST_DELAY();
 
 	pxIndex->pxPrevious->pxNext = pxNewListItem;
-   80828:	689a      	ldr	r2, [r3, #8]
-   8082a:	6051      	str	r1, [r2, #4]
+   80830:	689a      	ldr	r2, [r3, #8]
+   80832:	6051      	str	r1, [r2, #4]
 	pxIndex->pxPrevious = pxNewListItem;
-   8082c:	6099      	str	r1, [r3, #8]
+   80834:	6099      	str	r1, [r3, #8]
 
 	/* Remember which list the item is in. */
 	pxNewListItem->pvContainer = ( void * ) pxList;
-   8082e:	6108      	str	r0, [r1, #16]
+   80836:	6108      	str	r0, [r1, #16]
 
 	( pxList->uxNumberOfItems )++;
-   80830:	6803      	ldr	r3, [r0, #0]
-   80832:	3301      	adds	r3, #1
-   80834:	6003      	str	r3, [r0, #0]
-   80836:	4770      	bx	lr
+   80838:	6803      	ldr	r3, [r0, #0]
+   8083a:	3301      	adds	r3, #1
+   8083c:	6003      	str	r3, [r0, #0]
+   8083e:	4770      	bx	lr
 
-00080838 <vListInsert>:
+00080840 <vListInsert>:
 }
 /*-----------------------------------------------------------*/
 
 void vListInsert( List_t * const pxList, ListItem_t * const pxNewListItem )
 {
-   80838:	b430      	push	{r4, r5}
+   80840:	b430      	push	{r4, r5}
 ListItem_t *pxIterator;
 const TickType_t xValueOfInsertion = pxNewListItem->xItemValue;
-   8083a:	680d      	ldr	r5, [r1, #0]
+   80842:	680d      	ldr	r5, [r1, #0]
 	new list item should be placed after it.  This ensures that TCB's which are
 	stored in ready lists (all of which have the same xItemValue value) get a
 	share of the CPU.  However, if the xItemValue is the same as the back marker
 	the iteration loop below will not end.  Therefore the value is checked
 	first, and the algorithm slightly modified if necessary. */
 	if( xValueOfInsertion == portMAX_DELAY )
-   8083c:	f1b5 3fff 	cmp.w	r5, #4294967295
-   80840:	d002      	beq.n	80848 <vListInsert+0x10>
+   80844:	f1b5 3fff 	cmp.w	r5, #4294967295
+   80848:	d002      	beq.n	80850 <vListInsert+0x10>
 			4) Using a queue or semaphore before it has been initialised or
 			   before the scheduler has been started (are interrupts firing
 			   before vTaskStartScheduler() has been called?).
 		**********************************************************************/
 
 		for( pxIterator = ( ListItem_t * ) &( pxList->xListEnd ); pxIterator->pxNext->xItemValue <= xValueOfInsertion; pxIterator = pxIterator->pxNext ) /*lint !e826 !e740 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
-   80842:	f100 0208 	add.w	r2, r0, #8
-   80846:	e002      	b.n	8084e <vListInsert+0x16>
+   8084a:	f100 0208 	add.w	r2, r0, #8
+   8084e:	e002      	b.n	80856 <vListInsert+0x16>
 		pxIterator = pxList->xListEnd.pxPrevious;
-   80848:	6902      	ldr	r2, [r0, #16]
-   8084a:	e004      	b.n	80856 <vListInsert+0x1e>
+   80850:	6902      	ldr	r2, [r0, #16]
+   80852:	e004      	b.n	8085e <vListInsert+0x1e>
 		for( pxIterator = ( ListItem_t * ) &( pxList->xListEnd ); pxIterator->pxNext->xItemValue <= xValueOfInsertion; pxIterator = pxIterator->pxNext ) /*lint !e826 !e740 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
-   8084c:	461a      	mov	r2, r3
-   8084e:	6853      	ldr	r3, [r2, #4]
-   80850:	681c      	ldr	r4, [r3, #0]
-   80852:	42a5      	cmp	r5, r4
-   80854:	d2fa      	bcs.n	8084c <vListInsert+0x14>
+   80854:	461a      	mov	r2, r3
+   80856:	6853      	ldr	r3, [r2, #4]
+   80858:	681c      	ldr	r4, [r3, #0]
+   8085a:	42a5      	cmp	r5, r4
+   8085c:	d2fa      	bcs.n	80854 <vListInsert+0x14>
 			/* There is nothing to do here, just iterating to the wanted
 			insertion position. */
 		}
 	}
 
 	pxNewListItem->pxNext = pxIterator->pxNext;
-   80856:	6853      	ldr	r3, [r2, #4]
-   80858:	604b      	str	r3, [r1, #4]
+   8085e:	6853      	ldr	r3, [r2, #4]
+   80860:	604b      	str	r3, [r1, #4]
 	pxNewListItem->pxNext->pxPrevious = pxNewListItem;
-   8085a:	6099      	str	r1, [r3, #8]
+   80862:	6099      	str	r1, [r3, #8]
 	pxNewListItem->pxPrevious = pxIterator;
-   8085c:	608a      	str	r2, [r1, #8]
+   80864:	608a      	str	r2, [r1, #8]
 	pxIterator->pxNext = pxNewListItem;
-   8085e:	6051      	str	r1, [r2, #4]
+   80866:	6051      	str	r1, [r2, #4]
 
 	/* Remember which list the item is in.  This allows fast removal of the
 	item later. */
 	pxNewListItem->pvContainer = ( void * ) pxList;
-   80860:	6108      	str	r0, [r1, #16]
+   80868:	6108      	str	r0, [r1, #16]
 
 	( pxList->uxNumberOfItems )++;
-   80862:	6803      	ldr	r3, [r0, #0]
-   80864:	3301      	adds	r3, #1
-   80866:	6003      	str	r3, [r0, #0]
+   8086a:	6803      	ldr	r3, [r0, #0]
+   8086c:	3301      	adds	r3, #1
+   8086e:	6003      	str	r3, [r0, #0]
 }
-   80868:	bc30      	pop	{r4, r5}
-   8086a:	4770      	bx	lr
+   80870:	bc30      	pop	{r4, r5}
+   80872:	4770      	bx	lr
 
-0008086c <uxListRemove>:
+00080874 <uxListRemove>:
 
 UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove )
 {
 /* The list item knows which list it is in.  Obtain the list from the list
 item. */
 List_t * const pxList = ( List_t * ) pxItemToRemove->pvContainer;
-   8086c:	6903      	ldr	r3, [r0, #16]
+   80874:	6903      	ldr	r3, [r0, #16]
 
 	pxItemToRemove->pxNext->pxPrevious = pxItemToRemove->pxPrevious;
-   8086e:	6842      	ldr	r2, [r0, #4]
-   80870:	6881      	ldr	r1, [r0, #8]
-   80872:	6091      	str	r1, [r2, #8]
+   80876:	6842      	ldr	r2, [r0, #4]
+   80878:	6881      	ldr	r1, [r0, #8]
+   8087a:	6091      	str	r1, [r2, #8]
 	pxItemToRemove->pxPrevious->pxNext = pxItemToRemove->pxNext;
-   80874:	6882      	ldr	r2, [r0, #8]
-   80876:	6841      	ldr	r1, [r0, #4]
-   80878:	6051      	str	r1, [r2, #4]
+   8087c:	6882      	ldr	r2, [r0, #8]
+   8087e:	6841      	ldr	r1, [r0, #4]
+   80880:	6051      	str	r1, [r2, #4]
 
 	/* Only used during decision coverage testing. */
 	mtCOVERAGE_TEST_DELAY();
 
 	/* Make sure the index is left pointing to a valid item. */
 	if( pxList->pxIndex == pxItemToRemove )
-   8087a:	685a      	ldr	r2, [r3, #4]
-   8087c:	4290      	cmp	r0, r2
+   80882:	685a      	ldr	r2, [r3, #4]
+   80884:	4290      	cmp	r0, r2
 	{
 		pxList->pxIndex = pxItemToRemove->pxPrevious;
-   8087e:	bf04      	itt	eq
-   80880:	6882      	ldreq	r2, [r0, #8]
-   80882:	605a      	streq	r2, [r3, #4]
+   80886:	bf04      	itt	eq
+   80888:	6882      	ldreq	r2, [r0, #8]
+   8088a:	605a      	streq	r2, [r3, #4]
 	else
 	{
 		mtCOVERAGE_TEST_MARKER();
 	}
 
 	pxItemToRemove->pvContainer = NULL;
-   80884:	2200      	movs	r2, #0
-   80886:	6102      	str	r2, [r0, #16]
+   8088c:	2200      	movs	r2, #0
+   8088e:	6102      	str	r2, [r0, #16]
 	( pxList->uxNumberOfItems )--;
-   80888:	681a      	ldr	r2, [r3, #0]
-   8088a:	3a01      	subs	r2, #1
-   8088c:	601a      	str	r2, [r3, #0]
+   80890:	681a      	ldr	r2, [r3, #0]
+   80892:	3a01      	subs	r2, #1
+   80894:	601a      	str	r2, [r3, #0]
 
 	return pxList->uxNumberOfItems;
-   8088e:	6818      	ldr	r0, [r3, #0]
+   80896:	6818      	ldr	r0, [r3, #0]
 }
-   80890:	4770      	bx	lr
+   80898:	4770      	bx	lr
 	...
 
-00080894 <prvTaskExitError>:
+0008089c <prvTaskExitError>:
 	return pxTopOfStack;
 }
 /*-----------------------------------------------------------*/
 
 static void prvTaskExitError( void )
 {
-   80894:	b082      	sub	sp, #8
+   8089c:	b082      	sub	sp, #8
 volatile uint32_t ulDummy = 0UL;
-   80896:	2300      	movs	r3, #0
-   80898:	9301      	str	r3, [sp, #4]
+   8089e:	2300      	movs	r3, #0
+   808a0:	9301      	str	r3, [sp, #4]
 	its caller as there is nothing to return to.  If a task wants to exit it
 	should instead call vTaskDelete( NULL ).
 
 	Artificially force an assert() to be triggered if configASSERT() is
 	defined, then stop here so application writers can catch the error. */
 	configASSERT( uxCriticalNesting == ~0UL );
-   8089a:	4b0d      	ldr	r3, [pc, #52]	; (808d0 <prvTaskExitError+0x3c>)
-   8089c:	681b      	ldr	r3, [r3, #0]
-   8089e:	f1b3 3fff 	cmp.w	r3, #4294967295
-   808a2:	d008      	beq.n	808b6 <prvTaskExitError+0x22>
+   808a2:	4b0d      	ldr	r3, [pc, #52]	; (808d8 <prvTaskExitError+0x3c>)
+   808a4:	681b      	ldr	r3, [r3, #0]
+   808a6:	f1b3 3fff 	cmp.w	r3, #4294967295
+   808aa:	d008      	beq.n	808be <prvTaskExitError+0x22>
 
 portFORCE_INLINE static void vPortRaiseBASEPRI( void )
 {
 uint32_t ulNewBASEPRI;
 
 	__asm volatile
-   808a4:	f04f 0340 	mov.w	r3, #64	; 0x40
-   808a8:	f383 8811 	msr	BASEPRI, r3
-   808ac:	f3bf 8f6f 	isb	sy
-   808b0:	f3bf 8f4f 	dsb	sy
-   808b4:	e7fe      	b.n	808b4 <prvTaskExitError+0x20>
-   808b6:	f04f 0340 	mov.w	r3, #64	; 0x40
-   808ba:	f383 8811 	msr	BASEPRI, r3
-   808be:	f3bf 8f6f 	isb	sy
-   808c2:	f3bf 8f4f 	dsb	sy
+   808ac:	f04f 0340 	mov.w	r3, #64	; 0x40
+   808b0:	f383 8811 	msr	BASEPRI, r3
+   808b4:	f3bf 8f6f 	isb	sy
+   808b8:	f3bf 8f4f 	dsb	sy
+   808bc:	e7fe      	b.n	808bc <prvTaskExitError+0x20>
+   808be:	f04f 0340 	mov.w	r3, #64	; 0x40
+   808c2:	f383 8811 	msr	BASEPRI, r3
+   808c6:	f3bf 8f6f 	isb	sy
+   808ca:	f3bf 8f4f 	dsb	sy
 	portDISABLE_INTERRUPTS();
 	while( ulDummy == 0 )
-   808c6:	9b01      	ldr	r3, [sp, #4]
-   808c8:	2b00      	cmp	r3, #0
-   808ca:	d0fc      	beq.n	808c6 <prvTaskExitError+0x32>
+   808ce:	9b01      	ldr	r3, [sp, #4]
+   808d0:	2b00      	cmp	r3, #0
+   808d2:	d0fc      	beq.n	808ce <prvTaskExitError+0x32>
 		about code appearing after this function is called - making ulDummy
 		volatile makes the compiler think the function could return and
 		therefore not output an 'unreachable code' warning for code that appears
 		after it. */
 	}
 }
-   808cc:	b002      	add	sp, #8
-   808ce:	4770      	bx	lr
-   808d0:	2007012c 	.word	0x2007012c
+   808d4:	b002      	add	sp, #8
+   808d6:	4770      	bx	lr
+   808d8:	2007012c 	.word	0x2007012c
 
-000808d4 <prvPortStartFirstTask>:
+000808dc <prvPortStartFirstTask>:
 }
 /*-----------------------------------------------------------*/
 
 static void prvPortStartFirstTask( void )
 {
 	__asm volatile(
-   808d4:	4806      	ldr	r0, [pc, #24]	; (808f0 <prvPortStartFirstTask+0x1c>)
-   808d6:	6800      	ldr	r0, [r0, #0]
-   808d8:	6800      	ldr	r0, [r0, #0]
-   808da:	f380 8808 	msr	MSP, r0
-   808de:	b662      	cpsie	i
-   808e0:	b661      	cpsie	f
-   808e2:	f3bf 8f4f 	dsb	sy
-   808e6:	f3bf 8f6f 	isb	sy
-   808ea:	df00      	svc	0
-   808ec:	bf00      	nop
-   808ee:	0000      	.short	0x0000
-   808f0:	e000ed08 	.word	0xe000ed08
+   808dc:	4806      	ldr	r0, [pc, #24]	; (808f8 <prvPortStartFirstTask+0x1c>)
+   808de:	6800      	ldr	r0, [r0, #0]
+   808e0:	6800      	ldr	r0, [r0, #0]
+   808e2:	f380 8808 	msr	MSP, r0
+   808e6:	b662      	cpsie	i
+   808e8:	b661      	cpsie	f
+   808ea:	f3bf 8f4f 	dsb	sy
+   808ee:	f3bf 8f6f 	isb	sy
+   808f2:	df00      	svc	0
+   808f4:	bf00      	nop
+   808f6:	0000      	.short	0x0000
+   808f8:	e000ed08 	.word	0xe000ed08
 
-000808f4 <pxPortInitialiseStack>:
+000808fc <pxPortInitialiseStack>:
 	*pxTopOfStack = portINITIAL_XPSR;	/* xPSR */
-   808f4:	f04f 7380 	mov.w	r3, #16777216	; 0x1000000
-   808f8:	f840 3c04 	str.w	r3, [r0, #-4]
+   808fc:	f04f 7380 	mov.w	r3, #16777216	; 0x1000000
+   80900:	f840 3c04 	str.w	r3, [r0, #-4]
 	*pxTopOfStack = ( ( StackType_t ) pxCode ) & portSTART_ADDRESS_MASK;	/* PC */
-   808fc:	f021 0101 	bic.w	r1, r1, #1
-   80900:	f840 1c08 	str.w	r1, [r0, #-8]
+   80904:	f021 0101 	bic.w	r1, r1, #1
+   80908:	f840 1c08 	str.w	r1, [r0, #-8]
 	*pxTopOfStack = ( StackType_t ) portTASK_RETURN_ADDRESS;	/* LR */
-   80904:	4b03      	ldr	r3, [pc, #12]	; (80914 <pxPortInitialiseStack+0x20>)
-   80906:	f840 3c0c 	str.w	r3, [r0, #-12]
+   8090c:	4b03      	ldr	r3, [pc, #12]	; (8091c <pxPortInitialiseStack+0x20>)
+   8090e:	f840 3c0c 	str.w	r3, [r0, #-12]
 	*pxTopOfStack = ( StackType_t ) pvParameters;	/* R0 */
-   8090a:	f840 2c20 	str.w	r2, [r0, #-32]
+   80912:	f840 2c20 	str.w	r2, [r0, #-32]
 }
-   8090e:	3840      	subs	r0, #64	; 0x40
-   80910:	4770      	bx	lr
-   80912:	bf00      	nop
-   80914:	00080895 	.word	0x00080895
-	...
+   80916:	3840      	subs	r0, #64	; 0x40
+   80918:	4770      	bx	lr
+   8091a:	bf00      	nop
+   8091c:	0008089d 	.word	0x0008089d
 
 00080920 <SVC_Handler>:
 	__asm volatile (
@@ -1866,9 +1868,9 @@ void xPortSysTickHandler( void )
    80b18:	e000ed20 	.word	0xe000ed20
    80b1c:	00080a39 	.word	0x00080a39
    80b20:	2007012c 	.word	0x2007012c
-   80b24:	000808d5 	.word	0x000808d5
+   80b24:	000808dd 	.word	0x000808dd
    80b28:	00081b99 	.word	0x00081b99
-   80b2c:	00080895 	.word	0x00080895
+   80b2c:	0008089d 	.word	0x0008089d
 
 00080b30 <vPortValidateInterruptPriority>:
 	{
@@ -2343,7 +2345,7 @@ BaseType_t xReturn = pdFALSE;
    80de8:	00080949 	.word	0x00080949
    80dec:	00081ca9 	.word	0x00081ca9
    80df0:	e000ed04 	.word	0xe000ed04
-   80df4:	00080805 	.word	0x00080805
+   80df4:	0008080d 	.word	0x0008080d
    80df8:	0008098d 	.word	0x0008098d
 
 00080dfc <xQueueGenericCreate>:
@@ -3390,7 +3392,7 @@ TCB_t *pxTCB;
    81592:	e7d8      	b.n	81546 <prvIdleTask+0xe>
    81594:	2007c380 	.word	0x2007c380
    81598:	2007c3f4 	.word	0x2007c3f4
-   8159c:	0008086d 	.word	0x0008086d
+   8159c:	00080875 	.word	0x00080875
    815a0:	2007c37c 	.word	0x2007c37c
    815a4:	0008098d 	.word	0x0008098d
    815a8:	2007c318 	.word	0x2007c318
@@ -3512,13 +3514,13 @@ const TickType_t xConstTickCount = xTickCount;
    81632:	bf00      	nop
    81634:	2007c408 	.word	0x2007c408
    81638:	2007c30c 	.word	0x2007c30c
-   8163c:	0008086d 	.word	0x0008086d
+   8163c:	00080875 	.word	0x00080875
    81640:	2007c390 	.word	0x2007c390
    81644:	2007c310 	.word	0x2007c310
-   81648:	00080839 	.word	0x00080839
+   81648:	00080841 	.word	0x00080841
    8164c:	2007c3c0 	.word	0x2007c3c0
    81650:	2007c3e0 	.word	0x2007c3e0
-   81654:	00080821 	.word	0x00080821
+   81654:	00080829 	.word	0x00080829
    81658:	2007c314 	.word	0x2007c314
 
 0008165c <xTaskCreate>:
@@ -3757,7 +3759,7 @@ const TickType_t xConstTickCount = xTickCount;
    817f2:	bf00      	nop
    817f4:	00080b8d 	.word	0x00080b8d
    817f8:	00082ccd 	.word	0x00082ccd
-   817fc:	000808f5 	.word	0x000808f5
+   817fc:	000808fd 	.word	0x000808fd
    81800:	00080949 	.word	0x00080949
    81804:	2007c37c 	.word	0x2007c37c
    81808:	2007c30c 	.word	0x2007c30c
@@ -3765,11 +3767,11 @@ const TickType_t xConstTickCount = xTickCount;
    81810:	2007c38c 	.word	0x2007c38c
    81814:	2007c390 	.word	0x2007c390
    81818:	2007c318 	.word	0x2007c318
-   8181c:	00080821 	.word	0x00080821
+   8181c:	00080829 	.word	0x00080829
    81820:	0008098d 	.word	0x0008098d
    81824:	e000ed04 	.word	0xe000ed04
    81828:	00080bf5 	.word	0x00080bf5
-   8182c:	00080805 	.word	0x00080805
+   8182c:	0008080d 	.word	0x0008080d
    81830:	2007c394 	.word	0x2007c394
    81834:	2007c3a8 	.word	0x2007c3a8
    81838:	2007c3c8 	.word	0x2007c3c8
@@ -3777,7 +3779,7 @@ const TickType_t xConstTickCount = xTickCount;
    81840:	2007c3e0 	.word	0x2007c3e0
    81844:	2007c310 	.word	0x2007c310
    81848:	2007c314 	.word	0x2007c314
-   8184c:	0008081b 	.word	0x0008081b
+   8184c:	00080823 	.word	0x00080823
 
 00081850 <vTaskStartScheduler>:
 {
@@ -4015,10 +4017,10 @@ BaseType_t xSwitchRequired = pdFALSE;
    81a10:	2007c30c 	.word	0x2007c30c
    81a14:	2007c318 	.word	0x2007c318
    81a18:	2007c390 	.word	0x2007c390
-   81a1c:	00080821 	.word	0x00080821
+   81a1c:	00080829 	.word	0x00080829
    81a20:	2007c384 	.word	0x2007c384
    81a24:	2007c40c 	.word	0x2007c40c
-   81a28:	0008086d 	.word	0x0008086d
+   81a28:	00080875 	.word	0x00080875
 
 00081a2c <xTaskResumeAll>:
 	configASSERT( uxSchedulerSuspended );
@@ -4154,10 +4156,10 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81b0c:	2007c37c 	.word	0x2007c37c
    81b10:	0008098d 	.word	0x0008098d
    81b14:	2007c3c8 	.word	0x2007c3c8
-   81b18:	0008086d 	.word	0x0008086d
+   81b18:	00080875 	.word	0x00080875
    81b1c:	2007c390 	.word	0x2007c390
    81b20:	2007c318 	.word	0x2007c318
-   81b24:	00080821 	.word	0x00080821
+   81b24:	00080829 	.word	0x00080829
    81b28:	2007c30c 	.word	0x2007c30c
    81b2c:	2007c40c 	.word	0x2007c40c
    81b30:	0008150d 	.word	0x0008150d
@@ -4301,7 +4303,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81c54:	4798      	blx	r3
    81c56:	bd10      	pop	{r4, pc}
    81c58:	2007c30c 	.word	0x2007c30c
-   81c5c:	00080839 	.word	0x00080839
+   81c5c:	00080841 	.word	0x00080841
    81c60:	000815b9 	.word	0x000815b9
 
 00081c64 <vTaskPlaceOnEventListRestricted>:
@@ -4334,7 +4336,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81c98:	e7fe      	b.n	81c98 <vTaskPlaceOnEventListRestricted+0x34>
    81c9a:	bf00      	nop
    81c9c:	2007c30c 	.word	0x2007c30c
-   81ca0:	00080821 	.word	0x00080821
+   81ca0:	00080829 	.word	0x00080829
    81ca4:	000815b9 	.word	0x000815b9
 
 00081ca8 <xTaskRemoveFromEventList>:
@@ -4399,11 +4401,11 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81d12:	4b05      	ldr	r3, [pc, #20]	; (81d28 <xTaskRemoveFromEventList+0x80>)
    81d14:	4798      	blx	r3
    81d16:	e7e6      	b.n	81ce6 <xTaskRemoveFromEventList+0x3e>
-   81d18:	0008086d 	.word	0x0008086d
+   81d18:	00080875 	.word	0x00080875
    81d1c:	2007c388 	.word	0x2007c388
    81d20:	2007c390 	.word	0x2007c390
    81d24:	2007c318 	.word	0x2007c318
-   81d28:	00080821 	.word	0x00080821
+   81d28:	00080829 	.word	0x00080829
    81d2c:	2007c30c 	.word	0x2007c30c
    81d30:	2007c40c 	.word	0x2007c40c
    81d34:	2007c3c8 	.word	0x2007c3c8
@@ -4624,9 +4626,9 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81eb2:	bf00      	nop
    81eb4:	2007c30c 	.word	0x2007c30c
    81eb8:	2007c318 	.word	0x2007c318
-   81ebc:	0008086d 	.word	0x0008086d
+   81ebc:	00080875 	.word	0x00080875
    81ec0:	2007c390 	.word	0x2007c390
-   81ec4:	00080821 	.word	0x00080821
+   81ec4:	00080829 	.word	0x00080829
 
 00081ec8 <xTaskPriorityDisinherit>:
 		if( pxMutexHolder != NULL )
@@ -4715,10 +4717,10 @@ BaseType_t xAlreadyYielded = pdFALSE;
    81f6c:	bd38      	pop	{r3, r4, r5, pc}
    81f6e:	bf00      	nop
    81f70:	2007c30c 	.word	0x2007c30c
-   81f74:	0008086d 	.word	0x0008086d
+   81f74:	00080875 	.word	0x00080875
    81f78:	2007c318 	.word	0x2007c318
    81f7c:	2007c390 	.word	0x2007c390
-   81f80:	00080821 	.word	0x00080821
+   81f80:	00080829 	.word	0x00080829
 
 00081f84 <vTaskPriorityDisinheritAfterTimeout>:
 		if( pxMutexHolder != NULL )
@@ -4812,9 +4814,9 @@ BaseType_t xAlreadyYielded = pdFALSE;
    82036:	bf00      	nop
    82038:	2007c30c 	.word	0x2007c30c
    8203c:	2007c318 	.word	0x2007c318
-   82040:	0008086d 	.word	0x0008086d
+   82040:	00080875 	.word	0x00080875
    82044:	2007c390 	.word	0x2007c390
-   82048:	00080821 	.word	0x00080821
+   82048:	00080829 	.word	0x00080829
 
 0008204c <pvTaskIncrementMutexHeldCount>:
 		if( pxCurrentTCB != NULL )
@@ -4912,7 +4914,7 @@ BaseType_t xProcessTimerNow = pdFALSE;
    820a4:	bd08      	pop	{r3, pc}
    820a6:	bf00      	nop
    820a8:	2007c414 	.word	0x2007c414
-   820ac:	00080839 	.word	0x00080839
+   820ac:	00080841 	.word	0x00080841
    820b0:	2007c410 	.word	0x2007c410
 
 000820b4 <prvCheckForValidListAndQueue>:
@@ -4979,7 +4981,7 @@ static void prvCheckForValidListAndQueue( void )
    820fc:	2007c444 	.word	0x2007c444
    82100:	0008098d 	.word	0x0008098d
    82104:	2007c418 	.word	0x2007c418
-   82108:	00080805 	.word	0x00080805
+   82108:	0008080d 	.word	0x0008080d
    8210c:	2007c42c 	.word	0x2007c42c
    82110:	2007c410 	.word	0x2007c410
    82114:	2007c414 	.word	0x2007c414
@@ -5182,8 +5184,8 @@ BaseType_t xReturn = pdFAIL;
    82280:	2007c440 	.word	0x2007c440
    82284:	00082179 	.word	0x00082179
    82288:	2007c410 	.word	0x2007c410
-   8228c:	0008086d 	.word	0x0008086d
-   82290:	00080839 	.word	0x00080839
+   8228c:	00080875 	.word	0x00080875
+   82290:	00080841 	.word	0x00080841
    82294:	2007c414 	.word	0x2007c414
 
 00082298 <prvTimerTask>:
@@ -5429,7 +5431,7 @@ Timer_t * const pxTimer = ( Timer_t * ) listGET_OWNER_OF_HEAD_ENTRY( pxCurrentTi
    82484:	00082179 	.word	0x00082179
    82488:	00080bf5 	.word	0x00080bf5
    8248c:	e000ed04 	.word	0xe000ed04
-   82490:	0008086d 	.word	0x0008086d
+   82490:	00080875 	.word	0x00080875
 
 00082494 <sysclk_init>:
 	pmc_disable_udpck();
@@ -6671,7 +6673,7 @@ int main (void)
 	init_tc();
    82b42:	4b07      	ldr	r3, [pc, #28]	; (82b60 <main+0x30>)
    82b44:	4798      	blx	r3
-	//blink(500);
+
 	/* Start scheduler */
 	vTaskStartScheduler();
    82b46:	4b07      	ldr	r3, [pc, #28]	; (82b64 <main+0x34>)
@@ -6685,9 +6687,9 @@ int main (void)
    82b4e:	bf00      	nop
    82b50:	00082495 	.word	0x00082495
    82b54:	000824f9 	.word	0x000824f9
-   82b58:	0008057d 	.word	0x0008057d
-   82b5c:	00080715 	.word	0x00080715
-   82b60:	00080361 	.word	0x00080361
+   82b58:	00080585 	.word	0x00080585
+   82b5c:	0008071d 	.word	0x0008071d
+   82b60:	00080369 	.word	0x00080369
    82b64:	00081851 	.word	0x00081851
 
 00082b68 <__libc_init_array>:
@@ -10860,7 +10862,7 @@ int main (void)
    85468:	461a      	mov	r2, r3
    8546a:	4630      	mov	r0, r6
    8546c:	6025      	str	r5, [r4, #0]
-   8546e:	f7fb f803 	bl	80478 <_write>
+   8546e:	f7fb f807 	bl	80480 <_write>
    85472:	1c43      	adds	r3, r0, #1
    85474:	d000      	beq.n	85478 <_write_r+0x1c>
    85476:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
@@ -11114,7 +11116,7 @@ int main (void)
    856b8:	461a      	mov	r2, r3
    856ba:	4630      	mov	r0, r6
    856bc:	6025      	str	r5, [r4, #0]
-   856be:	f7fa febd 	bl	8043c <_read>
+   856be:	f7fa fec1 	bl	80444 <_read>
    856c2:	1c43      	adds	r3, r0, #1
    856c4:	d000      	beq.n	856c8 <_read_r+0x1c>
    856c6:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}

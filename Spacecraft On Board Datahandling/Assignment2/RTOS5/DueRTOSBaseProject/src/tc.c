@@ -1,8 +1,8 @@
 /*
  * tc.c
  *
- * Created: 05/09/2018 10:25:50
- * Author:  Nikolaus Huber
+* Created: 24/09/2019
+* Author:  flapre-9 , dirhie-9 , noejan-9
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Receives char via UART in an interrupt and interprets them
  */ 
@@ -35,7 +35,9 @@ void vTaskTC( void* );
  * TC task function, interprets received data from UART and converts the character received to a number
  */
 void vTaskTC( void *pvParameters ) {
+	
 	if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
+	
 	{
 		if ( xQueueReceive( xCommandQueue , &blink_cmd , portTICK_PERIOD_MS) == pdTRUE ) {
 
@@ -67,11 +69,10 @@ void UART_Handler( ){
 	/* The UART interrupt is triggered both for RX and TX, therefore
 	   we have to see if RXRDY is set in the UART status register */
 	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY) {
-		//..... /*your code here*/
 		
 		/* Assigns the value received to a TC_message and adds it to the end of the queue */
 		
-		TC_message = (unsigned char) CONF_UART->UART_SR;
+		TC_message = (unsigned char) CONF_UART->UART_RHR;
 		xQueueSendToBackFromISR(xCommandQueue, (void*) & TC_message, NULL);
 		
 	}

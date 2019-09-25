@@ -1,8 +1,8 @@
 /*
  * blink.c
  *
- * Created:   19/9/2019
- * Author:    D.J.C.P Hiemstra, Flavia Pérez Cámara, Noel Janes
+* Created: 24/09/2019
+* Author:  flapre-9 , dirhie-9 , noejan-9
  * Platform:  Arduino Due / Atmel SAM3X8E
  * Purpose:   Holds the blinking task and init function
  */ 
