@@ -1,8 +1,8 @@
 /*
  * blink.h
  *
- * Created: 24/09/2019
- * Author:  flapre-9 , dirhie-9 , noejan-9
+ * Created: 05/09/2018 10:25:04
+ * Author:  Nikolaus Huber
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Holds the blink task
  */ 
@@ -13,5 +13,6 @@
 
 /* Initializes and creates blink task */
 void init_blink( void );
+void blink(void);
 
 #endif /* BLINK_H_ */

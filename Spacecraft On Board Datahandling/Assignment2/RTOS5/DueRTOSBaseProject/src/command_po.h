@@ -1,23 +1,15 @@
 /*
  * command_po.h
  *
-* Created: 24/09/2019
-* Author:  flapre-9 , dirhie-9 , noejan-9
+ * Created: 05/09/2018 10:25:35
+ * Author:  Nikolaus Huber
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Protected object for current command
  */ 
 
-#include <asf.h>
-
-
 
 #ifndef COMMAND_PO_H_
 #define COMMAND_PO_H_
-
-
-
-
-SemaphoreHandle_t xSemaphore;
 
 /** 
  * Initializes command object 

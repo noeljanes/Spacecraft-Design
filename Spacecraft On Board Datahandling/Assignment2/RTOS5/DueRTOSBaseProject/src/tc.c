@@ -1,8 +1,8 @@
 /*
  * tc.c
  *
-* Created: 24/09/2019
-* Author:  flapre-9 , dirhie-9 , noejan-9
+ * Created: 05/09/2018 10:25:50
+ * Author:  Nikolaus Huber
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Receives char via UART in an interrupt and interprets them
  */ 
@@ -18,72 +18,18 @@
 #include <command_po.h>
 #include <tc.h>
 
-/* Creates a queue handle */
-QueueHandle_t xCommandQueue;
+/*YOUR CODE HERE*/
+static unsigned char blink_cmd;		// make static?
+QueueHandle_t xQueueTC;
+static unsigned char TC_message;
 
-/* Declares the global variable to store the blink command */
-static unsigned char blink_cmd;
-
-/* Declares the TC message variable */
-static unsigned char TC_message ; 
-
-/* Declares the TC task function */
-void vTaskTC( void* );
-
-
-/** 
- * TC task function, interprets received data from UART and converts the character received to a number
- */
-void vTaskTC( void *pvParameters ) {
-	
-	if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
-	
-	{
-		if ( xQueueReceive( xCommandQueue , &blink_cmd , portTICK_PERIOD_MS) == pdTRUE ) {
-
-			switch (blink_cmd) {
-
-				case 'a':
-					set_cmd('0');
-					break;
-				case 'b':
-					set_cmd('1');
-					break;
-				case 'c':
-					set_cmd('2');
-					break;
-			}
-		}
-		xSemaphoreGive(xSemaphore);
-	}
-	vTaskDelay(10);
-}
-
-
-/** 
- * Interrupt service routine for UART RXTX
- */
-void UART_Handler( ){
-	
-	
-	/* The UART interrupt is triggered both for RX and TX, therefore
-	   we have to see if RXRDY is set in the UART status register */
-	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY) {
-		
-		/* Assigns the value received to a TC_message and adds it to the end of the queue */
-		
-		TC_message = (unsigned char) CONF_UART->UART_RHR;
-		xQueueSendToBackFromISR(xCommandQueue, (void*) & TC_message, NULL);
-		
-	}
-}
 
 /** 
  * Initializes UART console, UART interrupt, command queue
  * and creates TC task 
  */
-void init_tc( ) {
-	
+void init_tc( )
+{
 	/* Configure UART communication */
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_UART_BAUDRATE,
@@ -110,23 +56,55 @@ void init_tc( ) {
 	 * configMAX_SYSCALL_INTERRUPT_PRIORITY 
 	*/
 	NVIC_SetPriority(CONF_UART_ID, configMAX_PRIORITIES);
-
-	/* Create a queue capable of containing 3 characters */
-	xCommandQueue = xQueueCreate( 4 , sizeof( char ));
-
-	if (xCommandQueue == NULL ) {
-		printf("Queue doesn't exist");
-	}
-
-	xTaskCreate(
-		vTaskTC, 		/* Function that implements the task that is created */
-		"Telecommand", 	/* Name of the task */
-		250, 			/* Stack size in words (not bytes) */
-		NULL, 			/* Parameter that is passed into the task */
-		3, 				/* Priority at which the task is created. */
-		NULL 			/* Used to pass out the created task's handle. */
-
-	);
 	
+/*YOUR CODE HERE*/
+	xQueueTC = xQueueCreate( 4, sizeof( char ) );
 
 }
+/** 
+ * TC task function, interprets received data from UART
+ */
+void handleInput() {
+
+
+}
+
+/** 
+ * Interrupt service routine for UART RXTX
+ */
+void UART_Handler( )
+{
+	printf(" UART HANDLER TRIGGER ");
+	/* The UART interrupt is triggered both for RX and TX, therefore
+	   we have to see if RXRDY is set in the UART status register */
+	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
+	{
+		//..... /*your code here*/
+		TC_message=CONF_UART->UART_RHR;
+		printf(" go handle input ");
+		xQueueSendToBackFromISR(xQueueTC, (void*) &TC_message, NULL);
+		printf(" just after xQueueSend ");
+	//handleInput();
+		printf(" fine, handling input jezus ");
+		printf("Value %c\n", blink_cmd);
+		if (xQueueReceive(xQueueTC, &TC_message, NULL)== pdTRUE) {
+			printf(" something in da queue ");
+			switch (TC_message) {
+				case ('a'):
+				set_cmd('0');
+				break;
+				case ('b'):
+				set_cmd('1');
+				break;
+				case ('c'):
+				printf("pressed c1");
+				set_cmd('2');
+				printf("pressed c2");
+				break;
+			}
+			printf(" break ");
+		}
+		printf(" nothing in the queue ");
+	}
+}
+

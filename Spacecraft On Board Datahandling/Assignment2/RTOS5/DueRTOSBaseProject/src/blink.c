@@ -1,8 +1,8 @@
 /*
  * blink.c
  *
-* Created: 24/09/2019
-* Author:  flapre-9 , dirhie-9 , noejan-9
+ * Created:   19/9/2019
+ * Author:    D.J.C.P Hiemstra, Flavia Pérez Cámara, Noel Janes
  * Platform:  Arduino Due / Atmel SAM3X8E
  * Purpose:   Holds the blinking task and init function
  */ 
@@ -16,46 +16,41 @@
 #include <tc.h>
 
 /* Prototypes */
-void blink(void);
-int delay;		/* The blinking delay in ms */
+int delay;
 
 void blink() {
+	
+
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 	
 	for( ;; ) {
-		//xSemaphoreTake(xSemaphore , 10);
-		if( xSemaphoreTake( xSemaphore, portMAX_DELAY ) == pdTRUE )
+		//printf(" BLINK LOOP ");
+		switch (get_cmd()) {
+			case ('0'):
+			delay = 1000;
+			break;
+			case ('1'):
+			delay = 250;
+			break;
+			case ('2'):
+			delay = 50;
+			break;
+		}
+		/* See if pin 27 in Output Data Status Register (ODSR) is set */
+		if((PIOB->PIO_ODSR & (1 << 27)) > 0)
 		{
-			switch(get_cmd()) {		/* Get the current command from command_po and set the blinking frequency accordingly */
-				case '0':
-					delay = 500;
-					break;
-				
-				case '1':
-					delay = 100;
-					break;
-				
-				case '2':
-					delay = 50;
-					break;
-			}
-		
-			/* See if pin 27 in Output Data Status Register (ODSR) is set */
-			if((PIOB->PIO_ODSR & (1 << 27)) > 0)
-			{
-				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
-				PIOB->PIO_CODR = 1 << 27;
-				} else {
-				/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
-				PIOB->PIO_SODR = 1 << 27;
-			}
-		
-			/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
-			//vTaskDelayUntil(&xLastWakeTime, delay / portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
-			xSemaphoreGive(xSemaphore);
-			}
-		vTaskDelay(10);
+			/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
+			PIOB->PIO_CODR = 1 << 27;
+				printf(" yes");
+			} else {
+			/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
+			PIOB->PIO_SODR = 1 << 27;
+			printf(" no");
+		}
+		printf(" BLINK ");
+		/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
+		vTaskDelayUntil(&xLastWakeTime, delay/portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
 	}
 
     /* Tasks must not attempt to return from their implementing
