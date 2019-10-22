@@ -9384,12 +9384,10 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .text._lseek   0x000827fc        0x4 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                 0x000827fc                _lseek
  .text.writer1  0x00082800       0x38 src/writer1.o
-                0x00082800                writer1
  .text.init_writer1
                 0x00082838       0x28 src/writer1.o
                 0x00082838                init_writer1
  .text.writer2  0x00082860       0x3c src/writer2.o
-                0x00082860                writer2
  .text.init_writer2
                 0x0008289c       0x28 src/writer2.o
                 0x0008289c                init_writer2
@@ -9892,7 +9890,7 @@ OUTPUT(RTOS4.elf elf32-littlearm)
  .comment       0x00000059       0x5a src/writer2.o
  .comment       0x00000059       0x5a src/main.o
 
-.debug_info     0x00000000    0x1c924
+.debug_info     0x00000000    0x1c922
  .debug_info    0x00000000      0xac9 src/ASF/common/utils/stdio/read.o
  .debug_info    0x00000ac9      0xac6 src/ASF/common/utils/stdio/write.o
  .debug_info    0x0000158f     0x24e3 src/ASF/sam/drivers/usart/usart.o
@@ -9913,11 +9911,11 @@ OUTPUT(RTOS4.elf elf32-littlearm)
  .debug_info    0x00017e26      0xd1b src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
  .debug_info    0x00018b41      0xdc2 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
  .debug_info    0x00019903      0xdb0 src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_info    0x0001a6b3      0xba1 src/writer1.o
- .debug_info    0x0001b254      0xba1 src/writer2.o
- .debug_info    0x0001bdf5      0xb2f src/main.o
+ .debug_info    0x0001a6b3      0xba0 src/writer1.o
+ .debug_info    0x0001b253      0xba0 src/writer2.o
+ .debug_info    0x0001bdf3      0xb2f src/main.o
 
-.debug_abbrev   0x00000000     0x40d1
+.debug_abbrev   0x00000000     0x4101
  .debug_abbrev  0x00000000      0x1fe src/ASF/common/utils/stdio/read.o
  .debug_abbrev  0x000001fe      0x1e9 src/ASF/common/utils/stdio/write.o
  .debug_abbrev  0x000003e7      0x406 src/ASF/sam/drivers/usart/usart.o
@@ -9938,9 +9936,9 @@ OUTPUT(RTOS4.elf elf32-littlearm)
  .debug_abbrev  0x00003491      0x1f2 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
  .debug_abbrev  0x00003683      0x1f4 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
  .debug_abbrev  0x00003877      0x264 src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_abbrev  0x00003adb      0x20d src/writer1.o
- .debug_abbrev  0x00003ce8      0x20d src/writer2.o
- .debug_abbrev  0x00003ef5      0x1dc src/main.o
+ .debug_abbrev  0x00003adb      0x225 src/writer1.o
+ .debug_abbrev  0x00003d00      0x225 src/writer2.o
+ .debug_abbrev  0x00003f25      0x1dc src/main.o
 
 .debug_loc      0x00000000     0x833b
  .debug_loc     0x00000000       0xb3 src/ASF/common/utils/stdio/read.o
@@ -11179,8 +11177,6 @@ vTaskSwitchContext                                src/ASF/thirdparty/freertos/fr
                                                   src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM3/port.o
 vTimerSetTimerID                                  src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
 vTimerSetTimerNumber                              src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
-writer1                                           src/writer1.o
-writer2                                           src/writer2.o
 xEventGroupClearBits                              src/ASF/thirdparty/freertos/freertos-10.0.0/Source/event_groups.o
 xEventGroupClearBitsFromISR                       src/ASF/thirdparty/freertos/freertos-10.0.0/Source/event_groups.o
 xEventGroupCreate                                 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/event_groups.o

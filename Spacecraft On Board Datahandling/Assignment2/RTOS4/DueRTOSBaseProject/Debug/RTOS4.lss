@@ -15,23 +15,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  0002099d  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0001c924  00000000  00000000  000209f6  2**0
+  6 .debug_info   0001c922  00000000  00000000  000209f6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000040d1  00000000  00000000  0003d31a  2**0
+  7 .debug_abbrev 00004101  00000000  00000000  0003d318  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000833b  00000000  00000000  000413eb  2**0
+  8 .debug_loc    0000833b  00000000  00000000  00041419  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000da8  00000000  00000000  00049726  2**0
+  9 .debug_aranges 00000da8  00000000  00000000  00049754  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000f00  00000000  00000000  0004a4ce  2**0
+ 10 .debug_ranges 00000f00  00000000  00000000  0004a4fc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  00009cd0  00000000  00000000  0004b3ce  2**0
+ 11 .debug_macro  00009cd0  00000000  00000000  0004b3fc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00014b2c  00000000  00000000  0005509e  2**0
+ 12 .debug_line   00014b2c  00000000  00000000  000550cc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0006d15e  00000000  00000000  00069bca  2**0
+ 13 .debug_str    0006d15e  00000000  00000000  00069bf8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00002798  00000000  00000000  000d6d28  2**2
+ 14 .debug_frame  00002798  00000000  00000000  000d6d58  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -478,8 +478,8 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    8035c:	000801ed 	.word	0x000801ed
 
 00080360 <printfConsole>:
-#include <stdio.h>
 
+/* Semaphore declaration */
 SemaphoreHandle_t xSemaphore;
 
 
@@ -6102,9 +6102,9 @@ extern int _lseek(int file, int ptr, int dir)
 #include <writer1.h>
 
 /* Declares the object writer1 for later definition of tasks */
-void writer1(void*);
+static void writer1(void*); /* Declared static to protect the function from being accessed by other objects*/
 
-void writer1 (void *pvParameters) {
+static void writer1 (void *pvParameters) { 
    82800:	b500      	push	{lr}
    82802:	b085      	sub	sp, #20
 	portTickType xLastWakeTime ;
@@ -6122,12 +6122,12 @@ void writer1 (void *pvParameters) {
 		
 		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
    82816:	4d06      	ldr	r5, [pc, #24]	; (82830 <writer1+0x30>)
-		vTaskDelayUntil(&xLastWakeTime, (writer1Period/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
+		vTaskDelayUntil(&xLastWakeTime, (WRITER1PERIOD/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
    82818:	4c06      	ldr	r4, [pc, #24]	; (82834 <writer1+0x34>)
 		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
    8281a:	a801      	add	r0, sp, #4
    8281c:	47a8      	blx	r5
-		vTaskDelayUntil(&xLastWakeTime, (writer1Period/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
+		vTaskDelayUntil(&xLastWakeTime, (WRITER1PERIOD/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
    8281e:	2101      	movs	r1, #1
    82820:	a803      	add	r0, sp, #12
    82822:	47a0      	blx	r4
@@ -6141,7 +6141,6 @@ void writer1 (void *pvParameters) {
 00082838 <init_writer1>:
 	}
 	
-	vTaskDelete( NULL ); /* Removes the task from the RTOS memory to free up resources upon completion */
 }
 	
 void init_writer1() {
@@ -6173,10 +6172,10 @@ void init_writer1() {
 00082860 <writer2>:
 
 /* Declares the object writer2 for later definition of tasks */
-void writer2 (void*);
+static void writer2 (void*);
 
 
-void writer2 (void *pvParameters) {
+static void writer2 (void *pvParameters) {/* Declared static to protect the function from being accessed by other objects*/
    82860:	b500      	push	{lr}
    82862:	b085      	sub	sp, #20
 
@@ -6197,12 +6196,12 @@ void writer2 (void *pvParameters) {
 		
 		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
    8287c:	4d05      	ldr	r5, [pc, #20]	; (82894 <writer2+0x34>)
-		vTaskDelayUntil(&xLastWakeTime, (writer2Period/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
+		vTaskDelayUntil(&xLastWakeTime, (WRITER2PERIOD/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
    8287e:	4c06      	ldr	r4, [pc, #24]	; (82898 <writer2+0x38>)
 		printfConsole(cStr);	/* Calls the printing function defined in the console_po.c file */
    82880:	a801      	add	r0, sp, #4
    82882:	47a8      	blx	r5
-		vTaskDelayUntil(&xLastWakeTime, (writer2Period/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
+		vTaskDelayUntil(&xLastWakeTime, (WRITER2PERIOD/portTICK_PERIOD_MS)); /* Tells the controller to wait before switching to the next task to prevent overlapping of tasks */
    82884:	2101      	movs	r1, #1
    82886:	a803      	add	r0, sp, #12
    82888:	47a0      	blx	r4
@@ -6213,7 +6212,7 @@ void writer2 (void *pvParameters) {
    82898:	000817c1 	.word	0x000817c1
 
 0008289c <init_writer2>:
-	vTaskDelete( NULL ); /* Removes the task from the RTOS memory to free up resources upon completion */
+	
 }
 
 
