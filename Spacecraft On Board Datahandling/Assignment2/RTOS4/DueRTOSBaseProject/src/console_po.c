@@ -2,7 +2,7 @@
 * console_po.c
 *
 * Created: 24/09/2019
-* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pï¿½rez Cï¿½mara
 * Platform: Arduino Due / Atmel SAM3X8E
 * Protected object - UART0 module
 *
@@ -27,7 +27,7 @@ SemaphoreHandle_t xSemaphore;
 
 void printfConsole(const char * cStr) {
 
-	xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE; 
+	xSemaphoreTake( xSemaphore, (TickType_t) 1); 
 		/* If we're able to access the semaphore then the task gains access to the shared resources */
 		
 	for(int i = 0; (cStr[i] != '\0'); i++) {

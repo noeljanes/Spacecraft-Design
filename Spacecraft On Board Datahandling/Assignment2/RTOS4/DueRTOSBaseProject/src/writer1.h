@@ -2,7 +2,7 @@
 * writer1.h
 *
 * Created: 24/09/2019
-* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pï¿½rez Cï¿½mara
 * Platform: Arduino Due / Atmel SAM3X8E
 * Purpose:   Sends message to the projected object function
 */
