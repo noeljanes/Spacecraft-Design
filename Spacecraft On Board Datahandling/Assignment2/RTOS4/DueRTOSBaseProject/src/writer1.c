@@ -17,7 +17,7 @@
 /* Declares the object writer1 for later definition of tasks */
 void writer1(void*);
 
-void writer1 (void *pvParameters) {
+static void writer1 (void *pvParameters) { /* Declared static to protect the function from being accessed by other objects*/
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
 	char cStr[] = "Vad "; 	/* Creates the string to be printed to the console */

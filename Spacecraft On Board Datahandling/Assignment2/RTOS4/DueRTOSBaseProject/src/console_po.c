@@ -10,39 +10,42 @@
 * Ensures mutual exclusion when printing to the UART
 */
 
-
+/* Imported libraries */
 #include <asf.h>
 #include <FreeRTOS.h>
 #include <task.h>
 
 #include <console_po.h>
 
-#include <writer1.h>
-#include <writer2.h>
+/* Required interfaces */
 #include <stdlib.h>
 #include <stdio.h>
 
-
+/* Semaphore declaration */
+SemaphoreHandle_t xSemaphore;
 
 
 void printfConsole(const char * cStr) {
 
-	if(xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE) {
-		/* Check if the semaphore is available, otherwise check again after 1 ms */
+	xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE; 
 		/* If we're able to access the semaphore then the task gains access to the shared resources */
 		
-		for(int i = 0; (cStr[i] != '\0'); i++) {
-			/* For loop to iterate through the string in writer character by character */	
+	for(int i = 0; (cStr[i] != '\0'); i++) {
+		/* For loop to iterate through the string in writer character by character */	
 						
 				
-				/* Checks if the microcontroller is ready to send the next message */	
-				CONF_UART->UART_THR = (unsigned char) cStr[i]; /* If the microcontroller is ready it prints the element of the string */
+			/* Checks if the microcontroller is ready to send the next message */	
+			addChar(cStr[i]); 
 				
 				
-		}
-		xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 	}
+	xSemaphoreGive(xSemaphore);		/* Free up the semaphore for other tasks */
 	
+	
+}
+
+void addChar(unsigned char c) { /* If the microcontroller is ready it prints the element of the string */
+	CONF_UART->UART_THR = c;
 }
 
 void console_init()
