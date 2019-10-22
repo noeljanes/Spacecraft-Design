@@ -16,7 +16,9 @@
 /* Declares the object writer2 for later definition of tasks */
 void writer2(void*);
 
+
 static void writer2 (void *pvParameters) { /* Declared static to protect the function from being accessed by other objects*/
+
 
 	portTickType xLastWakeTime ;
 	xLastWakeTime = xTaskGetTickCount();
