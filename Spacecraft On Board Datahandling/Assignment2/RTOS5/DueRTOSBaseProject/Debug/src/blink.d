@@ -166,7 +166,7 @@ src/blink.d src/blink.o: ../src/blink.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/twi/twi.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/blink.h \
- ../src/command_po.h ../src/tc.h
+ ../src/command_po.h
 
 ../src/asf.h:
 
@@ -517,5 +517,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/blink.h:
 
 ../src/command_po.h:
-
-../src/tc.h:

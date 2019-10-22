@@ -16,6 +16,6 @@
 void init_tc( void );
 /* TC task function, interprets received data from UART
 */
-void handleInput (void);
+void handleInput (unsigned char);
 
 #endif /* TC_H_ */

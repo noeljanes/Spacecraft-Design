@@ -27,7 +27,7 @@ SemaphoreHandle_t xSemaphore;
 
 void printfConsole(const char * cStr) {
 
-	xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE; 
+	xSemaphoreTake( xSemaphore, (TickType_t) 1); 
 		/* If we're able to access the semaphore then the task gains access to the shared resources */
 		
 	for(int i = 0; (cStr[i] != '\0'); i++) {

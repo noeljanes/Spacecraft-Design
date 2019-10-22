@@ -16,8 +16,8 @@
 #include <tc.h>
 
 /* Prototypes */
-static unsigned char blink_cmd;
 static unsigned char TC_input;
+void uartInterrupt(void);
 
 /* Declaration of the Queue*/
 QueueHandle_t xQueueTC;
@@ -62,17 +62,17 @@ void init_tc( )
 /** 
  * TC task function, interprets received data from UART
  */
-void handleInput() {
+void handleInput(unsigned char input) {
 	
-	switch (TC_input) {
+	switch (input) {
 		case ('a'):
-		set_cmd('0'); /* sets the command value to 0 */
+		set_cmd(0); /* sets the command value to 0 */
 		break;
 		case ('b'):
-		set_cmd('1'); /* sets the command value to 1 */
+		set_cmd(1); /* sets the command value to 1 */
 		break;
 		case ('c'):
-		set_cmd('2'); /* sets the command value to 2 */
+		set_cmd(2); /* sets the command value to 2 */
 		break;
 	}
 
@@ -84,12 +84,16 @@ void handleInput() {
  */
 void UART_Handler( )
 {
+	uartInterrupt();
+}
+
+void uartInterrupt(){ /* Handling the interrupt event */
+	
 	/* The UART interrupt is triggered both for RX and TX, therefore
 	   we have to see if RXRDY is set in the UART status register */
 	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
 	{
 		TC_input=CONF_UART->UART_RHR;
-		handleInput();
+		handleInput(TC_input);
 	}
 }
-

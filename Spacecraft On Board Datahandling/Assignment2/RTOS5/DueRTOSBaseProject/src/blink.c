@@ -12,13 +12,30 @@
 
 #include <blink.h>
 #include <command_po.h>
-#include <tc.h>
 
 /* Prototypes */
 int delay = 0;
 bool ready = false;
 
-void blink() {
+/* * Enumerate states:
+ START : LED is constantly off
+ READY : LED is constantly on
+ LOWF  : LED is blinking at low frequency
+ HIGHF : LED is blinking at high frequency
+*/
+static enum states
+{
+	START = 0,
+	READY = 1,
+	LOWF  = 2,
+	HIGHF = 3
+};
+
+/* Define global variables */
+/* Initialize state which will hold the current state and set initial * state */
+static enum states currentState = START;
+
+void blink(void *pvParameters ) {
 	
 	TickType_t xLastWakeTime;		/* Last wake time of the task, needed for periodic execution */
 	xLastWakeTime = xTaskGetTickCount();
@@ -26,25 +43,30 @@ void blink() {
 	for( ;; ) {
 		
 		switch (get_cmd()) {    /* Get the command value */
-			case ('0'):
-			ready = true;       /* Ready state */
+			case (0):
+			currentState = READY;       /* Ready state */
 			break;
-			case ('1'):
-			delay = 250;        /* Low frequency blinking state */
+			case (1):
+			currentState = LOWF; /* Low frequency blinking state */    
 			break;
-			case ('2'):
-			delay = 50;         /* High frequency blinking state */
+			case (2):
+			currentState = HIGHF; /* High frequency blinking state */        
 			break;
 		}
 		
-				
-		if(!ready) {
+		switch(currentState) {
+			case(START):
 			/* If not ready -> keep LED off */
 			PIOB->PIO_CODR = 1 << 27;
-		} else if(delay == 0) {
+			break;
+			
+			case(READY):
 			/* If ready -> keep LED on continuously */
 			PIOB->PIO_SODR = 1 << 27;
-		} else {
+			break;
+			
+			case(HIGHF):
+			delay = 50;
 			if((PIOB->PIO_ODSR & (1 << 27)) > 0) {
 				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
 				PIOB->PIO_CODR = 1 << 27;
@@ -52,19 +74,23 @@ void blink() {
 				/* If pin 27 is not active -> turn on via Set Output Data Register (SODR) */
 				PIOB->PIO_SODR = 1 << 27;
 			}
-			vTaskDelayUntil(&xLastWakeTime, delay/portTICK_RATE_MS); /* Absolute delay */
+			break;
+			
+			case(LOWF):
+			delay = 250;
+			if((PIOB->PIO_ODSR & (1 << 27)) > 0) {
+				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
+				PIOB->PIO_CODR = 1 << 27;
+				} else {
+				/* If pin 27 is not active -> turn on via Set Output Data Register (SODR) */
+				PIOB->PIO_SODR = 1 << 27;
+			}
+			break;
 		}
-		vTaskDelay(10);
-		
+		vTaskDelayUntil(&xLastWakeTime, delay/portTICK_RATE_MS); /* Absolute delay */
+	
 	}
 
-    /* Tasks must not attempt to return from their implementing
-    function or otherwise exit.  In newer FreeRTOS port
-    attempting to do so will result in an configASSERT() being
-    called if it is defined.  If it is necessary for a task to
-    exit then have the task call vTaskDelete( NULL ) to ensure
-    its exit is clean. */
-    vTaskDelete( NULL );
 }
 
 

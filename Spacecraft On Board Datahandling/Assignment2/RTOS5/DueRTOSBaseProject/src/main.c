@@ -3,8 +3,9 @@
  * Created: 26/09/2019
  * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
  * Platform: Arduino Due / Atmel SAM3X8E
- * Purpose:  Main function declaration, initializes board peripherals, calls
- *           all other init functions and starts the FreeRTOS scheduler.
+ * Purpose: The main programme controls the behaviour of a LED depending on requests received via telecommand.
+			This file contains the main function declaration, initializes board peripherals, calls
+ *          all other init functions and starts the FreeRTOS scheduler. 
  */ 
 
 #include <asf.h>

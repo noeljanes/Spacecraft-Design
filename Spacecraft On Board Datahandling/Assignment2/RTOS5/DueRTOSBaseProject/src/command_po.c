@@ -16,23 +16,19 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <blink.h>
+
+
+static xSemaphoreHandle xCommandSemaphore; /* Semaphore declaration */
 
 /* Prototypes */
-unsigned char cmd;
-
-void set_cmd ( unsigned char c) {
-	cmd = c; /* sets the current command value to new the value*/
-}
-
-
-unsigned char get_cmd() {
-	return cmd; /* returns the current command value*/
-}
+static unsigned char cmd_curr;
 
 /* Initializes command object
 */
 void init_cmd() {
+	
+	xCommandSemaphore = xSemaphoreCreateMutex();
+	cmd_curr = 1;
 	
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_UART_BAUDRATE,
@@ -45,6 +41,24 @@ void init_cmd() {
 }
 
 
+unsigned char get_cmd() {
+	
+	unsigned char cmd_temp;
+	xSemaphoreTake( xCommandSemaphore, (TickType_t) 1);
+	cmd_temp = cmd_curr; 
+	xSemaphoreGive( xCommandSemaphore);
+	return cmd_temp; /* returns the current command value*/
+	
+}
+
+
+void set_cmd ( unsigned char c) {
+	
+	xSemaphoreTake( xCommandSemaphore, (TickType_t) 1);
+	cmd_curr = c; /* sets the current command value to new the value*/
+	xSemaphoreGive( xCommandSemaphore);
+	
+}
 
 
 

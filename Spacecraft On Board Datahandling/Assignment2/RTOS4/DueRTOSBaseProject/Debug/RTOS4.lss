@@ -487,7 +487,7 @@ void printfConsole(const char * cStr) {
    80360:	b510      	push	{r4, lr}
    80362:	4604      	mov	r4, r0
 
-	xSemaphoreTake( xSemaphore, (TickType_t) 1) == pdTRUE; 
+	xSemaphoreTake( xSemaphore, (TickType_t) 1); 
    80364:	2101      	movs	r1, #1
    80366:	4b0a      	ldr	r3, [pc, #40]	; (80390 <printfConsole+0x30>)
    80368:	6818      	ldr	r0, [r3, #0]
