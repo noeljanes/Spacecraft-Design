@@ -1,15 +1,14 @@
 /*
- * console_po.h
- *
- * Created: 24/09/2019
- * Author: flapre-9 , dirhie-9 , noejan-9
- * Platform: Arduino Due - Atmel SAM3X8E
- *
- * Purpose: Protected object - UART0 module
- *
- * For configuration of the UART see conf_uart_serial.h!
- */ 
-
+* console_po.h
+*
+* Created: 24/09/2019
+* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+* Platform: Arduino Due / Atmel SAM3X8E
+* Protected object - UART0 module
+*
+* For configuration of the UART see conf_uart_serial.h!
+* Ensures mutual exclusion when printing to the UART
+*/
 
 #ifndef UART_COMM_H_
 #define UART_COMM_H_
@@ -25,6 +24,5 @@ void console_init(void);
  */
 void printfConsole(const char *);
 
-//void taskCreateSemaphore(void *);
 
 #endif /* UART_COMM_H_ */

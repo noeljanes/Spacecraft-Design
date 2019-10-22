@@ -1,13 +1,10 @@
 /*
  * blink.h
- *
- * Created: 05/09/2018 10:25:04
- * Author:  Nikolaus Huber
+ * Created: 26/09/2019
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
  * Platform: Arduino Due / Atmel SAM3X8E
- * Purpose:  Holds the blink task
- */ 
-
-
+ * Purpose:   Holds the blinking task
+ */
 #ifndef BLINK_H_
 #define BLINK_H_
 

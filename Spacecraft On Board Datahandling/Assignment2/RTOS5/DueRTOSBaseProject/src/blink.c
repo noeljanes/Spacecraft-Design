@@ -1,11 +1,10 @@
 /*
  * blink.c
- *
- * Created:   19/9/2019
- * Author:    D.J.C.P Hiemstra, Flavia Pérez Cámara, Noel Janes
- * Platform:  Arduino Due / Atmel SAM3X8E
+ * Created: 26/09/2019
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+ * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:   Holds the blinking task and init function
- */ 
+ */
 
 #include <asf.h>
 #include <FreeRTOS.h>
@@ -16,41 +15,47 @@
 #include <tc.h>
 
 /* Prototypes */
-int delay;
+int delay = 0;
+bool ready = false;
 
 void blink() {
 	
-
-	TickType_t xLastWakeTime;
+	TickType_t xLastWakeTime;		/* Last wake time of the task, needed for periodic execution */
 	xLastWakeTime = xTaskGetTickCount();
 	
 	for( ;; ) {
-		//printf(" BLINK LOOP ");
-		switch (get_cmd()) {
+		
+		switch (get_cmd()) {    /* Get the command value */
 			case ('0'):
-			delay = 1000;
+			ready = true;       /* Ready state */
 			break;
 			case ('1'):
-			delay = 250;
+			delay = 250;        /* Low frequency blinking state */
 			break;
 			case ('2'):
-			delay = 50;
+			delay = 50;         /* High frequency blinking state */
 			break;
 		}
-		/* See if pin 27 in Output Data Status Register (ODSR) is set */
-		if((PIOB->PIO_ODSR & (1 << 27)) > 0)
-		{
-			/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
+		
+				
+		if(!ready) {
+			/* If not ready -> keep LED off */
 			PIOB->PIO_CODR = 1 << 27;
-				printf(" yes");
-			} else {
-			/* If pin 27 is not active -> turn off via Set Output Data Register (SODR) */
+		} else if(delay == 0) {
+			/* If ready -> keep LED on continuously */
 			PIOB->PIO_SODR = 1 << 27;
-			printf(" no");
+		} else {
+			if((PIOB->PIO_ODSR & (1 << 27)) > 0) {
+				/* If pin 27 is active -> turn off via Clear Output Data Register (CODR) */
+				PIOB->PIO_CODR = 1 << 27;
+				} else {
+				/* If pin 27 is not active -> turn on via Set Output Data Register (SODR) */
+				PIOB->PIO_SODR = 1 << 27;
+			}
+			vTaskDelayUntil(&xLastWakeTime, delay/portTICK_RATE_MS); /* Absolute delay */
 		}
-		printf(" BLINK ");
-		/*vTaskDelay( BLINK_PERIOD_MS / portTICK_RATE_MS );*/ /* This was old code */
-		vTaskDelayUntil(&xLastWakeTime, delay/portTICK_RATE_MS); /* Improved by using absolute instead of relative timing*/
+		vTaskDelay(10);
+		
 	}
 
     /* Tasks must not attempt to return from their implementing
@@ -73,7 +78,7 @@ void init_blink( )
 	
 		/* Create task */
 		xTaskCreate(
-		blink,			/* Function that implements the task. */
+		blink,			    /* Function that implements the task. */
 		"Blink Task",       /* Text name for the task. */
 		250,				/* Stack size in words, not bytes. */
 		NULL,				/* Parameter passed into the task. */

@@ -1,12 +1,12 @@
 /*
- * writer1.h
- *
- * Created: 24/09/2019
- * Author: flapre-9 , dirhie-9 , noejan-9
- * Platform: Arduino Due - Atmel SAM3X8E
- *
- * Purpose: Assigns string to the projected object function
- */ 
+* writer1.h
+*
+* Created: 24/09/2019
+* Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+* Platform: Arduino Due / Atmel SAM3X8E
+* Purpose:   Sends message to the projected object function
+*/
+
 
 #ifndef WRITER1_H
 #define WRITER1_H

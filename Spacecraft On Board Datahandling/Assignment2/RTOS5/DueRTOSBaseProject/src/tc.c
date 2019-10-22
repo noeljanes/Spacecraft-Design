@@ -1,27 +1,26 @@
 /*
  * tc.c
- *
- * Created: 05/09/2018 10:25:50
- * Author:  Nikolaus Huber
+ * Created: 26/09/2019
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Receives char via UART in an interrupt and interprets them
- */ 
+ */
 
 
 #include <FreeRTOS.h>
 #include <task.h>
 #include <queue.h>
-
 #include <conf_uart_serial.h>
 #include <stdio_serial.h>
-
 #include <command_po.h>
 #include <tc.h>
 
-/*YOUR CODE HERE*/
-static unsigned char blink_cmd;		// make static?
+/* Prototypes */
+static unsigned char blink_cmd;
+static unsigned char TC_input;
+
+/* Declaration of the Queue*/
 QueueHandle_t xQueueTC;
-static unsigned char TC_message;
 
 
 /** 
@@ -57,54 +56,40 @@ void init_tc( )
 	*/
 	NVIC_SetPriority(CONF_UART_ID, configMAX_PRIORITIES);
 	
-/*YOUR CODE HERE*/
 	xQueueTC = xQueueCreate( 4, sizeof( char ) );
-
+	
 }
 /** 
  * TC task function, interprets received data from UART
  */
 void handleInput() {
-
+	
+	switch (TC_input) {
+		case ('a'):
+		set_cmd('0'); /* sets the command value to 0 */
+		break;
+		case ('b'):
+		set_cmd('1'); /* sets the command value to 1 */
+		break;
+		case ('c'):
+		set_cmd('2'); /* sets the command value to 2 */
+		break;
+	}
 
 }
+
 
 /** 
  * Interrupt service routine for UART RXTX
  */
 void UART_Handler( )
 {
-	printf(" UART HANDLER TRIGGER ");
 	/* The UART interrupt is triggered both for RX and TX, therefore
 	   we have to see if RXRDY is set in the UART status register */
 	if((CONF_UART->UART_SR & UART_SR_RXRDY) == UART_SR_RXRDY)
 	{
-		//..... /*your code here*/
-		TC_message=CONF_UART->UART_RHR;
-		printf(" go handle input ");
-		xQueueSendToBackFromISR(xQueueTC, (void*) &TC_message, NULL);
-		printf(" just after xQueueSend ");
-	//handleInput();
-		printf(" fine, handling input jezus ");
-		printf("Value %c\n", blink_cmd);
-		if (xQueueReceive(xQueueTC, &TC_message, NULL)== pdTRUE) {
-			printf(" something in da queue ");
-			switch (TC_message) {
-				case ('a'):
-				set_cmd('0');
-				break;
-				case ('b'):
-				set_cmd('1');
-				break;
-				case ('c'):
-				printf("pressed c1");
-				set_cmd('2');
-				printf("pressed c2");
-				break;
-			}
-			printf(" break ");
-		}
-		printf(" nothing in the queue ");
+		TC_input=CONF_UART->UART_RHR;
+		handleInput();
 	}
 }
 

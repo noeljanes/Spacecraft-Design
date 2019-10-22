@@ -1,12 +1,11 @@
 /*
  * main.c
- *
- * Created: 04/09/2018 15:15:27
- * Author:  Nikolaus Huber
+ * Created: 26/09/2019
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Main function declaration, initializes board peripherals, calls
  *           all other init functions and starts the FreeRTOS scheduler.
- */
+ */ 
 
 #include <asf.h>
 #include <FreeRTOS.h>
@@ -29,7 +28,7 @@ int main (void)
 	init_blink();
 	init_cmd();
 	init_tc();
-	//blink(500);
+	
 	/* Start scheduler */
 	vTaskStartScheduler();
 	

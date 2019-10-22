@@ -2,10 +2,11 @@
  * main.c
  *
  * Created: 24/09/2019
- * Author:  dirhie-9 , flapre-9 , noejan-9
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
  * Platform: Arduino Due / Atmel SAM3X8E
  * Purpose:  Main function declaration, initializes board peripherals, calls
  *           all other init functions and starts the FreeRTOS scheduler.
+ 
  */
 
 #include <asf.h>

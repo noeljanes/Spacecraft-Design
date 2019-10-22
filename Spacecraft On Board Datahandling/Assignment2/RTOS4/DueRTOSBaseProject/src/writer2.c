@@ -2,18 +2,15 @@
  * writer2.c
  *
  * Created: 24/09/2019
- * Author: flapre-9 , dirhie-9 , noejan-9
- * Platform: Arduino Due - Atmel SAM3X8E
- *
- * Purpose: Assigns string to the projected object function
- */ 
+ * Author:  Cornelis Peter Hiemstra, Noel Janes & Flavia Pérez Cámara
+ * Platform: Arduino Due / Atmel SAM3X8E
+ * Purpose:   Sends message to the projected object function
+ */
 
 #include <asf.h>
 #include <FreeRTOS.h>
 #include <task.h>
-
 #include <console_po.h>
-
 #include <writer2.h>
 
 /* Declares the object writer2 for later definition of tasks */
@@ -43,7 +40,7 @@ void init_writer2() {
 	xTaskCreate(
 	writer2,					/* Function that implements the task. */
 	"Message 2 print task",		/* Text name for the task. */
-	250,						/* Stack size in words, not bytes. */								// What's this?
+	250,						/* Stack size in words, not bytes. */
 	NULL,						/* Parameter passed into the task. */
 	1,							/* Priority at which the task is created. */
 	NULL 						/* Used to pass out the created task's handle. */
